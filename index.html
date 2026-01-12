@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="author" content="Global Mission Church of Greater Seattle">
+    <meta name="copyright" content="Copyright © 2026 GMC Seattle. All rights reserved.">
+    
+    <meta property="og:title" content="G-ALTAR 1314">
+    <meta property="og:description" content="The Ear that Hears God's Voice | GMC Seattle">
+    <meta property="og:image" content="poster.png">
+    
+    <title>G-ALTAR 1314</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@700;900&family=Noto+Serif+KR:wght@600;700&display=swap');
+
+        :root {
+            --navy: #1F4788; --navy-dark: #152E5A;
+            --gold: #C9A227; --green: #27AE60;
+            --bg: #F0F2F5; --text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 120px; }
+
+        header {
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+            color: white; padding: 15px 20px 25px;
+            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
+            box-shadow: 0 4px 15px rgba(31, 71, 136, 0.3);
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        
+        .church-link { 
+            text-decoration: none; color: white; display: flex; align-items: center; gap: 10px;
+            opacity: 1; transition: opacity 0.2s; max-width: 80%;
+        }
+        .church-link:active { opacity: 0.7; }
+        
+        .church-logo {
+            width: 45px; height: 45px; object-fit: cover;
+            background: white; border-radius: 50%; padding: 0;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .church-name { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.5px; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        
+        .lang-toggle {
+            background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 12px; padding: 5px 12px; font-size: 0.75rem; font-weight: 700; color: white; cursor: pointer; flex-shrink: 0;
+        }
+        .app-title-box { text-align: center; }
+        .main-title { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; }
+        .sub-title { font-size: 0.8rem; opacity: 0.85; }
+
+        .id-card {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(5px);
+            border-left: 3px solid var(--gold); margin-top: 15px; padding: 10px 15px;
+            border-radius: 0 10px 10px 0; cursor: pointer; position: relative;
+        }
+        .id-card::after { content: '⚙️'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: 0.7; }
+        .role-badge { font-size: 0.65rem; color: var(--gold); font-weight: 800; display: block; text-transform: uppercase; }
+        .mokjang-text { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 700; }
+
+        .routine-banner {
+            background: white; margin: -15px 15px 15px; border-radius: 15px;
+            padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; position: relative; z-index: 10;
+        }
+        .routine-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+        .r-item span { display: block; }
+        .r-title { font-size: 0.7rem; color: #666; font-weight: 600; }
+        .r-time { font-size: 0.9rem; font-weight: 800; color: var(--navy); }
+        .key-verse { margin-top: 10px; padding-top: 8px; border-top: 1px solid #eee; color: var(--navy); font-weight: 700; font-size: 0.85rem; font-style: italic; }
+
+        .container { padding: 0 15px; max-width: 600px; margin: 0 auto; }
+        .card {
+            background: white; border-radius: 16px; padding: 18px; margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .card-header { display: flex; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f5f5f5; }
+        .icon-box {
+            width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; margin-right: 10px; flex-shrink: 0;
+        }
+        .c-navy .icon-box { background: #EBF1FF; color: var(--navy); }
+        .c-gold .icon-box { background: #FFF9E6; color: var(--gold); }
+        .c-green .icon-box { background: #E8F5E9; color: var(--green); }
+        .card-title { font-weight: 700; font-size: 0.95rem; color: #333; flex-grow: 1; }
+        .btn-reset { background:none; border:none; font-size:1.1rem; color:#ccc; cursor:pointer; padding:5px; }
+
+        input, textarea, select {
+            width: 100%; border: 1px solid #e0e0e0; background: #fafafa;
+            border-radius: 10px; padding: 12px; font-size: 1rem; font-family: 'Noto Sans KR';
+            outline: none; transition: 0.2s; -webkit-appearance: none;
+        }
+        input:focus, textarea:focus, select:focus { background: white; border-color: var(--navy); }
+        .input-ref { border: none; border-bottom: 2px solid #eee; border-radius: 0; background: transparent; color: var(--navy); font-weight: 700; text-align: center; margin-bottom: 10px; }
+
+        .timer-display { font-size: 3rem; font-weight: 700; color: var(--gold); text-align: center; font-variant-numeric: tabular-nums; margin: 5px 0; }
+        .timer-btn { width: 100%; background: var(--gold); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 1rem; transition: 0.2s; }
+        .timer-btn.paused { background: #e0e0e0; color: #555; }
+        .timer-btn.running { background: #ff6b6b; color: white; }
+
+        .bottom-dock {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white;
+            padding: 10px 15px 25px; box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+            display: flex; gap: 10px; z-index: 100;
+        }
+        .btn-dock {
+            border: none; border-radius: 12px; padding: 14px; font-weight: 700; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .btn-hist { flex: 1; background: #f1f3f5; color: var(--text); }
+        .btn-save { flex: 2; background: var(--navy); color: white; box-shadow: 0 4px 10px rgba(31, 71, 136, 0.3); }
+        .btn-save.update-mode { background: var(--green); }
+
+        .app-footer {
+            text-align: center; padding: 20px 10px; font-size: 0.7rem; color: #999; line-height: 1.5; margin-bottom: 20px;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeUp 0.3s; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .log-item { background: white; padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .log-date { font-size: 0.75rem; color: #888; }
+        .log-ref { font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+        
+        #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 16px; position: fixed; z-index: 9999; left: 50%; bottom: 80px; transform: translateX(-50%); font-size: 14px; opacity: 0; transition: 0.3s; }
+        #toast.show { visibility: visible; opacity: 1; bottom: 90px; }
+
+        .modal-wrap { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .modal-box { background: white; width: 90%; max-width: 500px; max-height: 85vh; border-radius: 20px; padding: 25px; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .close-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; padding: 5px; cursor: pointer; }
+        
+        .view-label { font-size: 0.75rem; font-weight: 700; color: #999; margin-top: 15px; display: block; }
+        .view-content { font-size: 1rem; line-height: 1.6; color: #333; white-space: pre-wrap; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        .view-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-action { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <a href="http://www.ijiguchon.org" target="_blank" class="church-link">
+                <img src="poster.png" onerror="this.src='https://via.placeholder.com/45/ffffff/1F4788?text=GMC'" class="church-logo" alt="GMC Logo">
+                <span class="church-name" id="t-church">시애틀지구촌교회</span>
+            </a>
+            <button class="lang-toggle" onclick="toggleLang()" id="langBtn">ENG</button>
+        </div>
+        <div class="app-title-box">
+            <div class="main-title">G-ALTAR 1314</div>
+            <div class="sub-title" id="t-subtitle">하나님의 음성이 들리는 귀</div>
+        </div>
+        <div class="id-card" onclick="openSettings()">
+            <span class="role-badge" id="t-role">ASSOCIATE SHEPHERD</span>
+            <div class="mokjang-text">
+                <span id="displayMokjang">목장 이름 설정</span>
+                <span id="displayName" style="font-size:0.8rem; font-weight:400; opacity:0.8;"></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="routine-banner">
+        <div class="routine-grid">
+            <div class="r-item">
+                <span class="r-title" id="t-r1">말씀 묵상</span>
+                <span class="r-time" id="t-time1">10분</span>
+            </div>
+            <div class="r-item">
+                <span class="r-title" id="t-r2">침묵 기도</span>
+                <span class="r-time" id="t-time2">15분</span>
+            </div>
+            <div class="r-item">
+                <span class="r-title" id="t-r3">경청 노트</span>
+                <span class="r-time" id="t-time3">5분</span>
+            </div>
+        </div>
+        <div class="key-verse" id="t-verse">"들을 귀 있는 자는 들으라!" (막 4:9)</div>
+    </div>
+
+    <div class="container">
+        <div id="page-write" class="page active">
+            <div class="card c-navy">
+                <div class="card-header">
+                    <div class="icon-box">📖</div>
+                    <span class="card-title" id="t-card1">말씀 묵상 (10분)</span>
+                    <button class="btn-reset" onclick="resetInput('inRef','inText')">↺</button>
+                </div>
+                <input type="text" id="inRef" class="input-ref" placeholder="오늘의 본문">
+                <textarea id="inText" placeholder="묵상한 말씀을 기록하세요"></textarea>
+            </div>
+            <div class="card c-gold">
+                <div class="card-header">
+                    <div class="icon-box">👂</div>
+                    <span class="card-title" id="t-card2">침묵 기도 (15분)</span>
+                </div>
+                <div class="timer-display" id="timer">15:00</div>
+                <button class="timer-btn" onclick="toggleTimer()" id="t-timer-btn">타이머 시작</button>
+                <div style="text-align:center; margin-top:10px; font-size:0.8rem; color:#888;" id="t-timer-msg">
+                    내 생각의 소리를 끄고 하나님의 음성을 켭니다
+                </div>
+            </div>
+            <div class="card c-green">
+                <div class="card-header">
+                    <div class="icon-box">✍️</div>
+                    <span class="card-title" id="t-card3">경청 노트 (5분)</span>
+                    <button class="btn-reset" onclick="resetInput('inRhema','inAction','inThanks')">↺</button>
+                </div>
+                <div id="t-lbl1" style="font-size:0.8rem; font-weight:700; color:#666; margin-bottom:5px;">1. 하나님이 주신 마음</div>
+                <textarea id="inRhema" style="margin-bottom:15px;"></textarea>
+                <div id="t-lbl2" style="font-size:0.8rem; font-weight:700; color:#666; margin-bottom:5px;">2. 순종할 행동</div>
+                <textarea id="inAction" style="margin-bottom:15px;"></textarea>
+                <div id="t-lbl3" style="font-size:0.8rem; font-weight:700; color:#666; margin-bottom:5px;">3. 감사 기도</div>
+                <textarea id="inThanks" style="min-height:60px;"></textarea>
+            </div>
+            
+            <div class="app-footer">
+                Created by Pastor Kim & GMC Seattle<br>
+                Genesis 1314 - Expanding the Kingdom, One Home at a Time
+            </div>
+        </div>
+
+        <div id="page-list" class="page">
+            <div class="card" style="min-height:300px;">
+                <div class="card-header">
+                    <div class="icon-box" style="background:#eee; color:#333;">📚</div>
+                    <span class="card-title" id="t-list-title">지난 기록 보관소</span>
+                </div>
+                <div id="historyList"></div>
+            </div>
+            <div class="app-footer">
+                Created by Pastor Kim & GMC Seattle<br>
+                Genesis 1314 - Expanding the Kingdom, One Home at a Time
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-dock">
+        <button class="btn-dock btn-hist" onclick="togglePage()">
+            <span id="t-btn-hist">기록 보기</span>
+        </button>
+        <button class="btn-dock btn-save" onclick="saveData()">
+            <span id="t-btn-save">완료</span>
+        </button>
+    </div>
+
+    <div id="viewModal" class="modal-wrap">
+        <div class="modal-box">
+            <div class="close-btn" onclick="closeViewModal()">&times;</div>
+            <h3 style="color:var(--navy); margin-bottom:5px;" id="v-date">Date</h3>
+            <h2 style="font-family:'Noto Serif KR'; margin-bottom:20px;" id="v-ref">Ref</h2>
+            <span class="view-label" id="t-v-lbl1">📖 말씀 묵상</span>
+            <div class="view-content" id="v-text"></div>
+            <span class="view-label" id="t-v-lbl2">👂 하나님이 주신 마음</span>
+            <div class="view-content" id="v-rhema"></div>
+            <span class="view-label" id="t-v-lbl3">👣 순종할 행동</span>
+            <div class="view-content" id="v-action"></div>
+            <span class="view-label" id="t-v-lbl4">🙏 감사 기도</span>
+            <div class="view-content" id="v-thanks"></div>
+            <div class="view-actions">
+                <button class="btn-action" style="background:#f1f3f5; color:#ff6b6b;" onclick="deleteCurrentLog()" id="t-btn-del">삭제</button>
+                <button class="btn-action" style="background:var(--navy); color:white;" onclick="editCurrentLog()" id="t-btn-edit">수정하기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingModal" class="modal-wrap">
+        <div class="modal-box" style="text-align:center;">
+            <h3 style="margin-bottom:15px; color:var(--navy);" id="t-modal-title">목자 프로필 설정</h3>
+            <p style="font-size:0.8rem; color:#666; margin-bottom:15px; line-height:1.4;">
+                * 모든 성도는 잠재적 목자입니다.<br>
+                자신의 영적 정체성에 맞는 직분을 선택하세요.
+            </p>
+            <input type="text" id="setName" placeholder="이름 (예: 김성수)" style="margin-bottom:10px; text-align:center;">
+            
+            <select id="setRole" style="width:100%; margin-bottom:10px; text-align:center; padding:12px; border-radius:10px; border:1px solid #e0e0e0; background:#fafafa; font-size:1rem; outline:none;">
+                <option value="associate">준 목자 (예비 목자)</option>
+                <option value="acting">대행 목자</option>
+                <option value="shepherd">목자</option>
+                <option value="moknye">목녀</option>
+                <option value="mokbu">목부</option>
+            </select>
+
+            <input type="text" id="setMokjang" placeholder="목장 이름 (예: 파리 목장)" style="margin-bottom:15px; text-align:center;">
+            
+            <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:white; border:none; padding:12px; border-radius:10px; font-weight:700;" id="t-modal-save">저장하기</button>
+        </div>
+    </div>
+
+    <div id="toast">저장되었습니다</div>
+
+    <script>
+        console.log("G-ALTAR 1314: Created by Pastor Kim & GMC Seattle");
+
+        let curLang = 'ko';
+        const DB_KEY = 'galtar_1314_final_v13'; 
+        let editId = null, viewId = null;
+
+        const lang = {
+            ko: {
+                church: "시애틀지구촌교회", subtitle: "하나님의 음성이 들리는 귀", 
+                // 직분 한글
+                role_associate: "준 목자", role_acting: "대행 목자", role_shepherd: "목자", role_moknye: "목녀", role_mokbu: "목부",
+                
+                r1: "말씀 묵상", time1: "10분", r2: "침묵 기도", time2: "15분", r3: "경청 노트", time3: "5분",
+                verse: "\"들을 귀 있는 자는 들으라!\" (막 4:9)",
+                card1: "말씀 묵상 (10분)", ph_ref: "오늘의 본문", ph_text: "묵상한 말씀을 기록하세요",
+                card2: "침묵 기도 (15분)", btn_start: "타이머 시작", btn_pause: "일시정지", btn_resume: "계속하기", msg_timer: "내 생각의 소리를 끄고 하나님의 음성을 켭니다",
+                card3: "경청 노트 (5분)", 
+                l1: "1. 하나님이 주신 마음", ph_rhema: "주신 마음과 감동",
+                l2: "2. 순종할 행동", ph_action: "구체적인 실천",
+                l3: "3. 감사 기도", ph_thanks: "감사 제목 또는 VIP 중보",
+                btn_hist: "기록 보기", btn_write: "쓰기", btn_save: "완료", btn_update: "수정 완료",
+                modal_t: "목자 프로필 설정", modal_btn: "저장하기", ph_name: "이름 (예: 김성수)", ph_mokjang: "목장 이름",
+                list_t: "지난 기록 보관소", empty_list: "기록이 없습니다.",
+                v_lbl1: "📖 말씀 묵상", v_lbl2: "👂 하나님이 주신 마음", v_lbl3: "👣 순종할 행동", v_lbl4: "🙏 감사 기도",
+                btn_del: "삭제", btn_edit: "수정하기",
+                msg_save: "성공적으로 저장되었습니다.", msg_update: "수정이 완료되었습니다.", msg_del: "기록이 삭제되었습니다.", msg_empty: "내용을 입력해주세요.", msg_confirm_del: "정말 삭제하시겠습니까?", msg_timer_end: "기도 시간이 끝났습니다."
+            },
+            en: {
+                church: "Global Mission Church of Greater Seattle", subtitle: "The Ear that Hears God's Voice", 
+                // 직분 영문
+                role_associate: "Associate Shepherd", role_acting: "Acting Shepherd", role_shepherd: "Shepherd", role_moknye: "Moknye", role_mokbu: "Mokbu",
+                
+                r1: "Scripture", time1: "10min", r2: "Silence", time2: "15min", r3: "Journal", time3: "5min",
+                verse: "\"Whoever has ears, let them hear!\" (Mark 4:9)",
+                card1: "Scripture (10min)", ph_ref: "Scripture Text", ph_text: "Meditate and write down...",
+                card2: "Silence (15min)", btn_start: "Start Timer", btn_pause: "Pause", btn_resume: "Resume", msg_timer: "Turning off the noise to hear God's voice",
+                card3: "Journal (5min)", 
+                l1: "1. Rhema (God's Voice)", ph_rhema: "Insights received",
+                l2: "2. Action to Obey", ph_action: "Specific action today",
+                l3: "3. Thanksgiving", ph_thanks: "Thanksgiving or Prayer",
+                btn_hist: "History", btn_write: "Write", btn_save: "Complete", btn_update: "Update",
+                modal_t: "Set Profile", modal_btn: "Save", ph_name: "Name", ph_mokjang: "Mokjang Name",
+                list_t: "Journal History", empty_list: "No records found.",
+                v_lbl1: "📖 Word", v_lbl2: "👂 Rhema", v_lbl3: "👣 Action", v_lbl4: "🙏 Prayer",
+                btn_del: "Delete", btn_edit: "Edit",
+                msg_save: "Saved successfully.", msg_update: "Updated successfully.", msg_del: "Deleted.", msg_empty: "Please enter content.", msg_confirm_del: "Delete this log?", msg_timer_end: "Prayer time is over."
+            }
+        };
+
+        window.onload = function() { loadSettings(); renderHistory(); };
+
+        function toggleLang() {
+            curLang = curLang === 'ko' ? 'en' : 'ko';
+            document.getElementById('langBtn').innerText = curLang === 'ko' ? 'ENG' : '한글';
+            updateText();
+        }
+
+        function updateText() {
+            const t = lang[curLang];
+            document.getElementById('t-church').innerText = t.church;
+            document.getElementById('t-subtitle').innerText = t.subtitle;
+            
+            // 직분 업데이트
+            const roleCode = localStorage.getItem('galtar_role') || 'associate';
+            document.getElementById('t-role').innerText = t[`role_${roleCode}`];
+
+            document.getElementById('t-r1').innerText = t.r1; document.getElementById('t-time1').innerText = t.time1;
+            document.getElementById('t-r2').innerText = t.r2; document.getElementById('t-time2').innerText = t.time2;
+            document.getElementById('t-r3').innerText = t.r3; document.getElementById('t-time3').innerText = t.time3;
+            document.getElementById('t-verse').innerText = t.verse;
+            
+            document.getElementById('t-card1').innerText = t.card1;
+            document.getElementById('inRef').placeholder = t.ph_ref; document.getElementById('inText').placeholder = t.ph_text;
+            document.getElementById('t-card2').innerText = t.card2; document.getElementById('t-timer-msg').innerText = t.msg_timer;
+            
+            const timerBtn = document.getElementById('t-timer-btn');
+            if (!isTimerRunning && timeLeft === 15 * 60) timerBtn.innerText = t.btn_start;
+            else if (isTimerRunning) timerBtn.innerText = t.btn_pause;
+            else timerBtn.innerText = t.btn_resume;
+
+            document.getElementById('t-card3').innerText = t.card3;
+            document.getElementById('t-lbl1').innerText = t.l1; document.getElementById('inRhema').placeholder = t.ph_rhema;
+            document.getElementById('t-lbl2').innerText = t.l2; document.getElementById('inAction').placeholder = t.ph_action;
+            document.getElementById('t-lbl3').innerText = t.l3; document.getElementById('inThanks').placeholder = t.ph_thanks;
+            
+            document.getElementById('t-btn-hist').innerText = document.getElementById('page-write').classList.contains('active') ? t.btn_hist : t.btn_write;
+            document.getElementById('t-btn-save').innerText = editId ? t.btn_update : t.btn_save;
+            document.getElementById('t-list-title').innerText = t.list_t;
+            
+            document.getElementById('t-modal-title').innerText = t.modal_t;
+            document.getElementById('t-modal-save').innerText = t.modal_btn;
+            document.getElementById('setName').placeholder = t.ph_name; document.getElementById('setMokjang').placeholder = t.ph_mokjang;
+            
+            document.getElementById('t-v-lbl1').innerText = t.v_lbl1; document.getElementById('t-v-lbl2').innerText = t.v_lbl2;
+            document.getElementById('t-v-lbl3').innerText = t.v_lbl3; document.getElementById('t-v-lbl4').innerText = t.v_lbl4;
+            document.getElementById('t-btn-del').innerText = t.btn_del; document.getElementById('t-btn-edit').innerText = t.btn_edit;
+            
+            loadSettings();
+        }
+
+        let timerInterval, timeLeft = 15 * 60, isTimerRunning = false;
+        
+        function toggleTimer() {
+            const btn = document.getElementById('t-timer-btn');
+            const t = lang[curLang];
+            if(!isTimerRunning) {
+                isTimerRunning = true; btn.innerText = t.btn_pause; btn.classList.add('running'); btn.classList.remove('paused');
+                timerInterval = setInterval(() => {
+                    if(timeLeft > 0) {
+                        timeLeft--;
+                        const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+                        const s = (timeLeft%60).toString().padStart(2,'0');
+                        document.getElementById('timer').innerText = `${m}:${s}`;
+                    } else endTimer();
+                }, 1000);
+            } else {
+                clearInterval(timerInterval); isTimerRunning = false; btn.innerText = t.btn_resume; btn.classList.add('paused'); btn.classList.remove('running');
+            }
+        }
+        function endTimer() {
+            clearInterval(timerInterval); isTimerRunning = false;
+            const btn = document.getElementById('t-timer-btn');
+            document.getElementById('timer').innerText = "00:00";
+            btn.innerText = lang[curLang].btn_start;
+            btn.classList.remove('running', 'paused');
+            playChime();
+            setTimeout(() => { alert(lang[curLang].msg_timer_end); resetTimer(); }, 500);
+        }
+        function resetTimer() { timeLeft = 15 * 60; document.getElementById('timer').innerText = "15:00"; }
+        function playChime() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator(); const gain = ctx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.start(); osc.stop(ctx.currentTime + 1.5);
+        }
+
+        function saveData() {
+            const t = lang[curLang];
+            const data = {
+                id: editId ? editId : Date.now(),
+                date: new Date().toLocaleDateString(),
+                ref: document.getElementById('inRef').value,
+                text: document.getElementById('inText').value,
+                rhema: document.getElementById('inRhema').value,
+                action: document.getElementById('inAction').value,
+                thanks: document.getElementById('inThanks').value
+            };
+            if(!data.ref && !data.rhema) { showToast(t.msg_empty); return; }
+            let logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+            if (editId) { const idx = logs.findIndex(l => l.id === editId); if(idx !== -1) logs[idx] = data; showToast(t.msg_update); exitEditMode(); }
+            else { logs.unshift(data); showToast(t.msg_save); clearInputs(); }
+            localStorage.setItem(DB_KEY, JSON.stringify(logs)); renderHistory();
+        }
+
+        function resetInput(...ids) { ids.forEach(id => document.getElementById(id).value = ''); }
+        function clearInputs() { resetInput('inRef','inText','inRhema','inAction','inThanks'); }
+        
+        function openViewModal(id) {
+            viewId = id; const logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); const log = logs.find(l => l.id === id); if(!log) return;
+            document.getElementById('v-date').innerText = log.date; document.getElementById('v-ref').innerText = log.ref || '-';
+            document.getElementById('v-text').innerText = log.text; document.getElementById('v-rhema').innerText = log.rhema;
+            document.getElementById('v-action').innerText = log.action; document.getElementById('v-thanks').innerText = log.thanks;
+            document.getElementById('viewModal').style.display = 'flex';
+        }
+        function closeViewModal() { document.getElementById('viewModal').style.display = 'none'; viewId = null; }
+        
+        function editCurrentLog() {
+            if(!viewId) return; const logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); const log = logs.find(l => l.id === viewId);
+            closeViewModal(); togglePage(true);
+            document.getElementById('inRef').value = log.ref; document.getElementById('inText').value = log.text;
+            document.getElementById('inRhema').value = log.rhema; document.getElementById('inAction').value = log.action; document.getElementById('inThanks').value = log.thanks;
+            editId = log.id; document.querySelector('.btn-save').classList.add('update-mode'); document.getElementById('t-btn-save').innerText = lang[curLang].btn_update;
+        }
+
+        function deleteCurrentLog() {
+            if(!viewId) return; if(confirm(lang[curLang].msg_confirm_del)) {
+                let logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); logs = logs.filter(l => l.id !== viewId);
+                localStorage.setItem(DB_KEY, JSON.stringify(logs)); showToast(lang[curLang].msg_del); closeViewModal(); renderHistory();
+            }
+        }
+        function exitEditMode() { editId = null; clearInputs(); document.querySelector('.btn-save').classList.remove('update-mode'); document.getElementById('t-btn-save').innerText = lang[curLang].btn_save; }
+        
+        function togglePage(forceWrite=false) {
+            const pWrite = document.getElementById('page-write'); const pList = document.getElementById('page-list'); const btnHist = document.getElementById('t-btn-hist');
+            if(!forceWrite && pWrite.classList.contains('active')) { pWrite.classList.remove('active'); pList.classList.add('active'); btnHist.innerText = lang[curLang].btn_write; if(editId) exitEditMode(); }
+            else { pList.classList.remove('active'); pWrite.classList.add('active'); btnHist.innerText = lang[curLang].btn_hist; }
+        }
+        function renderHistory() {
+            const list = document.getElementById('historyList'); const logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); list.innerHTML = '';
+            if(logs.length === 0) { list.innerHTML = `<div style="padding:30px; text-align:center; color:#999;">${lang[curLang].empty_list}</div>`; return; }
+            logs.forEach(log => {
+                const el = document.createElement('div'); el.className = 'log-item';
+                el.innerHTML = `<div><div class="log-date">${log.date}</div><div class="log-ref">${log.ref||'-'}</div></div><div style="font-size:1.2rem; color:#ccc;">›</div>`;
+                el.onclick = () => openViewModal(log.id); list.appendChild(el);
+            });
+        }
+        function showToast(msg) { const t = document.getElementById("toast"); t.innerText = msg; t.className = "show"; setTimeout(() => t.className="", 3000); }
+        function loadSettings() {
+            const name = localStorage.getItem('galtar_name');
+            const mj = localStorage.getItem('galtar_mokjang');
+            const role = localStorage.getItem('galtar_role') || 'associate';
+            
+            document.getElementById('setRole').value = role;
+
+            if(name && mj) { 
+                const t = lang[curLang];
+                const roleText = t[`role_${role}`];
+                document.getElementById('displayName').innerText = `${name} ${roleText}`; 
+                document.getElementById('displayMokjang').innerText = mj; 
+                document.getElementById('t-role').innerText = roleText;
+            } else {
+                openSettings();
+            }
+        }
+        function openSettings(){ document.getElementById('settingModal').style.display='flex'; }
+        function saveSettings(){
+            const n = document.getElementById('setName').value;
+            const m = document.getElementById('setMokjang').value;
+            const r = document.getElementById('setRole').value;
+            
+            if(n && m){ 
+                localStorage.setItem('galtar_name', n); 
+                localStorage.setItem('galtar_mokjang', m); 
+                localStorage.setItem('galtar_role', r);
+                document.getElementById('settingModal').style.display='none'; 
+                loadSettings(); 
+            }
+        }
+    </script>
+</body>
+</html>
