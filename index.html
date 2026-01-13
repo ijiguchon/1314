@@ -140,6 +140,80 @@
         .view-content { font-size: 1rem; line-height: 1.6; color: #333; white-space: pre-wrap; background: #f9f9f9; padding: 10px; border-radius: 8px; }
         .view-actions { display: flex; gap: 10px; margin-top: 20px; }
         .btn-action { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        
+        /* 영적 여정 단계 스타일 */
+        .journey-model {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .journey-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .journey-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 0 5px;
+        }
+        .journey-stages::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, #adb5bd, var(--gold));
+            z-index: 0;
+        }
+        .stage-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        .stage-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #adb5bd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .stage-item.active .stage-num {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: white;
+        }
+        .stage-label {
+            font-size: 0.65rem;
+            color: #666;
+            text-align: center;
+        }
+        .stage-item.active .stage-label {
+            color: var(--navy);
+            font-weight: 700;
+        }
+        
+        .shepherd-detail {
+            display: none;
+            margin-top: 10px;
+        }
+        .shepherd-detail.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -157,10 +231,10 @@
             <div class="sub-title" id="t-subtitle">하나님의 음성이 들리는 귀</div>
         </div>
         <div class="id-card" onclick="openSettings()">
-            <span class="role-badge" id="t-role">ASSOCIATE SHEPHERD</span>
+            <span class="role-badge" id="t-role">순례자</span>
             <div class="mokjang-text">
-                <span id="displayMokjang">목장 이름 설정</span>
-                <span id="displayName" style="font-size:0.8rem; font-weight:400; opacity:0.8;"></span>
+                <span id="displayName">프로필 설정</span>
+                <span id="displayJourney" style="font-size:0.8rem; font-weight:400; opacity:0.8;"></span>
             </div>
         </div>
     </header>
@@ -269,26 +343,63 @@
         </div>
     </div>
 
+    <!-- 프로필 설정 모달 (수정됨) -->
     <div id="settingModal" class="modal-wrap">
         <div class="modal-box" style="text-align:center;">
-            <h3 style="margin-bottom:15px; color:var(--navy);" id="t-modal-title">목자 프로필 설정</h3>
-            <p style="font-size:0.8rem; color:#666; margin-bottom:15px; line-height:1.4;">
-                * 모든 성도는 잠재적 목자입니다.<br>
-                자신의 영적 정체성에 맞는 직분을 선택하세요.
-            </p>
-            <input type="text" id="setName" placeholder="이름 (예: 김성수)" style="margin-bottom:10px; text-align:center;">
+            <h3 style="margin-bottom:10px; color:var(--navy);" id="t-modal-title">프로필 설정</h3>
             
-            <select id="setRole" style="width:100%; margin-bottom:10px; text-align:center; padding:12px; border-radius:10px; border:1px solid #e0e0e0; background:#fafafa; font-size:1rem; outline:none;">
-                <option value="associate">준 목자 (예비 목자)</option>
-                <option value="acting">대행 목자</option>
-                <option value="shepherd">목자</option>
-                <option value="moknye">목녀</option>
-                <option value="mokbu">목부</option>
+            <!-- 핵심 메시지 -->
+            <p style="font-size:0.9rem; color:var(--gold); font-weight:700; margin-bottom:15px; line-height:1.5;" id="t-modal-message">
+                "모든 그리스도인은 사역자요, 선교사입니다."
+            </p>
+            
+            <!-- 이름 입력 -->
+            <input type="text" id="setName" placeholder="이름 (예: 김찬양)" style="margin-bottom:15px; text-align:center;">
+            
+            <!-- 가정교회 4단계 영적 여정 모델 -->
+            <div class="journey-model">
+                <div class="journey-title" id="t-journey-title">가정교회 4단계 영적 여정</div>
+                <div class="journey-stages" id="journeyStages">
+                    <div class="stage-item" data-stage="seeker">
+                        <div class="stage-num">①</div>
+                        <div class="stage-label" id="t-stage1">순례자<br>(VIP)</div>
+                    </div>
+                    <div class="stage-item" data-stage="believer">
+                        <div class="stage-num">②</div>
+                        <div class="stage-label" id="t-stage2">신자</div>
+                    </div>
+                    <div class="stage-item" data-stage="disciple">
+                        <div class="stage-num">③</div>
+                        <div class="stage-label" id="t-stage3">제자</div>
+                    </div>
+                    <div class="stage-item" data-stage="shepherd">
+                        <div class="stage-num">④</div>
+                        <div class="stage-label" id="t-stage4">목자</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 영적 여정 선택 -->
+            <select id="setJourney" style="width:100%; margin-bottom:10px; text-align:center; padding:12px; border-radius:10px; border:1px solid #e0e0e0; background:#fafafa; font-size:1rem; outline:none;" onchange="onJourneyChange()">
+                <option value="seeker">① 순례자 (VIP) - 하나님을 찾고 있는 사람</option>
+                <option value="believer">② 신자 - 복음을 받아들인 사람</option>
+                <option value="disciple">③ 제자 - 예수님의 가르침을 배우고 따르는 사람</option>
+                <option value="shepherd">④ 목자 - 다른 사람을 돌보고 제자를 세우는 사람</option>
             </select>
-
+            
+            <!-- 목자 세부 선택 (목자 선택 시에만 표시) -->
+            <div id="shepherdDetail" class="shepherd-detail">
+                <select id="setShepherdType" style="width:100%; margin-bottom:10px; text-align:center; padding:12px; border-radius:10px; border:1px solid var(--gold); background:#FFF9E6; font-size:1rem; outline:none;">
+                    <option value="shepherd">목자 (Shepherd)</option>
+                    <option value="moknye">목녀 (목자의 아내)</option>
+                    <option value="mokbu">목부 (목자의 남편)</option>
+                </select>
+            </div>
+            
+            <!-- 목장 이름 입력 -->
             <input type="text" id="setMokjang" placeholder="목장 이름 (예: 파리 목장)" style="margin-bottom:15px; text-align:center;">
             
-            <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:white; border:none; padding:12px; border-radius:10px; font-weight:700;" id="t-modal-save">저장하기</button>
+            <button onclick="saveSettings()" style="width:100%; background:var(--navy); color:white; border:none; padding:12px; border-radius:10px; font-weight:700; margin-top:5px;" id="t-modal-save">저장하기</button>
         </div>
     </div>
 
@@ -298,14 +409,29 @@
         console.log("G-ALTAR 1314: Created by Pastor Kim & GMC Seattle");
 
         let curLang = 'ko';
-        const DB_KEY = 'galtar_1314_final_v13'; 
+        const DB_KEY = 'galtar_1314_v14_journey'; 
         let editId = null, viewId = null;
 
         const lang = {
             ko: {
                 church: "시애틀지구촌교회", subtitle: "하나님의 음성이 들리는 귀", 
-                // 직분 한글
-                role_associate: "준 목자", role_acting: "대행 목자", role_shepherd: "목자", role_moknye: "목녀", role_mokbu: "목부",
+                
+                // 4단계 영적 여정 명칭
+                journey_seeker: "순례자 (VIP)", 
+                journey_believer: "신자", 
+                journey_disciple: "제자", 
+                journey_shepherd: "목자",
+                journey_moknye: "목녀",
+                journey_mokbu: "목부",
+                
+                // 단계 설명
+                desc_seeker: "하나님을 찾고 있는 사람",
+                desc_believer: "복음을 받아들인 사람",
+                desc_disciple: "예수님의 가르침을 배우고 따르는 사람",
+                desc_shepherd: "다른 사람을 돌보고 제자를 세우는 사람",
+                
+                // 영적 여정 단계 라벨 (짧은 버전)
+                stage1: "순례자<br>(VIP)", stage2: "신자", stage3: "제자", stage4: "목자",
                 
                 r1: "말씀 묵상", time1: "10분", r2: "침묵 기도", time2: "15분", r3: "경청 노트", time3: "5분",
                 verse: "\"들을 귀 있는 자는 들으라!\" (막 4:9)",
@@ -316,7 +442,20 @@
                 l2: "2. 순종할 행동", ph_action: "구체적인 실천",
                 l3: "3. 감사 기도", ph_thanks: "감사 제목 또는 VIP 중보",
                 btn_hist: "기록 보기", btn_write: "쓰기", btn_save: "완료", btn_update: "수정 완료",
-                modal_t: "목자 프로필 설정", modal_btn: "저장하기", ph_name: "이름 (예: 김성수)", ph_mokjang: "목장 이름",
+                
+                // 모달 관련
+                modal_t: "프로필 설정", 
+                modal_msg: "\"모든 그리스도인은 사역자요, 선교사입니다.\"",
+                modal_btn: "저장하기", 
+                ph_name: "이름 (예: 김찬양)",
+                ph_mokjang: "목장 이름 (예: 파리 목장)",
+                journey_title: "가정교회 4단계 영적 여정",
+                
+                // 목자 세부 옵션
+                opt_shepherd: "목자 (Shepherd)",
+                opt_moknye: "목녀 (목자의 아내)",
+                opt_mokbu: "목부 (목자의 남편)",
+                
                 list_t: "지난 기록 보관소", empty_list: "기록이 없습니다.",
                 v_lbl1: "📖 말씀 묵상", v_lbl2: "👂 하나님이 주신 마음", v_lbl3: "👣 순종할 행동", v_lbl4: "🙏 감사 기도",
                 btn_del: "삭제", btn_edit: "수정하기",
@@ -324,8 +463,23 @@
             },
             en: {
                 church: "Global Mission Church of Greater Seattle", subtitle: "The Ear that Hears God's Voice", 
-                // 직분 영문
-                role_associate: "Associate Shepherd", role_acting: "Acting Shepherd", role_shepherd: "Shepherd", role_moknye: "Moknye", role_mokbu: "Mokbu",
+                
+                // 4-Stage Spiritual Journey
+                journey_seeker: "Seeker (VIP)", 
+                journey_believer: "Believer", 
+                journey_disciple: "Disciple", 
+                journey_shepherd: "Shepherd",
+                journey_moknye: "Moknyeo (Shepherd's Wife)",
+                journey_mokbu: "Mokbu (Shepherd's Husband)",
+                
+                // Stage descriptions
+                desc_seeker: "Seeking God",
+                desc_believer: "Accepted the Gospel",
+                desc_disciple: "Learning and following Jesus' teachings",
+                desc_shepherd: "Caring for others and making disciples",
+                
+                // Short stage labels
+                stage1: "Seeker<br>(VIP)", stage2: "Believer", stage3: "Disciple", stage4: "Shepherd",
                 
                 r1: "Scripture", time1: "10min", r2: "Silence", time2: "15min", r3: "Journal", time3: "5min",
                 verse: "\"Whoever has ears, let them hear!\" (Mark 4:9)",
@@ -336,7 +490,20 @@
                 l2: "2. Action to Obey", ph_action: "Specific action today",
                 l3: "3. Thanksgiving", ph_thanks: "Thanksgiving or Prayer",
                 btn_hist: "History", btn_write: "Write", btn_save: "Complete", btn_update: "Update",
-                modal_t: "Set Profile", modal_btn: "Save", ph_name: "Name", ph_mokjang: "Mokjang Name",
+                
+                // Modal
+                modal_t: "Profile Settings", 
+                modal_msg: "\"Every Christian is a minister and a missionary.\"",
+                modal_btn: "Save", 
+                ph_name: "Name (e.g., John Kim)",
+                ph_mokjang: "Mokjang Name (e.g., Paris Mokjang)",
+                journey_title: "House Church 4-Stage Spiritual Journey",
+                
+                // Shepherd options
+                opt_shepherd: "Shepherd",
+                opt_moknye: "Moknyeo (Shepherd's Wife)",
+                opt_mokbu: "Mokbu (Shepherd's Husband)",
+                
                 list_t: "Journal History", empty_list: "No records found.",
                 v_lbl1: "📖 Word", v_lbl2: "👂 Rhema", v_lbl3: "👣 Action", v_lbl4: "🙏 Prayer",
                 btn_del: "Delete", btn_edit: "Edit",
@@ -357,9 +524,15 @@
             document.getElementById('t-church').innerText = t.church;
             document.getElementById('t-subtitle').innerText = t.subtitle;
             
-            // 직분 업데이트
-            const roleCode = localStorage.getItem('galtar_role') || 'associate';
-            document.getElementById('t-role').innerText = t[`role_${roleCode}`];
+            // 영적 여정 업데이트
+            const journey = localStorage.getItem('galtar_journey') || 'seeker';
+            const shepherdType = localStorage.getItem('galtar_shepherd_type') || 'shepherd';
+            
+            if (journey === 'shepherd') {
+                document.getElementById('t-role').innerText = t[`journey_${shepherdType}`];
+            } else {
+                document.getElementById('t-role').innerText = t[`journey_${journey}`];
+            }
 
             document.getElementById('t-r1').innerText = t.r1; document.getElementById('t-time1').innerText = t.time1;
             document.getElementById('t-r2').innerText = t.r2; document.getElementById('t-time2').innerText = t.time2;
@@ -384,9 +557,32 @@
             document.getElementById('t-btn-save').innerText = editId ? t.btn_update : t.btn_save;
             document.getElementById('t-list-title').innerText = t.list_t;
             
+            // 모달 텍스트 업데이트
             document.getElementById('t-modal-title').innerText = t.modal_t;
+            document.getElementById('t-modal-message').innerText = t.modal_msg;
             document.getElementById('t-modal-save').innerText = t.modal_btn;
-            document.getElementById('setName').placeholder = t.ph_name; document.getElementById('setMokjang').placeholder = t.ph_mokjang;
+            document.getElementById('setName').placeholder = t.ph_name;
+            document.getElementById('setMokjang').placeholder = t.ph_mokjang;
+            document.getElementById('t-journey-title').innerText = t.journey_title;
+            
+            // 단계 라벨 업데이트
+            document.getElementById('t-stage1').innerHTML = t.stage1;
+            document.getElementById('t-stage2').innerHTML = t.stage2;
+            document.getElementById('t-stage3').innerHTML = t.stage3;
+            document.getElementById('t-stage4').innerHTML = t.stage4;
+            
+            // 드롭다운 옵션 업데이트
+            const journeySelect = document.getElementById('setJourney');
+            journeySelect.options[0].text = `① ${t.journey_seeker} - ${t.desc_seeker}`;
+            journeySelect.options[1].text = `② ${t.journey_believer} - ${t.desc_believer}`;
+            journeySelect.options[2].text = `③ ${t.journey_disciple} - ${t.desc_disciple}`;
+            journeySelect.options[3].text = `④ ${t.journey_shepherd} - ${t.desc_shepherd}`;
+            
+            // 목자 세부 옵션 업데이트
+            const shepherdSelect = document.getElementById('setShepherdType');
+            shepherdSelect.options[0].text = t.opt_shepherd;
+            shepherdSelect.options[1].text = t.opt_moknye;
+            shepherdSelect.options[2].text = t.opt_mokbu;
             
             document.getElementById('t-v-lbl1').innerText = t.v_lbl1; document.getElementById('t-v-lbl2').innerText = t.v_lbl2;
             document.getElementById('t-v-lbl3').innerText = t.v_lbl3; document.getElementById('t-v-lbl4').innerText = t.v_lbl4;
@@ -494,33 +690,92 @@
             });
         }
         function showToast(msg) { const t = document.getElementById("toast"); t.innerText = msg; t.className = "show"; setTimeout(() => t.className="", 3000); }
+        
+        // 영적 여정 단계 변경 핸들러
+        function onJourneyChange() {
+            const journey = document.getElementById('setJourney').value;
+            const shepherdDetail = document.getElementById('shepherdDetail');
+            
+            // 목자 선택 시 세부 옵션 표시
+            if (journey === 'shepherd') {
+                shepherdDetail.classList.add('show');
+            } else {
+                shepherdDetail.classList.remove('show');
+            }
+            
+            // 단계 시각화 업데이트
+            updateJourneyVisual(journey);
+        }
+        
+        // 단계 시각화 업데이트
+        function updateJourneyVisual(journey) {
+            const stages = document.querySelectorAll('.stage-item');
+            const stageMap = { seeker: 0, believer: 1, disciple: 2, shepherd: 3 };
+            const activeIndex = stageMap[journey];
+            
+            stages.forEach((stage, index) => {
+                if (index <= activeIndex) {
+                    stage.classList.add('active');
+                } else {
+                    stage.classList.remove('active');
+                }
+            });
+        }
+        
         function loadSettings() {
             const name = localStorage.getItem('galtar_name');
-            const mj = localStorage.getItem('galtar_mokjang');
-            const role = localStorage.getItem('galtar_role') || 'associate';
+            const mokjang = localStorage.getItem('galtar_mokjang');
+            const journey = localStorage.getItem('galtar_journey') || 'seeker';
+            const shepherdType = localStorage.getItem('galtar_shepherd_type') || 'shepherd';
             
-            document.getElementById('setRole').value = role;
+            document.getElementById('setJourney').value = journey;
+            document.getElementById('setShepherdType').value = shepherdType;
+            onJourneyChange(); // 시각화 및 세부 옵션 업데이트
 
-            if(name && mj) { 
+            if(name) { 
                 const t = lang[curLang];
-                const roleText = t[`role_${role}`];
-                document.getElementById('displayName').innerText = `${name} ${roleText}`; 
-                document.getElementById('displayMokjang').innerText = mj; 
+                let roleText;
+                
+                if (journey === 'shepherd') {
+                    roleText = t[`journey_${shepherdType}`];
+                } else {
+                    roleText = t[`journey_${journey}`];
+                }
+                
+                document.getElementById('displayName').innerText = mokjang ? mokjang : name; 
+                document.getElementById('displayJourney').innerText = mokjang ? `${name} (${roleText})` : `(${roleText})`; 
                 document.getElementById('t-role').innerText = roleText;
             } else {
                 openSettings();
             }
         }
-        function openSettings(){ document.getElementById('settingModal').style.display='flex'; }
+        
+        function openSettings(){ 
+            document.getElementById('settingModal').style.display='flex'; 
+            // 기존 설정 불러오기
+            const name = localStorage.getItem('galtar_name');
+            const mokjang = localStorage.getItem('galtar_mokjang');
+            const journey = localStorage.getItem('galtar_journey') || 'seeker';
+            const shepherdType = localStorage.getItem('galtar_shepherd_type') || 'shepherd';
+            
+            if(name) document.getElementById('setName').value = name;
+            if(mokjang) document.getElementById('setMokjang').value = mokjang;
+            document.getElementById('setJourney').value = journey;
+            document.getElementById('setShepherdType').value = shepherdType;
+            onJourneyChange();
+        }
+        
         function saveSettings(){
             const n = document.getElementById('setName').value;
             const m = document.getElementById('setMokjang').value;
-            const r = document.getElementById('setRole').value;
+            const j = document.getElementById('setJourney').value;
+            const st = document.getElementById('setShepherdType').value;
             
-            if(n && m){ 
+            if(n){ 
                 localStorage.setItem('galtar_name', n); 
-                localStorage.setItem('galtar_mokjang', m); 
-                localStorage.setItem('galtar_role', r);
+                localStorage.setItem('galtar_mokjang', m);
+                localStorage.setItem('galtar_journey', j); 
+                localStorage.setItem('galtar_shepherd_type', st);
                 document.getElementById('settingModal').style.display='none'; 
                 loadSettings(); 
             }
