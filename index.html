@@ -769,7 +769,12 @@
             <div id="challenge-in-progress" style="display:none;">
                 <div class="challenge-status" id="challengeStatus">
                     <div class="status-number" id="progressDays">0</div>
-                    <div class="status-label">일 완료 / 21일</div>
+                    <div class="status-label" 
+                         id="challenge-progress-label"
+                         data-ko="일 완료 / 21일"
+                         data-en="days completed / 21 days">
+                        일 완료 / 21일
+                    </div>
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="progressBar" style="width: 0%"></div>
                     </div>
@@ -1001,8 +1006,20 @@
                     </div>
                 </div>
 
-                <button class="btn btn-gold" onclick="shareProgress()">📢 카카오톡으로 진행 상황 공유하기</button>
-                <button class="btn btn-secondary" onclick="resetChallenge()">🔄 챌린지 다시 시작하기</button>
+                <button class="btn btn-gold" 
+                        id="challenge-share-btn"
+                        onclick="shareProgress()"
+                        data-ko="📢 카카오톡으로 진행 상황 공유하기"
+                        data-en="📢 Share Progress on KakaoTalk">
+                    📢 카카오톡으로 진행 상황 공유하기
+                </button>
+                <button class="btn btn-secondary" 
+                        id="challenge-reset-btn"
+                        onclick="resetChallenge()"
+                        data-ko="🔄 챌린지 다시 시작하기"
+                        data-en="🔄 Restart Challenge">
+                    🔄 챌린지 다시 시작하기
+                </button>
             </div>
         </div>
 
@@ -2068,6 +2085,26 @@
                 const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
                 if(text) el.innerHTML = text;
             });
+            
+            // 챌린지 버튼 업데이트
+            const shareBtn = document.getElementById('challenge-share-btn');
+            if(shareBtn) {
+                const shareText = curLang === 'ko' ? shareBtn.getAttribute('data-ko') : shareBtn.getAttribute('data-en');
+                if(shareText) shareBtn.innerHTML = shareText;
+            }
+            
+            const resetBtn = document.getElementById('challenge-reset-btn');
+            if(resetBtn) {
+                const resetText = curLang === 'ko' ? resetBtn.getAttribute('data-ko') : resetBtn.getAttribute('data-en');
+                if(resetText) resetBtn.innerHTML = resetText;
+            }
+            
+            // 진행 상황 라벨 업데이트
+            const progressLabel = document.getElementById('challenge-progress-label');
+            if(progressLabel) {
+                const progressText = curLang === 'ko' ? progressLabel.getAttribute('data-ko') : progressLabel.getAttribute('data-en');
+                if(progressText) progressLabel.innerHTML = progressText;
+            }
         }
 
         function updateSettingsText() {
