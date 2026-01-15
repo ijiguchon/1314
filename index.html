@@ -131,6 +131,23 @@
         .timer-btn.running { background: var(--gold); }
         .timer-btn.paused { background: #666; }
 
+        /* 자가진단 점수 버튼 */
+        .score-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        .score-btn:hover {
+            border-color: var(--navy);
+        }
+
         /* 21일 챌린지 */
         .challenge-status {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -643,6 +660,25 @@
                 <div style="text-align:center; margin-top:10px; font-size:0.8rem; color:#888;" id="t-timer-msg">
                     내 생각의 소리를 넘고 하나님의 음성을 듣습니다
                 </div>
+                <div style="text-align:center; margin-top:8px; font-size:0.75rem; color:#999; line-height:1.4;" id="t-timer-chime">
+                    🔔 차임벨: 5분(낮은 음), 10분(중간 음 2번), 15분(높은 음)
+                </div>
+                <div style="text-align:center; margin-top:10px;">
+                    <div style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;" onclick="toggleChime()">
+                        <button id="chimeBtn" style="
+                            background: var(--gold);
+                            border: none;
+                            border-radius: 50%;
+                            width: 36px;
+                            height: 36px;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 2px 8px rgba(243,156,18,0.3);
+                        ">🔔</button>
+                        <span id="t-chime-status" style="font-size:0.85rem; font-weight:600; color:var(--gold);">ON</span>
+                    </div>
+                </div>
             </div>
             <div class="card c-green">
                 <div class="card-header">
@@ -996,19 +1032,130 @@
             <div class="card">
                 <h3 style="color:var(--navy); margin-bottom:15px;" id="guide-selfcheck-title">📖 자가 진단 (8문항)</h3>
                 <p style="line-height:1.6; color:#666; margin-bottom:15px;" id="guide-selfcheck-desc">
-                    지난 주일 예배를 떠올리며 솔직하게 체크해보세요.
+                    지난 주일 예배를 떠올리며 솔직하게 체크해보세요. (각 문항 1~5점)
                 </p>
                 <div style="background:#f8f9fa; padding:15px; border-radius:8px;">
-                    <p style="font-size:0.85rem; color:#555; line-height:1.8;" id="guide-selfcheck-questions">
-                        1. 예배 10분 전에 도착하여 기도로 마음 밭을 기경했는가?<br>
-                        2. 세상의 염려를 끊어내고 말씀을 사모함으로 준비했는가?<br>
-                        3. 설교 중 집중했는가?<br>
-                        4. 딴생각을 의지적으로 끊어냈는가?<br>
-                        5. 책망의 말씀도 "아멘"으로 받았는가?<br>
-                        6. 메시지의 본질에 귀 기울였는가?<br>
-                        7. 실천할 한 가지를 정했는가?<br>
-                        8. 주중에 실제 삶에서 적용했는가?
-                    </p>
+                    <!-- 문항 1 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q1">
+                            1. 예배 10분 전에 도착하여 기도로 마음 밭을 기경했는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(0, 1)" id="q0-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(0, 2)" id="q0-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(0, 3)" id="q0-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(0, 4)" id="q0-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(0, 5)" id="q0-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 2 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q2">
+                            2. 세상의 염려를 끊어내고 말씀을 사모함으로 준비했는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(1, 1)" id="q1-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(1, 2)" id="q1-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(1, 3)" id="q1-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(1, 4)" id="q1-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(1, 5)" id="q1-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 3 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q3">
+                            3. 설교 중 집중했는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(2, 1)" id="q2-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(2, 2)" id="q2-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(2, 3)" id="q2-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(2, 4)" id="q2-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(2, 5)" id="q2-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 4 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q4">
+                            4. 딴생각을 의지적으로 끊어냈는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(3, 1)" id="q3-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(3, 2)" id="q3-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(3, 3)" id="q3-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(3, 4)" id="q3-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(3, 5)" id="q3-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 5 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q5">
+                            5. 책망의 말씀도 "아멘"으로 받았는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(4, 1)" id="q4-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(4, 2)" id="q4-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(4, 3)" id="q4-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(4, 4)" id="q4-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(4, 5)" id="q4-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 6 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q6">
+                            6. 메시지의 본질에 귀 기울였는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(5, 1)" id="q5-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(5, 2)" id="q5-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(5, 3)" id="q5-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(5, 4)" id="q5-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(5, 5)" id="q5-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 7 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q7">
+                            7. 실천할 한 가지를 정했는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(6, 1)" id="q6-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(6, 2)" id="q6-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(6, 3)" id="q6-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(6, 4)" id="q6-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(6, 5)" id="q6-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                    <!-- 문항 8 -->
+                    <div style="margin-bottom:20px;">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q8">
+                            8. 주중에 실제 삶에서 적용했는가?
+                        </div>
+                        <div style="display:flex; gap:6px; justify-content:center;">
+                            <button onclick="selectScore(7, 1)" id="q7-s1" class="score-btn">1</button>
+                            <button onclick="selectScore(7, 2)" id="q7-s2" class="score-btn">2</button>
+                            <button onclick="selectScore(7, 3)" id="q7-s3" class="score-btn">3</button>
+                            <button onclick="selectScore(7, 4)" id="q7-s4" class="score-btn">4</button>
+                            <button onclick="selectScore(7, 5)" id="q7-s5" class="score-btn">5</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:15px; padding:15px; background:#fff; border-radius:8px; border:2px solid var(--navy); text-align:center;">
+                    <div style="font-size:1.5rem; font-weight:700; color:var(--navy); margin-bottom:8px;">
+                        <span id="guide-total-score">총점: 0점</span>
+                    </div>
+                    <div style="font-size:0.9rem; color:#666; margin-bottom:10px;">
+                        <span id="guide-score-result">문항을 체크해보세요</span>
+                    </div>
+                    <button onclick="resetSelfCheck()" style="
+                        padding:8px 20px;
+                        background:#667eea;
+                        color:white;
+                        border:none;
+                        border-radius:6px;
+                        cursor:pointer;
+                        font-size:0.85rem;
+                    " id="guide-reset-btn">다시 체크</button>
                 </div>
                 <div style="margin-top:15px; padding:12px; background:linear-gradient(to right, #667eea, #764ba2); color:white; border-radius:8px; text-align:center;" id="guide-selfcheck-scoring">
                     <strong>35-40점:</strong> 옥토 | <strong>25-34점:</strong> 성장 중 | <strong>24점 이하:</strong> 훈련 필요
@@ -1077,9 +1224,9 @@
     <div id="settingModal" class="modal-wrap">
         <div class="modal-box" style="text-align:center;">
             <div class="close-btn" onclick="closeSettings()">&times;</div>
-            <h3 style="margin-bottom:10px; color:var(--navy);">프로필 설정</h3>
+            <h3 style="margin-bottom:10px; color:var(--navy);" id="setting-modal-title">프로필 설정</h3>
             
-            <p style="font-size:0.9rem; color:var(--gold); font-weight:700; margin-bottom:15px; line-height:1.5;">
+            <p style="font-size:0.9rem; color:var(--gold); font-weight:700; margin-bottom:15px; line-height:1.5;" id="setting-modal-msg">
                 "모든 그리스도인은 사역자요, 선교사입니다."
             </p>
             
@@ -1157,10 +1304,12 @@
         const DB_KEY = 'galtar_1314_v14_journal';
         const CHALLENGE_KEY = 'galtar_1314_challenge_v1';
         const CHALLENGE_STARTED_KEY = 'galtar_1314_challenge_started';
+        const CHIME_ENABLED_KEY = 'galtar_1314_chime_enabled';
         
         let curLang = 'ko';
         let editId = null, viewId = null;
         let timerInterval, timeLeft = 15 * 60, isTimerRunning = false;
+        let chimeEnabled = true; // 기본값: 차임벨 켜짐
 
         // 다국어
         const lang = {
@@ -1204,6 +1353,9 @@
                 btn_pause: "일시정지",
                 btn_resume: "계속하기",
                 msg_timer: "내 생각의 소리를 넘고 하나님의 음성을 듣습니다",
+                chime_info: "🔔 차임벨: 5분(낮은 음), 10분(중간 음 2번), 15분(높은 음)",
+                chime_on: "ON",
+                chime_off: "OFF",
                 card3: "경청 노트 (5분)",
                 l1: "1. 하나님이 주신 마음",
                 ph_rhema: "주님이 내게 주신 깨달음",
@@ -1294,7 +1446,7 @@
                 guide_step5_desc: "들은 말씀에 순종하기로 결단하며, 찬양으로 기도를 마치세요.",
                 guide_principle: "\"말씀(Logos)으로 검증하고,<br>성령(Pneuma)으로 감동받아,<br>삶으로 순종(Obey)합니다.\"",
                 guide_selfcheck_title: "📖 자가 진단 (8문항)",
-                guide_selfcheck_desc: "지난 주일 예배를 떠올리며 솔직하게 체크해보세요.",
+                guide_selfcheck_desc: "지난 주일 예배를 떠올리며 솔직하게 체크해보세요. (각 문항 1~5점)",
                 guide_selfcheck_q1: "1. 예배 10분 전에 도착하여 기도로 마음 밭을 기경했는가?",
                 guide_selfcheck_q2: "2. 세상의 염려를 끊어내고 말씀을 사모함으로 준비했는가?",
                 guide_selfcheck_q3: "3. 설교 중 집중했는가?",
@@ -1389,6 +1541,9 @@
                 btn_pause: "Pause",
                 btn_resume: "Resume",
                 msg_timer: "Turning off the noise to hear God's voice",
+                chime_info: "🔔 Chimes: 5min(low), 10min(mid x2), 15min(high)",
+                chime_on: "ON",
+                chime_off: "OFF",
                 card3: "Journal (5min)",
                 l1: "1. God's Voice (Rhema)",
                 ph_rhema: "Insights received from the Lord",
@@ -1479,7 +1634,7 @@
                 guide_step5_desc: "Decide to obey the Word you heard. End prayer with praise.",
                 guide_principle: "\"Verify with Word (Logos),<br>Be moved by Spirit (Pneuma),<br>Obey in life.\"",
                 guide_selfcheck_title: "📖 Self-Check (8 Questions)",
-                guide_selfcheck_desc: "Think about last Sunday's worship honestly.",
+                guide_selfcheck_desc: "Think about last Sunday's worship honestly. (1-5 points each)",
                 guide_selfcheck_q1: "1. Arrived 10 min early and prepared heart with prayer?",
                 guide_selfcheck_q2: "2. Cut off worldly worries and longed for the Word?",
                 guide_selfcheck_q3: "3. Stayed focused during sermon?",
@@ -1542,6 +1697,7 @@
             renderHistory();
             checkChallengeStatus();
             checkMokjangStatus();
+            loadChimeSettings();
             updateText();
         };
 
@@ -1551,6 +1707,11 @@
             curLang = curLang === 'ko' ? 'en' : 'ko';
             console.log('toggleLang changed to:', curLang);
             document.getElementById('langBtn').innerText = curLang === 'ko' ? 'ENG' : '한글';
+            
+            // 디버깅: 언어 변경 확인
+            const t = lang[curLang];
+            console.log('Question 1:', t.guide_selfcheck_q1);
+            
             try {
                 updateText();
                 console.log('updateText completed successfully');
@@ -1570,7 +1731,10 @@
                 const el = document.getElementById(id);
                 if(el) {
                     if(isPlaceholder) el.placeholder = value;
-                    else el.innerText = value;
+                    else {
+                        console.log('Updating', id, 'to:', value);
+                        el.innerHTML = value;  // innerText → innerHTML 변경
+                    }
                 } else {
                     console.warn('Element not found:', id);
                 }
@@ -1610,6 +1774,8 @@
             }
             
             safeUpdate('t-timer-msg', t.msg_timer);
+            safeUpdate('t-timer-chime', t.chime_info);
+            loadChimeSettings(); // 차임벨 버튼 상태 업데이트
             safeUpdate('t-card3', t.card3);
             safeUpdate('t-lbl1', t.l1);
             safeUpdate('inRhema', t.ph_rhema, true);
@@ -1774,31 +1940,34 @@
             const selfcheckDesc = document.getElementById('guide-selfcheck-desc');
             if(selfcheckDesc) selfcheckDesc.innerText = t.guide_selfcheck_desc;
             
-            const selfcheckContent = document.getElementById('guide-selfcheck-questions');
-            if(selfcheckContent) {
-                selfcheckContent.innerHTML = `
-                    ${t.guide_selfcheck_q1}<br>
-                    ${t.guide_selfcheck_q2}<br>
-                    ${t.guide_selfcheck_q3}<br>
-                    ${t.guide_selfcheck_q4}<br>
-                    ${t.guide_selfcheck_q5}<br>
-                    ${t.guide_selfcheck_q6}<br>
-                    ${t.guide_selfcheck_q7}<br>
-                    ${t.guide_selfcheck_q8}
-                `;
-            }
+            // 자가진단 8문항 텍스트 업데이트
+            safeUpdate('guide-q1', t.guide_selfcheck_q1);
+            safeUpdate('guide-q2', t.guide_selfcheck_q2);
+            safeUpdate('guide-q3', t.guide_selfcheck_q3);
+            safeUpdate('guide-q4', t.guide_selfcheck_q4);
+            safeUpdate('guide-q5', t.guide_selfcheck_q5);
+            safeUpdate('guide-q6', t.guide_selfcheck_q6);
+            safeUpdate('guide-q7', t.guide_selfcheck_q7);
+            safeUpdate('guide-q8', t.guide_selfcheck_q8);
             
             const scoring = document.getElementById('guide-selfcheck-scoring');
             if(scoring) scoring.innerHTML = t.guide_scoring;
+            
+            // 자가진단 버튼 텍스트 업데이트
+            const resetBtn = document.getElementById('guide-reset-btn');
+            if(resetBtn) resetBtn.innerText = curLang === 'ko' ? '다시 체크' : 'Reset';
+            
+            // 점수 재계산 (언어 변경 시)
+            calculateSelfCheckScore();
         }
 
         function updateSettingsText() {
             const t = lang[curLang];
             
-            const modalTitle = document.querySelector('#settingModal h3');
+            const modalTitle = document.getElementById('setting-modal-title');
             if(modalTitle) modalTitle.innerText = t.modal_title;
             
-            const modalMsg = document.querySelector('#settingModal p[style*="color:var(--gold)"]');
+            const modalMsg = document.getElementById('setting-modal-msg');
             if(modalMsg) modalMsg.innerText = t.modal_msg;
             
             document.getElementById('setName').placeholder = t.ph_name;
@@ -1861,6 +2030,12 @@
                 timerInterval = setInterval(() => {
                     if(timeLeft > 0) {
                         timeLeft--;
+                        const elapsed = 900 - timeLeft; // 경과 시간
+                        
+                        // 5분(300초)마다 차임벨
+                        if(elapsed === 300) playChime(1); // 5분: 짧은 벨 1번
+                        else if(elapsed === 600) playChime(2); // 10분: 짧은 벨 2번
+                        
                         const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
                         const s = (timeLeft%60).toString().padStart(2,'0');
                         document.getElementById('timer').innerText = `${m}:${s}`;
@@ -1876,14 +2051,16 @@
         }
         
         function endTimer() {
+            const t = lang[curLang];
             clearInterval(timerInterval); 
             isTimerRunning = false;
             document.getElementById('timer').innerText = "00:00";
-            document.getElementById('t-timer-btn').innerText = '타이머 시작';
+            document.getElementById('t-timer-btn').innerText = t.btn_start_timer;
             document.getElementById('t-timer-btn').classList.remove('running', 'paused');
-            playChime();
+            playChime(3); // 15분 종료 소리
+            const message = curLang === 'ko' ? '침묵 기도 시간이 끝났습니다. 🙏' : 'Prayer time is complete. 🙏';
             setTimeout(() => { 
-                alert('기도 시간이 끝났습니다.'); 
+                alert(message); 
                 resetTimer(); 
             }, 500);
         }
@@ -1893,19 +2070,184 @@
             document.getElementById('timer').innerText = "15:00"; 
         }
         
-        function playChime() {
+        // 차임벨 on/off 토글
+        function toggleChime() {
+            chimeEnabled = !chimeEnabled;
+            localStorage.setItem(CHIME_ENABLED_KEY, chimeEnabled ? 'true' : 'false');
+            
+            const btn = document.getElementById('chimeBtn');
+            const status = document.getElementById('t-chime-status');
+            const t = lang[curLang];
+            
+            if(chimeEnabled) {
+                // 켜짐 상태
+                btn.style.background = 'var(--gold)';
+                btn.style.boxShadow = '0 2px 8px rgba(243,156,18,0.3)';
+                btn.innerText = '🔔';
+                status.style.color = 'var(--gold)';
+                status.innerText = t.chime_on;
+            } else {
+                // 꺼짐 상태
+                btn.style.background = '#ccc';
+                btn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                btn.innerText = '🔕';
+                status.style.color = '#999';
+                status.innerText = t.chime_off;
+            }
+            
+            const message = curLang === 'ko' 
+                ? (chimeEnabled ? '차임벨이 켜졌습니다 🔔' : '차임벨이 꺼졌습니다 🔕')
+                : (chimeEnabled ? 'Chime enabled 🔔' : 'Chime disabled 🔕');
+            showToast(message);
+        }
+        
+        // 차임벨 설정 로드
+        function loadChimeSettings() {
+            const saved = localStorage.getItem(CHIME_ENABLED_KEY);
+            chimeEnabled = saved === null ? true : saved === 'true';
+            
+            const btn = document.getElementById('chimeBtn');
+            const status = document.getElementById('t-chime-status');
+            const t = lang[curLang];
+            
+            if(btn && status) {
+                if(chimeEnabled) {
+                    btn.style.background = 'var(--gold)';
+                    btn.style.boxShadow = '0 2px 8px rgba(243,156,18,0.3)';
+                    btn.innerText = '🔔';
+                    status.style.color = 'var(--gold)';
+                    status.innerText = t.chime_on;
+                } else {
+                    btn.style.background = '#ccc';
+                    btn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                    btn.innerText = '🔕';
+                    status.style.color = '#999';
+                    status.innerText = t.chime_off;
+                }
+            }
+        }
+        
+        function playChime(times = 3) {
+            // 차임벨이 꺼져있으면 소리 안 냄
+            if(!chimeEnabled) return;
+            
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator(); 
-            const gain = ctx.createGain();
-            osc.type = 'sine'; 
-            osc.frequency.setValueAtTime(880, ctx.currentTime); 
-            osc.frequency.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-            gain.gain.setValueAtTime(0.5, ctx.currentTime); 
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-            osc.connect(gain); 
-            gain.connect(ctx.destination);
-            osc.start(); 
-            osc.stop(ctx.currentTime + 1.5);
+            
+            if(times === 1) {
+                // 5분 경과: 낮은 음 짧게 1번
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500, ctx.currentTime);
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } else if(times === 2) {
+                // 10분 경과: 중간 음 짧게 2번
+                for(let i = 0; i < 2; i++) {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    const startTime = ctx.currentTime + (i * 0.4);
+                    osc.frequency.setValueAtTime(700, startTime);
+                    gain.gain.setValueAtTime(0.3, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.3);
+                }
+            } else {
+                // 15분 종료: 높은 음 길게
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 1.5);
+            }
+        }
+
+        // ========== 자가 진단 기능 ==========
+        let selfCheckScores = [0, 0, 0, 0, 0, 0, 0, 0]; // 8문항 점수
+
+
+        function selectScore(questionIdx, score) {
+            selfCheckScores[questionIdx] = score;
+            
+            // 모든 버튼 스타일 초기화
+            for(let s = 1; s <= 5; s++) {
+                const btn = document.getElementById(`q${questionIdx}-s${s}`);
+                if(btn) {
+                    btn.style.background = 'white';
+                    btn.style.borderColor = '#ddd';
+                    btn.style.color = '#666';
+                }
+            }
+            
+            // 선택된 버튼 강조
+            const selectedBtn = document.getElementById(`q${questionIdx}-s${score}`);
+            if(selectedBtn) {
+                selectedBtn.style.background = 'var(--navy)';
+                selectedBtn.style.borderColor = 'var(--navy)';
+                selectedBtn.style.color = 'white';
+            }
+            
+            calculateSelfCheckScore();
+        }
+
+        function calculateSelfCheckScore() {
+            const total = selfCheckScores.reduce((sum, score) => sum + score, 0);
+            const t = lang[curLang];
+            
+            const scoreEl = document.getElementById('guide-total-score');
+            const resultEl = document.getElementById('guide-score-result');
+            
+            if(scoreEl) {
+                scoreEl.innerText = curLang === 'ko' ? `총점: ${total}점` : `Total: ${total} points`;
+            }
+            
+            if(resultEl) {
+                let result = '';
+                if(total === 0) {
+                    result = curLang === 'ko' ? '문항을 체크해보세요' : 'Please check the items';
+                } else if(total >= 35) {
+                    result = curLang === 'ko' ? '🌾 옥토! 말씀이 열매 맺고 있습니다!' : '🌾 Good Soil! The Word is bearing fruit!';
+                } else if(total >= 25) {
+                    result = curLang === 'ko' ? '🌱 성장 중! 계속 훈련하세요!' : '🌱 Growing! Keep training!';
+                } else {
+                    result = curLang === 'ko' ? '🌿 훈련 필요! 경청의 은혜를 사모하세요!' : '🌿 Training Needed! Seek the grace of listening!';
+                }
+                resultEl.innerText = result;
+                resultEl.style.color = total >= 35 ? '#27ae60' : (total >= 25 ? '#f39c12' : '#e74c3c');
+                resultEl.style.fontWeight = '700';
+            }
+        }
+
+        function resetSelfCheck() {
+            selfCheckScores = [0, 0, 0, 0, 0, 0, 0, 0];
+            
+            // 모든 버튼 초기화
+            for(let q = 0; q < 8; q++) {
+                for(let s = 1; s <= 5; s++) {
+                    const btn = document.getElementById(`q${q}-s${s}`);
+                    if(btn) {
+                        btn.style.background = 'white';
+                        btn.style.borderColor = '#ddd';
+                        btn.style.color = '#666';
+                    }
+                }
+            }
+            
+            calculateSelfCheckScore();
         }
 
         function saveData() {
@@ -2046,14 +2388,18 @@
 
         // ========== 21일 챌린지 기능 ==========
         function checkChallengeStatus() {
+            console.log('checkChallengeStatus called');
             const started = localStorage.getItem(CHALLENGE_STARTED_KEY);
+            console.log('Challenge started:', started);
             
             if(started === 'true') {
+                console.log('Showing challenge-in-progress');
                 document.getElementById('challenge-not-started').style.display = 'none';
                 document.getElementById('challenge-in-progress').style.display = 'block';
                 loadChallengeProgress();
                 updateChallengeProgress();
             } else {
+                console.log('Showing challenge-not-started');
                 document.getElementById('challenge-not-started').style.display = 'block';
                 document.getElementById('challenge-in-progress').style.display = 'none';
             }
