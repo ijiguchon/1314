@@ -715,26 +715,51 @@
                 <div class="card">
                     <div style="text-align:center; padding:20px 0;">
                         <div style="font-size:3rem; margin-bottom:15px;">👂</div>
-                        <h2 style="color:var(--navy); margin-bottom:10px;">21일 경청 훈련</h2>
-                        <p style="color:#666; line-height:1.6; margin-bottom:20px;">
+                        <h2 style="color:var(--navy); margin-bottom:10px;"
+                            id="challenge-start-title"
+                            data-ko="21일 경청 훈련"
+                            data-en="21-Day Listening Training">
+                            21일 경청 훈련
+                        </h2>
+                        <p style="color:#666; line-height:1.6; margin-bottom:20px;"
+                           id="challenge-start-desc"
+                           data-ko="하나님의 음성이 들리는 귀를 회복하는<br>영적 훈련에 참여하시겠습니까?"
+                           data-en="Join the spiritual training to restore ears<br>that hear God's voice">
                             하나님의 음성이 들리는 귀를 회복하는<br>
                             영적 훈련에 참여하시겠습니까?
                         </p>
-                        <button class="btn-start-challenge" onclick="startChallenge()">
+                        <button class="btn-start-challenge" onclick="startChallenge()"
+                                id="challenge-start-btn"
+                                data-ko="🎯 21일 챌린지 시작하기"
+                                data-en="🎯 Start 21-Day Challenge">
                             🎯 21일 챌린지 시작하기
                         </button>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <h3 style="color:var(--navy); margin-bottom:15px;">📚 21일 구성</h3>
-                    <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:10px;">
+                    <h3 style="color:var(--navy); margin-bottom:15px;"
+                        id="challenge-structure-title"
+                        data-ko="📚 21일 구성"
+                        data-en="📚 21-Day Structure">
+                        📚 21일 구성
+                    </h3>
+                    <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:10px;"
+                         id="challenge-week1-desc"
+                         data-ko="<strong>1주차:</strong> 귀의 할례 (세상 소음 줄이기)"
+                         data-en="<strong>Week 1:</strong> Circumcision of Ears (Reducing Worldly Noise)">
                         <strong>1주차:</strong> 귀의 할례 (세상 소음 줄이기)
                     </div>
-                    <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:10px;">
+                    <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:10px;"
+                         id="challenge-week2-desc"
+                         data-ko="<strong>2주차:</strong> 거룩한 공명 (말씀과 상호작용)"
+                         data-en="<strong>Week 2:</strong> Holy Resonance (Interacting with the Word)">
                         <strong>2주차:</strong> 거룩한 공명 (말씀과 상호작용)
                     </div>
-                    <div style="padding:12px; background:#f8f9fa; border-radius:8px;">
+                    <div style="padding:12px; background:#f8f9fa; border-radius:8px;"
+                         id="challenge-week3-desc"
+                         data-ko="<strong>3주차:</strong> 말씀의 성육신 (삶으로 실천)"
+                         data-en="<strong>Week 3:</strong> Incarnation of the Word (Living It Out)">
                         <strong>3주차:</strong> 말씀의 성육신 (삶으로 실천)
                     </div>
                 </div>
@@ -753,53 +778,79 @@
                 <div class="card">
                     <!-- 1주차 -->
                     <div class="week-section">
-                        <div class="week-header">1주차: 귀의 할례 (세상의 소음 줄이기)</div>
+                        <div class="week-header"
+                             data-ko="1주차: 귀의 할례 (세상의 소음 줄이기)"
+                             data-en="Week 1: Circumcision of Ears (Reduce worldly noise)">
+                            1주차: 귀의 할례 (세상의 소음 줄이기)
+                        </div>
                         <div class="day-item" data-day="1" onclick="toggleDay(1)">
                             <div class="day-info">
                                 <div class="day-number">Day 1</div>
-                                <div class="day-title">[시간 정복] 토요일 밤 10시 이후 미디어 끄기</div>
+                                <div class="day-title"
+                                     data-ko="[시간 정복] 토요일 밤 10시 이후 미디어 끄기"
+                                     data-en="[Time] Turn off media after 10pm Saturday">
+                                    [시간 정복] 토요일 밤 10시 이후 미디어 끄기
+                                </div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="2" onclick="toggleDay(2)">
                             <div class="day-info">
                                 <div class="day-number">Day 2</div>
-                                <div class="day-title">[공간 정복] 집중 잘 되는 자리 선택하기</div>
+                                <div class="day-title"
+                                     data-ko="[공간 정복] 집중 잘 되는 자리 선택하기"
+                                     data-en="[Space] Choose a seat where you can focus well">
+                                    [공간 정복] 집중 잘 되는 자리 선택하기
+                                </div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="3" onclick="toggleDay(3)">
                             <div class="day-info">
                                 <div class="day-number">Day 3</div>
-                                <div class="day-title">[마음 정복] 예배 전 5분 기도 10번 고백</div>
+                                <div class="day-title"
+                                     data-ko="[마음 정복] 예배 전 5분 기도 10번 고백"
+                                     data-en="[Heart] Pray 10 times before worship">
+                                    [마음 정복] 예배 전 5분 기도 10번 고백
+                                </div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="4" onclick="toggleDay(4)">
                             <div class="day-info">
                                 <div class="day-number">Day 4</div>
-                                <div class="day-title">[비판 금식] 설교자 평가하지 않기</div>
+                                <div class="day-title"
+                                     data-ko="[비판 금식] 설교자 평가하지 않기"
+                                     data-en="[Fast] Don't judge the preacher">
+                                    [비판 금식] 설교자 평가하지 않기
+                                </div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="5" onclick="toggleDay(5)">
                             <div class="day-info">
                                 <div class="day-number">Day 5</div>
-                                <div class="day-title">[미디어 금식] 예배 가는 길 찬양 듣기</div>
+                                <div class="day-title" 
+                                     data-ko="[미디어 금식] 예배 가는 길 찬양 듣기"
+                                     data-en="[Media Fast] Listen to worship songs on the way to church">[미디어 금식] 예배 가는 길 찬양 듣기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="6" onclick="toggleDay(6)">
                             <div class="day-info">
                                 <div class="day-number">Day 6</div>
-                                <div class="day-title">[기도 심기] 목사님 중보기도 3분</div>
+                                <div class="day-title" 
+                                     data-ko="[기도 심기] 목사님 중보기도 3분"
+                                     data-en="[Prayer Planting] 3-min intercessory prayer for pastor">[기도 심기] 목사님 중보기도 3분</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="7" onclick="toggleDay(7)">
                             <div class="day-info">
                                 <div class="day-number">Day 7</div>
-                                <div class="day-title">[참회하기] 지난주 불순종 회개하기</div>
+                                <div class="day-title" 
+                                     data-ko="[참회하기] 지난주 불순종 회개하기"
+                                     data-en="[Repentance] Repent for last week's disobedience">[참회하기] 지난주 불순종 회개하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
@@ -807,53 +858,71 @@
 
                     <!-- 2주차 -->
                     <div class="week-section">
-                        <div class="week-header">2주차: 거룩한 공명 (말씀과 상호작용)</div>
+                        <div class="week-header"
+                             data-ko="2주차: 거룩한 공명 (말씀과 상호작용)"
+                             data-en="Week 2: Holy Resonance (Interacting with the Word)">
+                            2주차: 거룩한 공명 (말씀과 상호작용)
+                        </div>
                         <div class="day-item" data-day="8" onclick="toggleDay(8)">
                             <div class="day-info">
                                 <div class="day-number">Day 8</div>
-                                <div class="day-title">[아이컨택] 설교자와 눈 맞추며 고개 끄덕이기</div>
+                                <div class="day-title" 
+                                     data-ko="[아이컨택] 설교자와 눈 맞추며 고개 끄덕이기"
+                                     data-en="[Eye Contact] Make eye contact with preacher and nod">[아이컨택] 설교자와 눈 맞추며 고개 끄덕이기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="9" onclick="toggleDay(9)">
                             <div class="day-info">
                                 <div class="day-number">Day 9</div>
-                                <div class="day-title">[레마 기록] 핵심 문장 하나만 굵게 적기</div>
+                                <div class="day-title" 
+                                     data-ko="[레마 기록] 핵심 문장 하나만 굵게 적기"
+                                     data-en="[Rhema Recording] Write one key sentence in bold">[레마 기록] 핵심 문장 하나만 굵게 적기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="10" onclick="toggleDay(10)">
                             <div class="day-info">
                                 <div class="day-number">Day 10</div>
-                                <div class="day-title">[아멘 훈련] 작은 소리로라도 "아멘" 화답하기</div>
+                                <div class="day-title" 
+                                     data-ko="[아멘 훈련] 작은 소리로라도 &quot;아멘&quot; 화답하기"
+                                     data-en="[Amen Training] Respond with 'Amen' even softly">[아멘 훈련] 작은 소리로라도 "아멘" 화답하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="11" onclick="toggleDay(11)">
                             <div class="day-info">
                                 <div class="day-number">Day 11</div>
-                                <div class="day-title">[영적 중보] 설교자 위해 중보기도하기</div>
+                                <div class="day-title" 
+                                     data-ko="[영적 중보] 설교자 위해 중보기도하기"
+                                     data-en="[Spiritual Intercession] Pray for the preacher">[영적 중보] 설교자 위해 중보기도하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="12" onclick="toggleDay(12)">
                             <div class="day-info">
                                 <div class="day-number">Day 12</div>
-                                <div class="day-title">[침묵 묵상] 축도 후 3분간 말씀 되새기기</div>
+                                <div class="day-title" 
+                                     data-ko="[침묵 묵상] 축도 후 3분간 말씀 되새기기"
+                                     data-en="[Silent Meditation] Reflect on the Word for 3 min after benediction">[침묵 묵상] 축도 후 3분간 말씀 되새기기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="13" onclick="toggleDay(13)">
                             <div class="day-info">
                                 <div class="day-number">Day 13</div>
-                                <div class="day-title">[성경 확인] 주일 본문 집에서 소리내어 읽기</div>
+                                <div class="day-title" 
+                                     data-ko="[성경 확인] 주일 본문 집에서 소리내어 읽기"
+                                     data-en="[Bible Check] Read Sunday's passage aloud at home">[성경 확인] 주일 본문 집에서 소리내어 읽기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="14" onclick="toggleDay(14)">
                             <div class="day-info">
                                 <div class="day-number">Day 14</div>
-                                <div class="day-title">[감사 표현] 말씀에 대해 감사기도 드리기</div>
+                                <div class="day-title" 
+                                     data-ko="[감사 표현] 말씀에 대해 감사기도 드리기"
+                                     data-en="[Express Gratitude] Pray thanksgiving for the Word">[감사 표현] 말씀에 대해 감사기도 드리기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
@@ -861,53 +930,71 @@
 
                     <!-- 3주차 -->
                     <div class="week-section">
-                        <div class="week-header">3주차: 말씀의 성육신 (삶으로 실천하기)</div>
+                        <div class="week-header"
+                             data-ko="3주차: 말씀의 성육신 (삶으로 실천하기)"
+                             data-en="Week 3: Incarnation of the Word (Living It Out)">
+                            3주차: 말씀의 성육신 (삶으로 실천하기)
+                        </div>
                         <div class="day-item" data-day="15" onclick="toggleDay(15)">
                             <div class="day-info">
                                 <div class="day-number">Day 15</div>
-                                <div class="day-title">[한 줄 요약] 말씀을 한 문장으로 요약하기</div>
+                                <div class="day-title" 
+                                     data-ko="[한 줄 요약] 말씀을 한 문장으로 요약하기"
+                                     data-en="[One-line Summary] Summarize the Word in one sentence">[한 줄 요약] 말씀을 한 문장으로 요약하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="16" onclick="toggleDay(16)">
                             <div class="day-info">
                                 <div class="day-number">Day 16</div>
-                                <div class="day-title">[입술 전파] 가족/목장에 은혜 나누기</div>
+                                <div class="day-title" 
+                                     data-ko="[입술 전파] 가족/목장에 은혜 나누기"
+                                     data-en="[Lips Proclamation] Share grace with family/mokjang">[입술 전파] 가족/목장에 은혜 나누기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="17" onclick="toggleDay(17)">
                             <div class="day-info">
                                 <div class="day-number">Day 17</div>
-                                <div class="day-title">[손해 감수] 순종 위해 구체적 손해 감수하기</div>
+                                <div class="day-title" 
+                                     data-ko="[손해 감수] 순종 위해 구체적 손해 감수하기"
+                                     data-en="[Accept Loss] Accept specific loss for obedience">[손해 감수] 순종 위해 구체적 손해 감수하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="18" onclick="toggleDay(18)">
                             <div class="day-info">
                                 <div class="day-number">Day 18</div>
-                                <div class="day-title">[순종 점검] 결단 내용 지켰는지 체크하기</div>
+                                <div class="day-title" 
+                                     data-ko="[순종 점검] 결단 내용 지켰는지 체크하기"
+                                     data-en="[Obedience Check] Check if you kept your commitment">[순종 점검] 결단 내용 지켰는지 체크하기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="19" onclick="toggleDay(19)">
                             <div class="day-info">
                                 <div class="day-number">Day 19</div>
-                                <div class="day-title">[격려하기] 목사님께 순종 간증 편지 보내기</div>
+                                <div class="day-title" 
+                                     data-ko="[격려하기] 목사님께 순종 간증 편지 보내기"
+                                     data-en="[Encourage] Send testimony letter of obedience to pastor">[격려하기] 목사님께 순종 간증 편지 보내기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="20" onclick="toggleDay(20)">
                             <div class="day-info">
                                 <div class="day-number">Day 20</div>
-                                <div class="day-title">[나눔의 밤] 훈련 중 느낀 변화 나누기</div>
+                                <div class="day-title" 
+                                     data-ko="[나눔의 밤] 훈련 중 느낀 변화 나누기"
+                                     data-en="[Sharing Night] Share changes felt during training">[나눔의 밤] 훈련 중 느낀 변화 나누기</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
                         <div class="day-item" data-day="21" onclick="toggleDay(21)">
                             <div class="day-info">
                                 <div class="day-number">Day 21</div>
-                                <div class="day-title">[서약식] 평생 경청하는 예배자 되기 서약</div>
+                                <div class="day-title" 
+                                     data-ko="[서약식] 평생 경청하는 예배자 되기 서약"
+                                     data-en="[Pledge Ceremony] Pledge to be a lifelong listening worshiper">[서약식] 평생 경청하는 예배자 되기 서약</div>
                             </div>
                             <div class="day-check">○</div>
                         </div>
@@ -1037,7 +1124,10 @@
                 <div style="background:#f8f9fa; padding:15px; border-radius:8px;">
                     <!-- 문항 1 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q1">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q1"
+                             data-ko="1. 예배 10분 전에 도착하여 기도로 마음 밭을 기경했는가?"
+                             data-en="1. Arrived 10 min early and prepared heart with prayer?">
                             1. 예배 10분 전에 도착하여 기도로 마음 밭을 기경했는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1050,7 +1140,10 @@
                     </div>
                     <!-- 문항 2 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q2">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q2"
+                             data-ko="2. 세상의 염려를 끊어내고 말씀을 사모함으로 준비했는가?"
+                             data-en="2. Cut off worldly worries and longed for the Word?">
                             2. 세상의 염려를 끊어내고 말씀을 사모함으로 준비했는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1063,7 +1156,10 @@
                     </div>
                     <!-- 문항 3 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q3">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q3"
+                             data-ko="3. 설교 중 집중했는가?"
+                             data-en="3. Stayed focused during sermon?">
                             3. 설교 중 집중했는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1076,7 +1172,10 @@
                     </div>
                     <!-- 문항 4 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q4">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q4"
+                             data-ko="4. 딴생각을 의지적으로 끊어냈는가?"
+                             data-en="4. Deliberately cut off wandering thoughts?">
                             4. 딴생각을 의지적으로 끊어냈는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1089,7 +1188,10 @@
                     </div>
                     <!-- 문항 5 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q5">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q5"
+                             data-ko="5. 책망의 말씀도 &quot;아멘&quot;으로 받았는가?"
+                             data-en="5. Accepted even rebuking words with 'Amen'?">
                             5. 책망의 말씀도 "아멘"으로 받았는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1102,7 +1204,10 @@
                     </div>
                     <!-- 문항 6 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q6">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q6"
+                             data-ko="6. 메시지의 본질에 귀 기울였는가?"
+                             data-en="6. Listened to essence of message?">
                             6. 메시지의 본질에 귀 기울였는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1115,7 +1220,10 @@
                     </div>
                     <!-- 문항 7 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q7">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q7"
+                             data-ko="7. 실천할 한 가지를 정했는가?"
+                             data-en="7. Decided one thing to practice?">
                             7. 실천할 한 가지를 정했는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1128,7 +1236,10 @@
                     </div>
                     <!-- 문항 8 -->
                     <div style="margin-bottom:20px;">
-                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" id="guide-q8">
+                        <div style="font-size:0.85rem; color:#333; margin-bottom:8px; font-weight:600;" 
+                             id="guide-q8"
+                             data-ko="8. 주중에 실제 삶에서 적용했는가?"
+                             data-en="8. Applied it in actual life during the week?">
                             8. 주중에 실제 삶에서 적용했는가?
                         </div>
                         <div style="display:flex; gap:6px; justify-content:center;">
@@ -1816,51 +1927,6 @@
             console.log('updateText completed');
         }
 
-        function updateChallengeText() {
-            const t = lang[curLang];
-            
-            // 챌린지 시작 전 화면
-            const startTitle = document.querySelector('#challenge-not-started h2');
-            if(startTitle) startTitle.innerText = t.challenge_start_title;
-            
-            const startDesc = document.querySelector('#challenge-not-started p');
-            if(startDesc) startDesc.innerHTML = t.challenge_start_desc;
-            
-            const startBtn = document.querySelector('.btn-start-challenge');
-            if(startBtn) startBtn.innerHTML = t.challenge_start_btn;
-            
-            // 구조 설명
-            const structureTitle = document.querySelector('#challenge-not-started h3');
-            if(structureTitle) structureTitle.innerText = t.challenge_structure;
-            
-            const weekDescs = document.querySelectorAll('#challenge-not-started .card > div[style*="padding"]');
-            if(weekDescs[0]) weekDescs[0].innerHTML = `<strong>${t.week1_title.split(':')[0]}:</strong> ${t.week1_desc}`;
-            if(weekDescs[1]) weekDescs[1].innerHTML = `<strong>${t.week2_title.split(':')[0]}:</strong> ${t.week2_desc}`;
-            if(weekDescs[2]) weekDescs[2].innerHTML = `<strong>${t.week3_title.split(':')[0]}:</strong> ${t.week3_desc}`;
-            
-            // 진행 중 화면
-            const progressLabel = document.querySelector('.status-label');
-            if(progressLabel) progressLabel.innerText = t.challenge_progress;
-            
-            // 주차 헤더
-            const weekHeaders = document.querySelectorAll('.week-header');
-            if(weekHeaders[0]) weekHeaders[0].innerText = t.week1_title;
-            if(weekHeaders[1]) weekHeaders[1].innerText = t.week2_title;
-            if(weekHeaders[2]) weekHeaders[2].innerText = t.week3_title;
-            
-            // Day 제목들
-            for(let i = 1; i <= 21; i++) {
-                const dayTitle = document.querySelector(`[data-day="${i}"] .day-title`);
-                if(dayTitle) dayTitle.innerText = t[`day${i}`];
-            }
-            
-            // 버튼들
-            const shareBtn = document.querySelector('[onclick="shareProgress()"]');
-            if(shareBtn) shareBtn.innerHTML = t.challenge_share;
-            
-            const resetBtn = document.querySelector('[onclick="resetChallenge()"]');
-            if(resetBtn) resetBtn.innerHTML = t.challenge_reset;
-        }
 
         function updateMokjangText() {
             const t = lang[curLang];
@@ -1940,15 +2006,14 @@
             const selfcheckDesc = document.getElementById('guide-selfcheck-desc');
             if(selfcheckDesc) selfcheckDesc.innerText = t.guide_selfcheck_desc;
             
-            // 자가진단 8문항 텍스트 업데이트
-            safeUpdate('guide-q1', t.guide_selfcheck_q1);
-            safeUpdate('guide-q2', t.guide_selfcheck_q2);
-            safeUpdate('guide-q3', t.guide_selfcheck_q3);
-            safeUpdate('guide-q4', t.guide_selfcheck_q4);
-            safeUpdate('guide-q5', t.guide_selfcheck_q5);
-            safeUpdate('guide-q6', t.guide_selfcheck_q6);
-            safeUpdate('guide-q7', t.guide_selfcheck_q7);
-            safeUpdate('guide-q8', t.guide_selfcheck_q8);
+            // 자가진단 8문항 - data 속성에서 읽기
+            for(let i = 1; i <= 8; i++) {
+                const el = document.getElementById('guide-q' + i);
+                if(el) {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                }
+            }
             
             const scoring = document.getElementById('guide-selfcheck-scoring');
             if(scoring) scoring.innerHTML = t.guide_scoring;
@@ -1959,6 +2024,50 @@
             
             // 점수 재계산 (언어 변경 시)
             calculateSelfCheckScore();
+            
+            // 21일 챌린지 텍스트 업데이트 (data 속성 사용)
+            updateChallengeText();
+        }
+
+        function updateChallengeText() {
+            // 챌린지 시작 화면 - data 속성에서 읽기
+            const challengeElements = [
+                'challenge-start-title',
+                'challenge-start-desc', 
+                'challenge-start-btn',
+                'challenge-structure-title',
+                'challenge-week1-desc',
+                'challenge-week2-desc',
+                'challenge-week3-desc'
+            ];
+            
+            challengeElements.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) {
+                        if(el.tagName === 'BUTTON') {
+                            el.innerHTML = text;
+                        } else {
+                            el.innerHTML = text;
+                        }
+                    }
+                }
+            });
+            
+            // Day 1~21 제목 업데이트
+            const dayTitles = document.querySelectorAll('.day-title[data-ko][data-en]');
+            dayTitles.forEach(el => {
+                const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                if(text) el.innerHTML = text;
+            });
+            
+            // 주차 헤더 업데이트
+            const weekHeaders = document.querySelectorAll('.week-header[data-ko][data-en]');
+            weekHeaders.forEach(el => {
+                const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                if(text) el.innerHTML = text;
+            });
         }
 
         function updateSettingsText() {
