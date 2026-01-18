@@ -1276,11 +1276,10 @@
             <div class="nav-icon">📖</div>
             <span>일지</span>
         </div>
-     <div class="nav-item" onclick="showScreen('challenge')">
-    <div class="nav-icon">🎯</div>
-    <span>21일</span>
-</div>
-"challenge"
+        <div class="nav-item" onclick="switchTab('challenge', this)">
+            <div class="nav-icon">🎯</div>
+            <span>21일</span>
+        </div>
         <div class="nav-item" onclick="switchTab('mokjang', this)">
             <div class="nav-icon">👥</div>
             <span>목장</span>
@@ -2088,6 +2087,16 @@
                 const progressText = curLang === 'ko' ? progressLabel.getAttribute('data-ko') : progressLabel.getAttribute('data-en');
                 if(progressText) progressLabel.innerHTML = progressText;
             }
+            
+            // 모든 data-ko, data-en 속성을 가진 요소들 업데이트 (challenge 섹션 전체)
+            document.querySelectorAll('#tab-challenge [data-ko][data-en]').forEach(el => {
+                const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                if(text) el.innerHTML = text;
+            });
+            
+            // 21일 훈련과 자가 진단 다시 렌더링 (언어 전환 시)
+            if(typeof renderTrainingDays === 'function') renderTrainingDays();
+            if(typeof renderAssessment === 'function') renderAssessment();
         }
 
         function updateInterpreterText() {
@@ -2986,9 +2995,10 @@ In Jesus Christ's name. Amen.`
 // 완료된 일수 저장
 let trainingCompleted = JSON.parse(localStorage.getItem('trainingCompleted') || '[]');
 
-// 현재 언어 가져오기 (기존 사이트에서)
+// 현재 언어 가져오기 (기존 사이트의 curLang 변수 사용)
 function getCurrentLang() {
-    return localStorage.getItem('lang') || 'ko';
+    // curLang은 전역 변수로 toggleLang()에서 관리됨
+    return typeof curLang !== 'undefined' ? curLang : (localStorage.getItem('lang') || 'ko');
 }
 
 // 챌린지 섹션 전환
