@@ -972,7 +972,8 @@
                 <div class="mokjang-setup">
                     <h3>👥 목장 설정이 필요합니다</h3>
                     <p>목장 식구들과 함께 21일을 완주하세요!</p>
-                    <button class="btn" onclick="openMokjangSetup()">목장 설정하기</button>
+                    <button class="btn" onclick="openMokjangSetup()" style="margin-bottom:10px;">기존 멤버 로그인</button>
+                    <button class="btn btn-secondary" onclick="openMemberRegister()">🙋 새로 등록하기</button>
                 </div>
                 
                 <div class="card">
@@ -1470,6 +1471,29 @@
                 * 목자님께 목장 코드를 문의하세요
             </p>
             <button class="btn" onclick="joinMokjang()" id="mokjang-join-btn">참여하기</button>
+        </div>
+    </div>
+
+    <!-- 새 멤버 등록 모달 -->
+    <div id="memberRegisterModal" class="modal-wrap">
+        <div class="modal-box">
+            <div class="close-btn" onclick="closeMemberRegister()">&times;</div>
+            <h3 style="color:var(--navy); margin-bottom:10px;">🙋 목장식구 등록</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;">
+                처음이시라면 등록해 주세요!<br>목장코드는 목자님께 문의하세요.
+            </p>
+            <input type="text" id="registerName" placeholder="이름" style="margin-bottom:10px;">
+            <input type="text" id="registerMokjangName" placeholder="목장 이름 (예: 이스라엘)" style="margin-bottom:10px;">
+            <input type="text" id="registerMokjangCode" placeholder="목장코드 (예: ISRAEL)" style="text-transform:uppercase; margin-bottom:10px;">
+            <select id="registerRole" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; font-size:1rem;">
+                <option value="목장식구">목장식구</option>
+                <option value="목자">목자</option>
+                <option value="목녀">목녀</option>
+            </select>
+            <button class="btn" onclick="registerMember()" style="width:100%;">등록하기</button>
+            <p style="font-size:0.75rem; color:#999; margin-top:10px; text-align:center;">
+                등록 후 바로 목장에 참여됩니다
+            </p>
         </div>
     </div>
 
@@ -2822,6 +2846,83 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
 
         function closeMokjangSetup() {
             document.getElementById('mokjangSetupModal').classList.remove('active');
+        }
+
+        // 새 멤버 등록 모달 열기
+        function openMemberRegister() {
+            document.getElementById('memberRegisterModal').classList.add('active');
+        }
+
+        // 새 멤버 등록 모달 닫기
+        function closeMemberRegister() {
+            document.getElementById('memberRegisterModal').classList.remove('active');
+        }
+
+        // 새 멤버 등록
+        async function registerMember() {
+            const name = document.getElementById('registerName').value.trim();
+            const mokjangName = document.getElementById('registerMokjangName').value.trim();
+            const code = document.getElementById('registerMokjangCode').value.trim().toUpperCase();
+            const role = document.getElementById('registerRole').value;
+
+            if (!name) {
+                showToast('이름을 입력해주세요');
+                return;
+            }
+            if (!mokjangName) {
+                showToast('목장 이름을 입력해주세요');
+                return;
+            }
+            if (!code) {
+                showToast('목장코드를 입력해주세요');
+                return;
+            }
+
+            // 등록 중 표시
+            const btn = document.querySelector('#memberRegisterModal .btn');
+            const originalText = btn.innerText;
+            btn.innerText = '등록 중...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(SHEETS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'addMember',
+                        name: name,
+                        mokjang: mokjangName,
+                        code: code,
+                        role: role
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // 로컬 저장
+                    localStorage.setItem('galtar_name', name);
+                    localStorage.setItem('galtar_mokjang', mokjangName);
+                    localStorage.setItem('galtar_mokjang_code', code);
+
+                    // 입력 필드 초기화
+                    document.getElementById('registerName').value = '';
+                    document.getElementById('registerMokjangName').value = '';
+                    document.getElementById('registerMokjangCode').value = '';
+
+                    closeMemberRegister();
+                    checkMokjangStatus();
+                    showToast('🎉 등록 완료! 환영합니다!');
+                } else {
+                    showToast('등록 실패. 다시 시도해주세요.');
+                }
+            } catch (error) {
+                console.error('등록 실패:', error);
+                showToast('네트워크 오류. 인터넷 연결을 확인하세요.');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
         }
 
         function joinMokjang() {
