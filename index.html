@@ -2876,6 +2876,324 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 toast.className = '';
             }, 3000);
         }
+
+        // =====================================================
+// 21일 챌린지 확장 기능 JavaScript
+// 이 코드를 index.html의 </body> 태그 바로 위, 기존 <script> 안에 추가하세요
+// =====================================================
+
+// 21일 훈련 데이터
+const trainingDaysData = {
+    ko: [
+        { day: 1, title: "시간 정복", mission: "토요일 밤 10시 이후 미디어 끄고 일찍 취침하기", tip: "주일 예배에 늦는 가장 큰 이유는 토요일 밤 늦게 자기 때문입니다." },
+        { day: 2, title: "공간 정복", mission: "집중 잘 되는 자리 미리 정해두기", tip: "강단이 잘 보이는 중앙 앞쪽이 가장 좋습니다." },
+        { day: 3, title: "마음 정복", mission: "예배 전 5분 '하나님, 말씀하옵소서' 10번 고백", tip: "한 번 한 번이 간절한 기도가 되게 하세요." },
+        { day: 4, title: "비판 금식", mission: "설교자의 말투, 외모 평가하지 않기", tip: "'메시지 본질에 집중하게 하소서' 기도하세요." },
+        { day: 5, title: "미디어 금식", mission: "예배 가는 길에 뉴스 대신 찬양 듣기", tip: "세상 염려 대신 찬양으로 마음을 채우세요." },
+        { day: 6, title: "기도 심기", mission: "목사님 입술 위해 3분간 중보기도", tip: "당신의 중보기도가 설교자를 돕습니다." },
+        { day: 7, title: "참회하기", mission: "지난주 불순종 회개하기", tip: "회개하지 않은 죄는 마음을 단단하게 만듭니다." },
+        { day: 8, title: "아이컨택", mission: "설교자와 눈 맞추며 고개 끄덕이기", tip: "'아멘' 마음으로 반응하세요." },
+        { day: 9, title: "레마 기록", mission: "핵심 문장 하나만 굵게 적기", tip: "'이 문장이다!' 순간을 놓치지 마세요." },
+        { day: 10, title: "아멘 훈련", mission: "작은 소리로라도 '아멘' 화답하기", tip: "입술을 움직이며 속삭이세요." },
+        { day: 11, title: "영적 중보", mission: "설교자가 힘들어할 때 속으로 기도", tip: "'성령님, 붙들어 주소서' 기도하세요." },
+        { day: 12, title: "3분 묵상", mission: "축도 후 3분간 말씀 되새기기", tip: "'이 말씀 잊지 않게 하소서' 기도하세요." },
+        { day: 13, title: "성경 확인", mission: "주일 본문 집에서 소리 내어 읽기", tip: "천천히, 한 구절씩 읽으세요." },
+        { day: 14, title: "감사 표현", mission: "말씀에 대해 감사기도 드리기", tip: "감사는 은혜를 붙잡는 가장 강력한 방법입니다." },
+        { day: 15, title: "한 줄 요약", mission: "말씀을 한 문장으로 요약, 배경화면 설정", tip: "내 언어로 풀어 쓰세요." },
+        { day: 16, title: "입술 전파", mission: "가족이나 목장에 받은 은혜 설명하기", tip: "가르치는 자가 가장 많이 배웁니다." },
+        { day: 17, title: "손해 감수", mission: "순종 위해 구체적 손해 감수하기", tip: "순종에는 대가가 따릅니다." },
+        { day: 18, title: "순종 점검", mission: "결단 내용 지켰는지 체크하기", tip: "실패했다면 다시 시도하세요." },
+        { day: 19, title: "격려하기", mission: "목사님께 순종 간증 문자 보내기", tip: "구체적인 간증을 쓰세요." },
+        { day: 20, title: "나눔의 밤", mission: "훈련 중 느낀 변화 나누기", tip: "함께 나누면 더 멀리 갑니다." },
+        { day: 21, title: "서약식", mission: "평생 경청하는 예배자 되기 서약", tip: "21일이 끝이 아니라 시작입니다.", isPrayer: true }
+    ],
+    en: [
+        { day: 1, title: "Conquer Time", mission: "Turn off media after 10 PM Saturday, sleep early", tip: "The main reason for lateness is staying up late Saturday." },
+        { day: 2, title: "Conquer Space", mission: "Decide your best seat in advance", tip: "Center front with clear view is best." },
+        { day: 3, title: "Conquer Heart", mission: "Confess 'God, speak to me' 10 times before worship", tip: "Make each confession heartfelt." },
+        { day: 4, title: "Fast from Criticism", mission: "Don't evaluate preacher's style or appearance", tip: "Pray to focus on the message's essence." },
+        { day: 5, title: "Media Fast", mission: "Listen to worship music on the way to church", tip: "Fill your heart with praise." },
+        { day: 6, title: "Plant Prayer", mission: "Intercede for pastor's lips for 3 minutes", tip: "Your intercession helps the preacher." },
+        { day: 7, title: "Repentance", mission: "Repent of last week's disobedience", tip: "Unrepented sin hardens the heart." },
+        { day: 8, title: "Eye Contact", mission: "Make eye contact and nod with preacher", tip: "Respond with an 'Amen' heart." },
+        { day: 9, title: "Record Rhema", mission: "Write only one core sentence in bold", tip: "Don't miss the 'This is it!' moment." },
+        { day: 10, title: "Amen Training", mission: "Respond with 'Amen' even quietly", tip: "Whisper softly." },
+        { day: 11, title: "Intercession", mission: "Pray silently when preacher struggles", tip: "Pray 'Holy Spirit, hold them now.'" },
+        { day: 12, title: "3-Min Meditation", mission: "Sit 3 minutes after benediction", tip: "Pray 'Help me not forget this Word.'" },
+        { day: 13, title: "Scripture Check", mission: "Read sermon passage aloud at home", tip: "Read slowly, verse by verse." },
+        { day: 14, title: "Gratitude", mission: "Pray thanksgiving for the Word", tip: "Gratitude holds onto grace." },
+        { day: 15, title: "One-Line Summary", mission: "Summarize and set as phone wallpaper", tip: "Write in your own words." },
+        { day: 16, title: "Verbal Sharing", mission: "Explain grace to family or group", tip: "Those who teach learn most." },
+        { day: 17, title: "Accept Loss", mission: "Accept a cost for obedience", tip: "Obedience has a price." },
+        { day: 18, title: "Obedience Check", mission: "Check if you kept commitment", tip: "If failed, try again." },
+        { day: 19, title: "Encouragement", mission: "Send pastor a testimony message", tip: "Write specific testimony." },
+        { day: 20, title: "Sharing Night", mission: "Share changes from training", tip: "Sharing takes us further." },
+        { day: 21, title: "Covenant", mission: "Covenant to be lifelong listening worshiper", tip: "Day 21 is the beginning.", isPrayer: true }
+    ]
+};
+
+const assessmentQData = {
+    ko: [
+        "예배 10분 전에 도착하여 마음을 준비했습니까?",
+        "설교 내내 휴대폰을 보지 않고 집중했습니까?",
+        "설교 전후로 '하나님, 말씀하소서' 기도했습니까?",
+        "딴생각을 의지적으로 끊어내고 다시 집중했습니까?",
+        "책망의 말씀도 '아멘'으로 받아들였습니까?",
+        "메시지 본질에 집중했습니까? (스타일 아닌)",
+        "실천할 한 가지를 정했습니까?",
+        "주중에 실제로 적용하려 노력했습니까?"
+    ],
+    en: [
+        "Did you arrive 10 min early to prepare?",
+        "Did you stay focused without checking phone?",
+        "Did you pray 'God, speak to me'?",
+        "Did you consciously refocus when distracted?",
+        "Did you receive rebuke with 'Amen'?",
+        "Did you focus on message essence?",
+        "Did you decide one thing to practice?",
+        "Did you try to apply it during week?"
+    ]
+};
+
+const prayerTextData = {
+    ko: `사랑하는 하나님 아버지,
+지난 21일 동안 제 귀를 열어 주시고,
+말씀을 듣고 순종하는 훈련을 시켜 주셔서 감사합니다.
+
+이제 저는 고백합니다.
+저는 더 이상 설교를 소비하는 청중이 아니라,
+말씀을 사모하고, 듣고, 순종하는 예배자입니다.
+
+주님, 앞으로도 제 귀를 열어 주시고,
+마음을 부드럽게 하시며,
+발을 순종의 길로 인도하여 주옵소서.
+
+예수 그리스도의 이름으로 기도합니다. 아멘.`,
+    en: `Dear Heavenly Father,
+Thank You for opening my ears over 21 days
+and training me to hear and obey Your Word.
+
+Now I confess:
+I am no longer a consumer of sermons,
+but a worshiper who longs for, hears, and obeys.
+
+Lord, continue to open my ears,
+soften my heart, and guide my feet on obedience.
+
+In Jesus Christ's name. Amen.`
+};
+
+// 완료된 일수 저장
+let trainingCompleted = JSON.parse(localStorage.getItem('trainingCompleted') || '[]');
+
+// 현재 언어 가져오기 (기존 사이트에서)
+function getCurrentLang() {
+    return localStorage.getItem('lang') || 'ko';
+}
+
+// 챌린지 섹션 전환
+function showChallengeSection(sectionId) {
+    // 모든 섹션 숨기기
+    document.querySelectorAll('.challenge-section').forEach(s => s.style.display = 'none');
+    // 선택된 섹션 보이기
+    document.getElementById('section-' + sectionId).style.display = 'block';
+    
+    // 탭 버튼 스타일 변경
+    document.querySelectorAll('.challenge-tab-btn').forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = '#666';
+    });
+    event.target.style.background = 'var(--navy)';
+    event.target.style.color = 'white';
+    
+    // 섹션별 초기화
+    if (sectionId === 'assessment') renderAssessment();
+    if (sectionId === 'training') renderTrainingDays();
+}
+
+// 자가 진단 렌더링
+function renderAssessment() {
+    const lang = getCurrentLang();
+    const questions = assessmentQData[lang];
+    const container = document.getElementById('assessmentContainer');
+    if (!container) return;
+    
+    let html = '';
+    questions.forEach((q, i) => {
+        html += `
+            <div class="card" style="margin-bottom:10px;">
+                <p style="font-size:14px; margin-bottom:10px;"><strong>${i+1}.</strong> ${q}</p>
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    ${[1,2,3,4,5].map(n => `
+                        <label style="display:flex; flex-direction:column; align-items:center; cursor:pointer;">
+                            <input type="radio" name="assess${i}" value="${n}" onchange="calcAssessmentScore()" style="margin-bottom:3px;">
+                            <span style="font-size:12px;">${n}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// 자가 진단 점수 계산
+function calcAssessmentScore() {
+    const lang = getCurrentLang();
+    let total = 0;
+    for (let i = 0; i < 8; i++) {
+        const sel = document.querySelector(`input[name="assess${i}"]:checked`);
+        if (sel) total += parseInt(sel.value);
+    }
+    document.getElementById('assessmentTotal').textContent = total;
+    
+    const resultDiv = document.getElementById('assessmentResult');
+    const titleEl = document.getElementById('assessmentResultTitle');
+    const textEl = document.getElementById('assessmentResultText');
+    
+    if (total > 0) {
+        resultDiv.style.display = 'block';
+        if (lang === 'ko') {
+            if (total >= 35) {
+                titleEl.textContent = '🌾 옥토 (Good Soil)';
+                textEl.textContent = '축하합니다! 건강한 청중입니다.';
+            } else if (total >= 25) {
+                titleEl.textContent = '🌱 성장 중';
+                textEl.textContent = '좋은 출발! 훈련으로 더 성장할 거예요.';
+            } else {
+                titleEl.textContent = '🔨 훈련 필요';
+                textEl.textContent = '21일 훈련이 큰 변화를 가져올 거예요!';
+            }
+        } else {
+            if (total >= 35) {
+                titleEl.textContent = '🌾 Good Soil';
+                textEl.textContent = 'Congratulations! You are a healthy listener.';
+            } else if (total >= 25) {
+                titleEl.textContent = '🌱 Growing';
+                textEl.textContent = 'Good start! Training will help you grow.';
+            } else {
+                titleEl.textContent = '🔨 Needs Training';
+                textEl.textContent = '21-day training will bring great change!';
+            }
+        }
+    }
+}
+
+// 21일 훈련 렌더링
+function renderTrainingDays() {
+    const lang = getCurrentLang();
+    const days = trainingDaysData[lang];
+    const missionLabel = lang === 'ko' ? '오늘의 미션' : "Today's Mission";
+    const tipLabel = lang === 'ko' ? '실천 팁' : 'Practice Tip';
+    const prayerTitle = lang === 'ko' ? '🙏 평생 경청 서약 기도문' : '🙏 Covenant Prayer';
+    
+    let week1 = '', week2 = '', week3 = '';
+    
+    days.forEach((d, i) => {
+        const isCompleted = trainingCompleted.includes(d.day);
+        const prayerHTML = d.isPrayer ? `
+            <div style="background:#E8F5E9; border-left:3px solid #4CAF50; padding:12px; margin-top:10px; border-radius:0 8px 8px 0;">
+                <p style="font-weight:700; color:var(--navy); margin-bottom:8px;">${prayerTitle}</p>
+                <p style="font-style:italic; font-size:13px; white-space:pre-line;">${prayerTextData[lang]}</p>
+            </div>
+        ` : '';
+        
+        const cardHTML = `
+            <div class="card training-day-card ${isCompleted ? 'completed' : ''}" id="trainDay${d.day}" style="margin-bottom:10px; ${isCompleted ? 'border-left:4px solid #4CAF50; background:#E8F5E9;' : ''}">
+                <div style="display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="toggleDayDetail(${d.day})">
+                    <input type="checkbox" ${isCompleted ? 'checked' : ''} onclick="event.stopPropagation(); toggleDayComplete(${d.day})" style="width:20px; height:20px; accent-color:#4CAF50;">
+                    <span style="background:${isCompleted ? '#4CAF50' : 'var(--navy)'}; color:white; padding:3px 10px; border-radius:12px; font-size:12px;">Day ${d.day}</span>
+                    <span style="flex:1; font-weight:600; font-size:14px;">${d.title}</span>
+                    <span class="day-toggle-icon" id="toggle${d.day}">▼</span>
+                </div>
+                <div class="day-detail" id="detail${d.day}" style="display:none; margin-top:12px; padding-top:12px; border-top:1px solid #eee;">
+                    <div style="background:#FFF9C4; border-left:3px solid #FFC107; padding:10px; margin-bottom:8px; border-radius:0 6px 6px 0;">
+                        <p style="font-weight:700; font-size:12px; color:var(--navy);">📌 ${missionLabel}</p>
+                        <p style="font-size:13px;">${d.mission}</p>
+                    </div>
+                    <div style="background:#E3F2FD; border-left:3px solid #2196F3; padding:10px; border-radius:0 6px 6px 0;">
+                        <p style="font-weight:700; font-size:12px; color:#1565C0;">💡 ${tipLabel}</p>
+                        <p style="font-size:13px;">${d.tip}</p>
+                    </div>
+                    ${prayerHTML}
+                </div>
+            </div>
+        `;
+        
+        if (i < 7) week1 += cardHTML;
+        else if (i < 14) week2 += cardHTML;
+        else week3 += cardHTML;
+    });
+    
+    const w1 = document.getElementById('week1Container');
+    const w2 = document.getElementById('week2Container');
+    const w3 = document.getElementById('week3Container');
+    if (w1) w1.innerHTML = week1;
+    if (w2) w2.innerHTML = week2;
+    if (w3) w3.innerHTML = week3;
+    
+    updateTrainingProgress();
+}
+
+// Day 상세 토글
+function toggleDayDetail(day) {
+    const detail = document.getElementById('detail' + day);
+    const icon = document.getElementById('toggle' + day);
+    if (detail.style.display === 'none') {
+        detail.style.display = 'block';
+        icon.textContent = '▲';
+    } else {
+        detail.style.display = 'none';
+        icon.textContent = '▼';
+    }
+}
+
+// Day 완료 토글
+function toggleDayComplete(day) {
+    if (trainingCompleted.includes(day)) {
+        trainingCompleted = trainingCompleted.filter(d => d !== day);
+    } else {
+        trainingCompleted.push(day);
+    }
+    localStorage.setItem('trainingCompleted', JSON.stringify(trainingCompleted));
+    renderTrainingDays();
+}
+
+// 진행률 업데이트
+function updateTrainingProgress() {
+    const count = trainingCompleted.length;
+    const pct = (count / 21) * 100;
+    
+    const daysEl = document.getElementById('trainingProgressDays');
+    const barEl = document.getElementById('trainingProgressBar');
+    
+    if (daysEl) daysEl.textContent = count;
+    if (barEl) barEl.style.width = pct + '%';
+}
+
+// 진행 초기화
+function resetTrainingProgress() {
+    const lang = getCurrentLang();
+    const msg = lang === 'ko' ? '정말로 초기화하시겠습니까?' : 'Reset all progress?';
+    if (confirm(msg)) {
+        trainingCompleted = [];
+        localStorage.setItem('trainingCompleted', JSON.stringify([]));
+        renderTrainingDays();
+    }
+}
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    // 자가 진단 렌더링
+    if (document.getElementById('assessmentContainer')) {
+        renderAssessment();
+    }
+    // 21일 훈련 렌더링
+    if (document.getElementById('week1Container')) {
+        renderTrainingDays();
+    }
+});
+
     </script>
 </body>
 </html>
