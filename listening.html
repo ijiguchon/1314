@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21일 경청 프로젝트 | 21-Day Listening Project</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap');
+        
+        :root {
+            --navy: #1F4788;
+            --navy-dark: #152E5A;
+            --gold: #C9A227;
+            --gold-light: #E8D49A;
+            --gray: #555;
+            --light-bg: #F8F6F0;
+            --green: #4CAF50;
+            --green-light: #E8F5E9;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans KR', 'Open Sans', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, #2F5597 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-family: 'Noto Serif KR', 'Merriweather', serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .lang-toggle {
+            display: inline-flex;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        
+        .lang-btn {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn.active {
+            background: white;
+            color: var(--navy);
+            font-weight: 600;
+        }
+        
+        /* Progress Bar */
+        .progress-section {
+            background: var(--light-bg);
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .progress-bar {
+            background: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--green), #66BB6A);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid var(--navy);
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-tab.active {
+            background: var(--navy);
+            color: white;
+        }
+        
+        .nav-tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 30px 20px;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif KR', 'Merriweather', serif;
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .section-subtitle {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        /* Week Sections */
+        .week-header {
+            background: linear-gradient(135deg, var(--navy) 0%, #2F5597 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0 20px;
+        }
+        
+        .week-title {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .week-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Day Cards */
+        .day-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .day-card.completed {
+            border-color: var(--green);
+            background: var(--green-light);
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+        
+        .day-card.completed .day-header {
+            background: #C8E6C9;
+        }
+        
+        .day-checkbox {
+            width: 28px;
+            height: 28px;
+            margin-right: 15px;
+            cursor: pointer;
+            accent-color: var(--green);
+        }
+        
+        .day-number {
+            background: var(--navy);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .day-card.completed .day-number {
+            background: var(--green);
+        }
+        
+        .day-title {
+            flex: 1;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .day-toggle {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .day-content {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .day-content.show {
+            display: block;
+        }
+        
+        .mission-box {
+            background: #FFF9C4;
+            border-left: 4px solid var(--gold);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .mission-label {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+        
+        .tip-box {
+            background: #E3F2FD;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-label {
+            font-weight: 700;
+            color: #1565C0;
+            margin-bottom: 5px;
+        }
+        
+        /* Routine Section */
+        .routine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .routine-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .routine-card:hover {
+            border-color: var(--navy);
+            transform: translateY(-3px);
+        }
+        
+        .routine-number {
+            width: 50px;
+            height: 50px;
+            background: var(--navy);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+        
+        .routine-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+        
+        .routine-time {
+            background: var(--gold);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .routine-desc {
+            font-size: 14px;
+            color: var(--gray);
+            text-align: left;
+        }
+        
+        /* Assessment Table */
+        .assessment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .assessment-table th,
+        .assessment-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .assessment-table th {
+            background: var(--navy);
+            color: white;
+        }
+        
+        .assessment-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .score-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .total-score {
+            background: var(--gold-light) !important;
+            font-weight: 700;
+        }
+        
+        /* Prayer Box */
+        .prayer-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 4px solid var(--green);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .prayer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+        
+        .prayer-text {
+            font-style: italic;
+            line-height: 2;
+        }
+        
+        /* Guide Steps */
+        .guide-step {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--navy);
+        }
+        
+        .step-badge {
+            background: var(--navy);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        /* Scripture */
+        .scripture {
+            background: #FFF8E1;
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .scripture-ref {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        
+        /* Reset Button */
+        .reset-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .reset-btn:hover {
+            background: #d32f2f;
+        }
+        
+        /* Column content */
+        .column-article {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .column-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 22px; }
+            .nav-tab { font-size: 12px; padding: 12px 8px; }
+            .day-title { font-size: 14px; }
+            .routine-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 id="main-title">🎧 하나님의 음성이 들리는 귀</h1>
+            <p id="main-subtitle">21일 경청 프로젝트</p>
+            <div class="lang-toggle">
+                <button class="lang-btn active" onclick="setLanguage('ko')">한국어</button>
+                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            </div>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text" id="progress-text">0 / 21 일 완료</div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('part1')" data-ko="Part 1. 신학적 기초" data-en="Part 1. Foundation">Part 1. 신학적 기초</button>
+            <button class="nav-tab" onclick="showSection('part2')" data-ko="Part 2. 자가 진단" data-en="Part 2. Self-Assessment">Part 2. 자가 진단</button>
+            <button class="nav-tab" onclick="showSection('part3')" data-ko="Part 3. 21일 훈련" data-en="Part 3. 21-Day Training">Part 3. 21일 훈련</button>
+            <button class="nav-tab" onclick="showSection('part4')" data-ko="Part 4. 목장 가이드" data-en="Part 4. Group Guide">Part 4. 목장 가이드</button>
+        </div>
+        
+        <!-- Part 1: 신학적 기초 -->
+        <div class="content-section active" id="part1">
+            <h2 class="section-title" data-ko="Part 1. 경청, 왜 중요한가?" data-en="Part 1. Why is Listening Important?">Part 1. 경청, 왜 중요한가?</h2>
+            <p class="section-subtitle" data-ko="설교 경청의 성경적 기초 5가지" data-en="Five Biblical Foundations for Sermon Listening">설교 경청의 성경적 기초 5가지</p>
+            
+            <!-- Column 1 -->
+            <div class="column-article">
+                <h3 class="column-title" data-ko="1. 네 종류의 땅 — 마가복음 4:1-20" data-en="1. Four Types of Soil — Mark 4:1-20">1. 네 종류의 땅 — 마가복음 4:1-20</h3>
+                <div class="scripture">
+                    <span data-ko="&quot;씨 뿌리는 사람이 씨를 뿌리러 나갔다. 그가 씨를 뿌리는데, 더러는 길에 떨어지매 새들이 와서 그것을 먹어버렸다...&quot;" data-en="&quot;A farmer went out to sow his seed. As he was scattering the seed, some fell along the path, and the birds came and ate it up...&quot;">"씨 뿌리는 사람이 씨를 뿌리러 나갔다. 그가 씨를 뿌리는데, 더러는 길에 떨어지매 새들이 와서 그것을 먹어버렸다..."</span>
+                    <span class="scripture-ref" data-ko="— 마가복음 4:3-4, 새번역" data-en="— Mark 4:3-4, NIV">— 마가복음 4:3-4, 새번역</span>
+                </div>
+                <p data-ko="예수님의 씨 뿌리는 자의 비유에서, 씨는 같았습니다. 그러나 결과는 전혀 달랐습니다. 그 차이는 씨가 아니라 땅에 있었습니다. 설교자가 선포하는 말씀은 같아도, 듣는 자의 마음 상태에 따라 그 열매는 천차만별입니다." data-en="In Jesus' parable of the sower, the seed was the same. But the results were completely different. The difference was not in the seed, but in the soil. Even though the preacher proclaims the same Word, the fruit varies greatly depending on the hearer's heart condition.">예수님의 씨 뿌리는 자의 비유에서, 씨는 같았습니다. 그러나 결과는 전혀 달랐습니다. 그 차이는 씨가 아니라 땅에 있었습니다. 설교자가 선포하는 말씀은 같아도, 듣는 자의 마음 상태에 따라 그 열매는 천차만별입니다.</p>
+                <div class="highlight-box">
+                    <p class="highlight-title" data-ko="💡 핵심 질문" data-en="💡 Key Question">💡 핵심 질문</p>
+                    <p data-ko="&quot;나는 어떤 땅인가?&quot; 매주 설교를 들을 때, 나의 마음은 길가인가, 돌밭인가, 가시밭인가, 아니면 옥토인가?" data-en="&quot;What kind of soil am I?&quot; When listening to sermons each week, is my heart the path, rocky ground, thorny ground, or good soil?">"나는 어떤 땅인가?" 매주 설교를 들을 때, 나의 마음은 길가인가, 돌밭인가, 가시밭인가, 아니면 옥토인가?</p>
+                </div>
+            </div>
+            
+            <!-- Column 2 -->
+            <div class="column-article">
+                <h3 class="column-title" data-ko="2. 들을 귀 있는 자는 들으라 — 마가복음 4:9, 23" data-en="2. Whoever Has Ears to Hear — Mark 4:9, 23">2. 들을 귀 있는 자는 들으라 — 마가복음 4:9, 23</h3>
+                <div class="scripture">
+                    <span data-ko="&quot;들을 귀 있는 사람은 들으라!&quot;" data-en="&quot;Whoever has ears to hear, let them hear!&quot;">"들을 귀 있는 사람은 들으라!"</span>
+                    <span class="scripture-ref" data-ko="— 마가복음 4:9, 새번역" data-en="— Mark 4:9, NIV">— 마가복음 4:9, 새번역</span>
+                </div>
+                <p data-ko="예수님은 비유를 말씀하실 때마다 이 말씀을 반복하셨습니다. 모든 사람이 들었지만, 모든 사람이 들은 것은 아닙니다. 듣는다는 것은 단순히 소리를 인식하는 것이 아니라, 영적으로 분별하고 받아들이는 것입니다." data-en="Jesus repeated this phrase whenever He spoke in parables. Everyone heard, but not everyone truly heard. Hearing is not simply perceiving sound, but spiritually discerning and receiving.">예수님은 비유를 말씀하실 때마다 이 말씀을 반복하셨습니다. 모든 사람이 들었지만, 모든 사람이 들은 것은 아닙니다. 듣는다는 것은 단순히 소리를 인식하는 것이 아니라, 영적으로 분별하고 받아들이는 것입니다.</p>
+            </div>
+            
+            <!-- Column 3 -->
+            <div class="column-article">
+                <h3 class="column-title" data-ko="3. 성령의 조명 — 고린도전서 2:14" data-en="3. Illumination of the Spirit — 1 Corinthians 2:14">3. 성령의 조명 — 고린도전서 2:14</h3>
+                <div class="scripture">
+                    <span data-ko="&quot;육에 속한 사람은 하나님의 영의 일들을 받아들이지 않습니다. 그것들은 그에게 어리석게 보이기 때문입니다.&quot;" data-en="&quot;The person without the Spirit does not accept the things that come from the Spirit of God but considers them foolishness.&quot;">"육에 속한 사람은 하나님의 영의 일들을 받아들이지 않습니다. 그것들은 그에게 어리석게 보이기 때문입니다."</span>
+                    <span class="scripture-ref" data-ko="— 고린도전서 2:14, 새번역" data-en="— 1 Corinthians 2:14, NIV">— 고린도전서 2:14, 새번역</span>
+                </div>
+                <p data-ko="하나님의 말씀을 듣고 깨닫는 것은 성령의 조명 없이는 불가능합니다. 경청은 단순한 집중력의 문제가 아니라, 성령께 열린 마음의 문제입니다." data-en="Understanding God's Word is impossible without the Holy Spirit's illumination. Listening is not just about concentration—it's about having a heart open to the Spirit.">하나님의 말씀을 듣고 깨닫는 것은 성령의 조명 없이는 불가능합니다. 경청은 단순한 집중력의 문제가 아니라, 성령께 열린 마음의 문제입니다.</p>
+            </div>
+            
+            <!-- Column 4 -->
+            <div class="column-article">
+                <h3 class="column-title" data-ko="4. 믿음은 들음에서 — 로마서 10:17" data-en="4. Faith Comes from Hearing — Romans 10:17">4. 믿음은 들음에서 — 로마서 10:17</h3>
+                <div class="scripture">
+                    <span data-ko="&quot;그러므로 믿음은 들음에서 나오고, 들음은 그리스도의 말씀에서 옵니다.&quot;" data-en="&quot;Consequently, faith comes from hearing the message, and the message is heard through the word about Christ.&quot;">"그러므로 믿음은 들음에서 나오고, 들음은 그리스도의 말씀에서 옵니다."</span>
+                    <span class="scripture-ref" data-ko="— 로마서 10:17, 새번역" data-en="— Romans 10:17, NIV">— 로마서 10:17, 새번역</span>
+                </div>
+                <p data-ko="사도 바울은 믿음의 근원이 '들음'이라고 선언합니다. 설교는 단순한 지식 전달이 아니라, 믿음을 일으키는 하나님의 도구입니다. 우리가 경청할 때, 믿음이 자라납니다." data-en="The Apostle Paul declares that the source of faith is 'hearing.' Preaching is not merely knowledge transfer—it's God's instrument for producing faith. When we listen, faith grows.">사도 바울은 믿음의 근원이 '들음'이라고 선언합니다. 설교는 단순한 지식 전달이 아니라, 믿음을 일으키는 하나님의 도구입니다. 우리가 경청할 때, 믿음이 자라납니다.</p>
+            </div>
+            
+            <!-- Column 5 -->
+            <div class="column-article">
+                <h3 class="column-title" data-ko="5. 말씀을 행하는 자 — 야고보서 1:22-25" data-en="5. Doers of the Word — James 1:22-25">5. 말씀을 행하는 자 — 야고보서 1:22-25</h3>
+                <div class="scripture">
+                    <span data-ko="&quot;말씀을 행하는 사람이 되십시오. 그저 듣기만 하여 자신을 속이는 사람이 되지 마십시오.&quot;" data-en="&quot;Do not merely listen to the word, and so deceive yourselves. Do what it says.&quot;">"말씀을 행하는 사람이 되십시오. 그저 듣기만 하여 자신을 속이는 사람이 되지 마십시오."</span>
+                    <span class="scripture-ref" data-ko="— 야고보서 1:22, 새번역" data-en="— James 1:22, NIV">— 야고보서 1:22, 새번역</span>
+                </div>
+                <p data-ko="야고보서는 경청의 궁극적 목표를 제시합니다. 설교를 듣고 은혜받았다고 고백하면서 아무것도 바꾸지 않는다면 그것은 자기기만입니다. 진정한 경청은 삶의 변화로 증명됩니다." data-en="James presents the ultimate goal of listening. If we confess we were blessed by a sermon but change nothing, that's self-deception. True listening is proven by life transformation.">야고보서는 경청의 궁극적 목표를 제시합니다. 설교를 듣고 은혜받았다고 고백하면서 아무것도 바꾸지 않는다면 그것은 자기기만입니다. 진정한 경청은 삶의 변화로 증명됩니다.</p>
+            </div>
+        </div>
+        
+        <!-- Part 2: 자가 진단 -->
+        <div class="content-section" id="part2">
+            <h2 class="section-title" data-ko="Part 2. 자가 진단 테스트" data-en="Part 2. Self-Assessment Test">Part 2. 자가 진단 테스트</h2>
+            <p class="section-subtitle" data-ko="나는 과연 얼마나 잘 듣고 있을까?" data-en="How well am I really listening?">나는 과연 얼마나 잘 듣고 있을까?</p>
+            
+            <p data-ko="지난 주일 예배를 떠올리며 솔직하게 답해보십시오. 각 항목당 5점 만점입니다." data-en="Think back to last Sunday's service and answer honestly. Each item is worth up to 5 points.">지난 주일 예배를 떠올리며 솔직하게 답해보십시오. 각 항목당 5점 만점입니다.</p>
+            
+            <table class="assessment-table">
+                <thead>
+                    <tr>
+                        <th data-ko="영역" data-en="Area">영역</th>
+                        <th data-ko="질문" data-en="Question">질문</th>
+                        <th data-ko="점수" data-en="Score">점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-ko="1. 준비성" data-en="1. Preparation">1. 준비성</td>
+                        <td data-ko="예배 시작 전 10분 이상 여유 있게 도착하여 마음을 준비했습니까?" data-en="Did you arrive at least 10 minutes early to prepare your heart?">예배 시작 전 10분 이상 여유 있게 도착하여 마음을 준비했습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="2. 자세" data-en="2. Posture">2. 자세</td>
+                        <td data-ko="설교 내내 휴대폰을 보지 않고, 설교자에게 시선을 집중했습니까?" data-en="Did you keep your eyes on the preacher without checking your phone?">설교 내내 휴대폰을 보지 않고, 설교자에게 시선을 집중했습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="3. 기도" data-en="3. Prayer">3. 기도</td>
+                        <td data-ko="설교 전후로 '하나님, 말씀하소서'라고 기도했습니까?" data-en="Did you pray 'God, speak to me' before and after the sermon?">설교 전후로 '하나님, 말씀하소서'라고 기도했습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="4. 의지력" data-en="4. Focus">4. 의지력</td>
+                        <td data-ko="딴생각이 들 때 의식적으로 끊어내고 다시 말씀으로 돌아왔습니까?" data-en="When distracted, did you consciously refocus on the Word?">딴생각이 들 때 의식적으로 끊어내고 다시 말씀으로 돌아왔습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="5. 수용성" data-en="5. Receptivity">5. 수용성</td>
+                        <td data-ko="듣기 싫은 책망의 말씀도 '아멘'으로 받아들였습니까?" data-en="Did you receive even uncomfortable words of rebuke with 'Amen'?">듣기 싫은 책망의 말씀도 '아멘'으로 받아들였습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="6. 본질 추구" data-en="6. Essence">6. 본질 추구</td>
+                        <td data-ko="설교자의 외모나 말투가 아닌, 메시지의 본질에 귀 기울였습니까?" data-en="Did you focus on the message's essence rather than the preacher's style?">설교자의 외모나 말투가 아닌, 메시지의 본질에 귀 기울였습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="7. 구체성" data-en="7. Application">7. 구체성</td>
+                        <td data-ko="예배당 문을 나설 때, 이번 주에 실천할 한 가지를 정했습니까?" data-en="Did you decide on one thing to practice this week before leaving?">예배당 문을 나설 때, 이번 주에 실천할 한 가지를 정했습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr>
+                        <td data-ko="8. 실천력" data-en="8. Practice">8. 실천력</td>
+                        <td data-ko="주중에 그 말씀을 기억하고 실제 삶에서 적용하려 노력했습니까?" data-en="Did you try to remember and apply the Word during the week?">주중에 그 말씀을 기억하고 실제 삶에서 적용하려 노력했습니까?</td>
+                        <td><input type="number" class="score-input" min="0" max="5" value="0" onchange="calculateTotal()"> /5</td>
+                    </tr>
+                    <tr class="total-score">
+                        <td data-ko="총점" data-en="Total">총점</td>
+                        <td data-ko="35-40점: 옥토 | 25-34점: 성장 중 | 15-24점: 훈련 필요 | 14점 이하: 긴급" data-en="35-40: Good Soil | 25-34: Growing | 15-24: Needs Training | Below 14: Urgent">35-40점: 옥토 | 25-34점: 성장 중 | 15-24점: 훈련 필요 | 14점 이하: 긴급</td>
+                        <td><strong id="total-score">0</strong> /40</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div id="score-result" class="highlight-box" style="display:none;">
+                <p class="highlight-title" id="score-result-title"></p>
+                <p id="score-result-text"></p>
+            </div>
+        </div>
+        
+        <!-- Part 3: 21일 훈련 -->
+        <div class="content-section" id="part3">
+            <h2 class="section-title" data-ko="Part 3. 21일 경청 프로젝트" data-en="Part 3. 21-Day Listening Project">Part 3. 21일 경청 프로젝트</h2>
+            <p class="section-subtitle" data-ko="죽은 청각을 깨우는 3주 프로젝트" data-en="A 3-week project to awaken dead hearing">죽은 청각을 깨우는 3주 프로젝트</p>
+            
+            <!-- Daily Routine -->
+            <div class="highlight-box">
+                <p class="highlight-title" data-ko="✦ 매일의 기본 루틴 (21일 내내 반복)" data-en="✦ Daily Basic Routine (Repeat for all 21 days)">✦ 매일의 기본 루틴 (21일 내내 반복)</p>
+            </div>
+            
+            <div class="routine-grid">
+                <div class="routine-card">
+                    <div class="routine-number">1</div>
+                    <div class="routine-title" data-ko="매일 말씀 묵상" data-en="Daily Scripture Meditation">매일 말씀 묵상</div>
+                    <div class="routine-time" data-ko="10분" data-en="10 min">10분</div>
+                    <div class="routine-desc" data-ko="주일 설교 본문을 하루 10분씩 반복해서 묵상합니다." data-en="Meditate on the Sunday sermon text for 10 minutes daily.">주일 설교 본문을 하루 10분씩 반복해서 묵상합니다.</div>
+                </div>
+                <div class="routine-card">
+                    <div class="routine-number">2</div>
+                    <div class="routine-title" data-ko="침묵 기도" data-en="Silent Prayer">침묵 기도</div>
+                    <div class="routine-time" data-ko="15분" data-en="15 min">15분</div>
+                    <div class="routine-desc" data-ko="하나님의 음성을 듣기 위한 침묵의 시간입니다." data-en="A time of silence to hear God's voice.">하나님의 음성을 듣기 위한 침묵의 시간입니다.</div>
+                </div>
+                <div class="routine-card">
+                    <div class="routine-number">3</div>
+                    <div class="routine-title" data-ko="경청 노트" data-en="Listening Note">경청 노트</div>
+                    <div class="routine-time" data-ko="5분" data-en="5 min">5분</div>
+                    <div class="routine-desc" data-ko="오늘 하나님께 들은 것을 간단히 기록합니다." data-en="Briefly record what you heard from God today.">오늘 하나님께 들은 것을 간단히 기록합니다.</div>
+                </div>
+            </div>
+            
+            <!-- Week 1 -->
+            <div class="week-header">
+                <div class="week-title" data-ko="📅 1주차: 귀의 할례" data-en="📅 Week 1: Circumcision of Ears">📅 1주차: 귀의 할례</div>
+                <div class="week-subtitle" data-ko="세상의 소음을 줄이고 하나님께 주파수를 맞추는 훈련" data-en="Training to reduce worldly noise and tune your frequency to God">세상의 소음을 줄이고 하나님께 주파수를 맞추는 훈련</div>
+            </div>
+            
+            <div id="week1-days"></div>
+            
+            <!-- Week 2 -->
+            <div class="week-header">
+                <div class="week-title" data-ko="📅 2주차: 거룩한 공명" data-en="📅 Week 2: Holy Resonance">📅 2주차: 거룩한 공명</div>
+                <div class="week-subtitle" data-ko="설교자와 상호작용하며 말씀을 내 것으로 만드는 훈련" data-en="Training to interact with the preacher and make the Word your own">설교자와 상호작용하며 말씀을 내 것으로 만드는 훈련</div>
+            </div>
+            
+            <div id="week2-days"></div>
+            
+            <!-- Week 3 -->
+            <div class="week-header">
+                <div class="week-title" data-ko="📅 3주차: 말씀의 성육신" data-en="📅 Week 3: Incarnation of the Word">📅 3주차: 말씀의 성육신</div>
+                <div class="week-subtitle" data-ko="들은 말씀을 삶의 구체적인 행동으로 번역하는 훈련" data-en="Training to translate the Word into concrete actions">들은 말씀을 삶의 구체적인 행동으로 번역하는 훈련</div>
+            </div>
+            
+            <div id="week3-days"></div>
+            
+            <button class="reset-btn" onclick="resetProgress()" data-ko="🔄 진행 상황 초기화" data-en="🔄 Reset Progress">🔄 진행 상황 초기화</button>
+        </div>
+        
+        <!-- Part 4: 목장 가이드 -->
+        <div class="content-section" id="part4">
+            <h2 class="section-title" data-ko="Part 4. 목장 나눔 가이드" data-en="Part 4. Small Group Discussion Guide">Part 4. 목장 나눔 가이드</h2>
+            <p class="section-subtitle" data-ko="설교는 나눔을 통해 근육이 됩니다" data-en="Sermons become muscle through sharing">설교는 나눔을 통해 근육이 됩니다</p>
+            
+            <p data-ko="이 21일 프로젝트는 혼자 하는 것보다 목장에서 함께 할 때 훨씬 더 강력합니다. 목장은 주일 설교와 개인 삶을 연결하는 다리입니다." data-en="This 21-day project is much more powerful when done together in a small group. The small group is a bridge connecting Sunday sermons to personal life.">이 21일 프로젝트는 혼자 하는 것보다 목장에서 함께 할 때 훨씬 더 강력합니다. 목장은 주일 설교와 개인 삶을 연결하는 다리입니다.</p>
+            
+            <h3 data-ko="목장 모임 진행 3단계" data-en="3 Steps for Small Group Meetings">목장 모임 진행 3단계</h3>
+            
+            <div class="guide-step">
+                <span class="step-badge">Step 1</span>
+                <h4 data-ko="태도 점검 (10분)" data-en="Attitude Check (10 min)">태도 점검 (10분)</h4>
+                <p data-ko="&quot;우리는 어떤 그릇이었습니까?&quot;" data-en="&quot;What kind of vessel were we?&quot;">"우리는 어떤 그릇이었습니까?"</p>
+                <ul>
+                    <li data-ko="질문 1: 지난 주일 예배 때 집중을 방해했던 가장 큰 요인은 무엇입니까?" data-en="Question 1: What was the biggest factor that distracted you during last Sunday's worship?">질문 1: 지난 주일 예배 때 집중을 방해했던 가장 큰 요인은 무엇입니까?</li>
+                    <li data-ko="질문 2: 다음 주일 온전한 예배를 위해 목장 식구들이 서로 어떻게 도와주면 좋겠습니까?" data-en="Question 2: How can group members help each other for wholehearted worship next Sunday?">질문 2: 다음 주일 온전한 예배를 위해 목장 식구들이 서로 어떻게 도와주면 좋겠습니까?</li>
+                </ul>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-badge">Step 2</span>
+                <h4 data-ko="말씀 소화 (15분)" data-en="Digesting the Word (15 min)">말씀 소화 (15분)</h4>
+                <p data-ko="&quot;내게 꽂힌 한 문장은 무엇입니까?&quot;" data-en="&quot;What one sentence pierced your heart?&quot;">"내게 꽂힌 한 문장은 무엇입니까?"</p>
+                <ul>
+                    <li data-ko="질문 3: 설교 전체 내용보다, 나를 '아프게' 했거나 '위로' 했던 딱 한 문장은 무엇입니까?" data-en="Question 3: Rather than the whole sermon, what one sentence 'hurt' or 'comforted' you?">질문 3: 설교 전체 내용보다, 나를 '아프게' 했거나 '위로' 했던 딱 한 문장은 무엇입니까?</li>
+                    <li data-ko="질문 4: 왜 그 말씀이 내게 들려왔을까요? 현재 나의 상황과 어떤 관련이 있습니까?" data-en="Question 4: Why did that Word come to you? How does it relate to your current situation?">질문 4: 왜 그 말씀이 내게 들려왔을까요? 현재 나의 상황과 어떤 관련이 있습니까?</li>
+                </ul>
+            </div>
+            
+            <div class="guide-step">
+                <span class="step-badge">Step 3</span>
+                <h4 data-ko="순종 계약 (15분)" data-en="Obedience Covenant (15 min)">순종 계약 (15분)</h4>
+                <p data-ko="&quot;그래서 이번 주에 무엇을 하시겠습니까?&quot;" data-en="&quot;So what will you do this week?&quot;">"그래서 이번 주에 무엇을 하시겠습니까?"</p>
+                <ul>
+                    <li data-ko="질문 5: 들은 말씀을 삶으로 살아내기 위해, 이번 주에 실천할 구체적인 행동 하나는 무엇입니까?" data-en="Question 5: What is one specific action you will take this week to live out the Word?">질문 5: 들은 말씀을 삶으로 살아내기 위해, 이번 주에 실천할 구체적인 행동 하나는 무엇입니까?</li>
+                    <li data-ko="질문 6: 이 결단을 지키기 위해 목장 식구들에게 어떤 도움이 필요하십니까?" data-en="Question 6: What help do you need from group members to keep this commitment?">질문 6: 이 결단을 지키기 위해 목장 식구들에게 어떤 도움이 필요하십니까?</li>
+                </ul>
+            </div>
+            
+            <h3 data-ko="목자를 위한 팁" data-en="Tips for Group Leaders">목자를 위한 팁</h3>
+            
+            <div class="highlight-box">
+                <p class="highlight-title" data-ko="1. &quot;나도 그랬어&quot; 원칙" data-en="1. The 'Me Too' Principle">1. "나도 그랬어" 원칙</p>
+                <p data-ko="목자부터 먼저 솔직하게 실패를 나누십시오. '저도 이번 주 설교 중에 딴생각 엄청 했어요.' 이렇게 하면 목원들이 마음을 열고 솔직하게 나눕니다." data-en="Leaders should share their failures first. 'I also got distracted during this week's sermon.' This opens members' hearts for honest sharing.">목자부터 먼저 솔직하게 실패를 나누십시오. "저도 이번 주 설교 중에 딴생각 엄청 했어요." 이렇게 하면 목원들이 마음을 열고 솔직하게 나눕니다.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <p class="highlight-title" data-ko="2. &quot;거룩한 짝꿍&quot; 시스템" data-en="2. 'Holy Partner' System">2. "거룩한 짝꿍" 시스템</p>
+                <p data-ko="목장 식구들을 둘씩 짝지어 줍니다. 토요일 밤: '내일 예배 준비하세요!' 문자 / 주일 아침: '같이 가요!' 문자 / 주일 오후: '어떤 레마 받으셨어요?' 나눔" data-en="Pair up group members. Saturday night: 'Prepare for worship tomorrow!' text / Sunday morning: 'Let's go together!' / Sunday afternoon: 'What rhema did you receive?' sharing">목장 식구들을 둘씩 짝지어 줍니다. 토요일 밤: "내일 예배 준비하세요!" 문자 / 주일 아침: "같이 가요!" 문자 / 주일 오후: "어떤 레마 받으셨어요?" 나눔</p>
+            </div>
+            
+            <div class="highlight-box">
+                <p class="highlight-title" data-ko="3. 체크인 (Check-in)" data-en="3. Check-in">3. 체크인 (Check-in)</p>
+                <p data-ko="다음 주 목장 모임 시작할 때, 지난주 결단을 꼭 확인하십시오. 지켰으면: '와! 박수!' / 못 지켰으면: '괜찮아요, 이번 주 다시 도전합시다!'" data-en="At the start of next week's meeting, always check last week's commitment. If kept: 'Wow! Applause!' / If not: 'It's okay, let's try again this week!'">다음 주 목장 모임 시작할 때, 지난주 결단을 꼭 확인하십시오. 지켰으면: "와! 박수!" / 못 지켰으면: "괜찮아요, 이번 주 다시 도전합시다!"</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 21 Days Data
+        const daysData = {
+            ko: [
+                // Week 1
+                { day: 1, title: "시간 정복", mission: "주일 예배 지각을 막기 위해 토요일 밤 10시 이후 미디어 끄고 일찍 취침하기", tip: "주일 예배에 늦는 가장 큰 이유는 토요일 밤 늦게 자기 때문입니다. 육신이 피곤하면 영혼도 피곤합니다. 토요일 저녁 9시에 알람을 맞춰 두고, '1시간 후 미디어를 끕니다'라고 스스로에게 알립니다." },
+                { day: 2, title: "공간 정복", mission: "다음 주일 예배 때 앉을 '가장 집중 잘 되는 자리' 미리 정해두기", tip: "당신이 앉는 자리가 당신의 집중력을 결정합니다. 강단이 잘 보이는 중앙 앞쪽이 가장 좋습니다. 핸드폰을 자주 보는 분들 옆은 피합니다." },
+                { day: 3, title: "마음 정복", mission: "예배 전 5분 동안 '하나님, 오늘 제게 말씀하옵소서'라고 10번 고백하기", tip: "눈을 감고, 천천히, 진심을 담아 고백합니다. 기계적으로 10번 반복하지 마십시오. 한 번 한 번이 간절한 기도가 되게 하십시오." },
+                { day: 4, title: "비판 금식", mission: "설교자의 말투, 외모, 예화에 대해 일절 평가하거나 비판하지 않기", tip: "비판적인 생각이 들 때마다, 즉시 이렇게 기도하십시오. '주님, 이 생각을 끊어 주시고, 메시지의 본질에 집중하게 하소서.'" },
+                { day: 5, title: "미디어 금식", mission: "예배드리러 가는 길에 뉴스나 세상 음악 듣지 않고 찬양 듣기", tip: "아침 뉴스는 우리 마음을 세상 염려로 가득 채웁니다. 차를 타자마자 찬양 리스트를 틀거나, 완전한 침묵 속에서 기도하며 운전합니다." },
+                { day: 6, title: "기도 심기", mission: "'이번 주 강단에 서실 목사님의 입술을 성령께서 주관해 주소서' 3분간 중보하기", tip: "토요일 밤이나 주일 아침에 구체적으로 기도하십시오. 설교자도 연약한 사람입니다. 당신의 중보기도가 그를 돕습니다." },
+                { day: 7, title: "참회하기", mission: "지난주에 말씀대로 살지 못한 죄를 하나하나 적어보고 회개 기도로 씻어내기", tip: "회개하지 않은 죄는 마음을 단단하게 만듭니다. 노트에 지난주 설교 제목, 내가 결단했던 것, 지키지 못한 이유를 적어보고 회개 기도를 드립니다." },
+                // Week 2
+                { day: 8, title: "아이컨택", mission: "설교자와 눈을 맞추며, 말씀에 동의할 때 고개를 끄덕여 반응하기", tip: "설교 노트를 너무 열심히 적느라 고개를 숙이지 마십시오. 설교자의 눈을 보며, '예, 맞습니다', '아멘'이라는 마음으로 고개를 끄덕이십시오." },
+                { day: 9, title: "레마 기록", mission: "설교 전체를 받아 적지 말고, 내 가슴을 찌른 핵심 문장 하나만 굵게 적기", tip: "설교 중에 '아, 이 문장이다!' 싶은 순간이 옵니다. 그 순간을 놓치지 말고, 노트에 크게 적고, 동그라미를 그으십시오." },
+                { day: 10, title: "아멘 훈련", mission: "마음속으로만 동의하지 말고, 작은 소리로라도 '아멘'이라고 화답하기", tip: "큰 소리로 외칠 필요는 없습니다. 옆 사람에게 방해되지 않을 정도로, 입술을 움직이며 '아멘'이라고 속삭이십시오." },
+                { day: 11, title: "영적 중보", mission: "설교자가 말이 막힐 때, 속으로 '주여 힘을 주소서'라고 짧게 기도하기", tip: "설교자가 잠시 멈추거나, 말을 더듬거나, 힘들어하는 순간, 즉시 마음속으로 기도하십시오. '성령님, 지금 붙들어 주소서.'" },
+                { day: 12, title: "3분 침묵 묵상", mission: "축도 후 바로 잡담하지 말고, 3분간 자리에 앉아 오늘 주신 말씀을 되새기기", tip: "눈을 감고, 오늘 적어둔 '레마' 한 문장을 다시 읽습니다. '주님, 이 말씀을 잊지 않게 하소서'라고 기도합니다." },
+                { day: 13, title: "성경 확인", mission: "주일에 들었던 본문 말씀을 집에서 다시 한번 천천히 소리 내어 읽어보기", tip: "주일 오후나 월요일 아침, 설교 본문을 펼칩니다. 천천히, 소리 내어, 한 구절 한 구절 읽습니다." },
+                { day: 14, title: "감사 표현", mission: "나에게 깨달음을 준 말씀에 대해 하나님께 감사기도를 드리거나 감사 노트 쓰기", tip: "감사는 은혜를 붙잡는 가장 강력한 방법입니다. 노트에 오늘 날짜, 설교 제목, 내게 준 레마, 그리고 감사 기도를 적어보십시오." },
+                // Week 3
+                { day: 15, title: "한 줄 요약", mission: "지난 주일 말씀을 나만의 언어로 한 문장 요약해서 스마트폰 배경화면에 붙이기", tip: "하루에 수십 번 보는 핸드폰 화면이 당신에게 말씀을 상기시킵니다. 설교 제목을 그대로 쓰지 말고, 내 언어로 풀어 쓰십시오." },
+                { day: 16, title: "입술 전파", mission: "가족이나 목장 식구에게 내가 받은 은혜를 설명하기", tip: "가르치는 자가 가장 많이 배웁니다. 목장 모임에서 '지난주 설교에서 제가 제일 은혜받은 부분은요...'라고 시작하십시오." },
+                { day: 17, title: "손해 감수", mission: "말씀에 순종하기 위해 구체적인 손해(시간, 물질, 자존심)를 하나 감수하고 실천하기", tip: "순종에는 대가가 따릅니다. '원수를 사랑하라'는 말씀을 들었다면 → 나를 힘들게 한 그 사람에게 먼저 연락합니다." },
+                { day: 18, title: "순종 점검", mission: "주중에 내가 결단한 내용을 지켰는지 스스로 체크하고, 실패했다면 다시 시도하기", tip: "수요일이나 목요일에 알람을 맞춰 두고, 지난 주일 내가 결단한 것, 지켰는가, 못 지켰다면 이유, 다시 시도를 점검합니다." },
+                { day: 19, title: "격려하기", mission: "설교자에게 '목사님, 지난주 말씀대로 살았더니 좋았습니다'라고 문자나 편지 보내기", tip: "설교자는 외롭습니다. 형식적인 칭찬이 아니라, 구체적인 간증을 쓰십시오. '목사님, 지난주 용서하라는 말씀대로 OO에게 먼저 연락했더니, 관계가 회복되었습니다.'" },
+                { day: 20, title: "나눔의 밤", mission: "가족이나 친한 성도와 함께 이 훈련을 하면서 느낀 변화나 어려움을 솔직하게 나누기", tip: "혼자 하면 쉽게 포기합니다. 함께 나누면 서로 격려되고, 더 멀리 갑니다." },
+                { day: 21, title: "서약식", mission: "'나는 평생 하나님의 말씀을 경청하고 순종하는 예배자가 되겠습니다'라고 하나님 앞에 서약 기도 드리기", tip: "21일 훈련을 마친 것을 축하합니다! 이제 이것이 평생의 습관이 되도록 계속 실천하십시오.", isPrayer: true }
+            ],
+            en: [
+                // Week 1
+                { day: 1, title: "Conquer Time", mission: "To avoid being late for Sunday worship, turn off all media after 10 PM Saturday night and sleep early", tip: "The main reason for lateness on Sunday is staying up late Saturday night. When your body is tired, so is your soul. Set an alarm for 9 PM Saturday: 'Turn off media in 1 hour.'" },
+                { day: 2, title: "Conquer Space", mission: "Decide in advance where to sit next Sunday—the 'best seat for concentration'", tip: "Your seating determines your focus. The center front with a clear view of the pulpit is best. Avoid sitting next to those who frequently check phones." },
+                { day: 3, title: "Conquer the Heart", mission: "Before worship, confess 10 times for 5 minutes: 'God, speak to me today'", tip: "Close your eyes, slowly, sincerely confess. Don't mechanically repeat 10 times. Make each confession a heartfelt prayer." },
+                { day: 4, title: "Fast from Criticism", mission: "Refuse to evaluate or criticize the preacher's delivery, appearance, or illustrations", tip: "Whenever critical thoughts arise, immediately pray: 'Lord, cut off this thought and help me focus on the message's essence.'" },
+                { day: 5, title: "Media Fast", mission: "On the way to worship, don't listen to news or secular music—only worship music", tip: "Morning news fills our hearts with worldly concerns. As soon as you get in the car, play worship music or drive in complete silence while praying." },
+                { day: 6, title: "Plant Prayer", mission: "Intercede for 3 minutes: 'May the Holy Spirit guide my pastor's lips this Sunday'", tip: "Pray specifically Saturday night or Sunday morning. Preachers are also fallible. Your intercession helps them." },
+                { day: 7, title: "Repentance", mission: "List specific sins from last week when I didn't live by the Word, and wash them away through repentance prayer", tip: "Unrepented sin hardens the heart. In your journal, write last week's sermon title, what you decided, why you didn't keep it, then pray in repentance." },
+                // Week 2
+                { day: 8, title: "Eye Contact", mission: "Make eye contact with the preacher and nod in agreement when the Word resonates", tip: "Don't keep your head down taking too many notes. Look into the preacher's eyes and nod with a heart saying 'Yes, that's right,' 'Amen.'" },
+                { day: 9, title: "Record Your Rhema", mission: "Don't write down everything—just write one core sentence that pierced your heart in bold", tip: "During the sermon, there's a moment when you think 'This is it!' Don't miss it—write it large in your notes and circle it." },
+                { day: 10, title: "Amen Training", mission: "Don't just agree in your heart—respond with 'Amen' even if quietly", tip: "You don't need to shout loudly. Whisper 'Amen' softly, just enough that it doesn't disturb others." },
+                { day: 11, title: "Spiritual Intercession", mission: "When the preacher stumbles, pray silently: 'Lord, give them strength'", tip: "When the preacher pauses or struggles, immediately pray in your heart: 'Holy Spirit, hold them now.'" },
+                { day: 12, title: "3-Minute Silent Meditation", mission: "After the benediction, don't chat immediately—sit for 3 minutes reflecting on today's Word", tip: "Close your eyes and reread the one 'rhema' sentence you wrote. Pray: 'Lord, help me not forget this Word.'" },
+                { day: 13, title: "Scripture Verification", mission: "At home, slowly read the sermon passage out loud again", tip: "Sunday afternoon or Monday morning, open the sermon text. Read slowly, out loud, verse by verse." },
+                { day: 14, title: "Express Gratitude", mission: "Write a gratitude note or pray a thanksgiving prayer for the Word that enlightened you", tip: "Gratitude is the most powerful way to hold onto grace. Write today's date, sermon title, your rhema, and a thanksgiving prayer." },
+                // Week 3
+                { day: 15, title: "One-Line Summary", mission: "Summarize last Sunday's Word in your own words and set it as your phone wallpaper", tip: "Your phone screen, which you look at dozens of times daily, will remind you of the Word. Write it in your own words, not the sermon title." },
+                { day: 16, title: "Verbal Sharing", mission: "Explain the grace you received to family or small group members", tip: "Those who teach learn the most. Start at your small group meeting: 'The part I was most blessed by in last week's sermon was...'" },
+                { day: 17, title: "Accept Loss", mission: "To obey the Word, accept a specific cost (time, money, pride) and practice it", tip: "Obedience has a price. If you heard 'Love your enemies,' contact that person who hurt you first." },
+                { day: 18, title: "Obedience Check", mission: "Check if you kept your commitment during the week; if you failed, try again", tip: "Set an alarm for Wednesday or Thursday. Check what you committed to, whether you kept it, why you didn't, and try again." },
+                { day: 19, title: "Encouragement", mission: "Send the preacher a text or letter: 'Pastor, living by last week's Word was wonderful'", tip: "Preachers are lonely. Write specific testimony, not formal praise. 'Pastor, following your word to forgive, I contacted OO first and our relationship was restored.'" },
+                { day: 20, title: "Night of Sharing", mission: "Honestly share the changes or difficulties you experienced during this training with family or close believers", tip: "Alone, we easily give up. Sharing together encourages each other and takes us further." },
+                { day: 21, title: "Covenant Ceremony", mission: "Pray a covenant prayer before God: 'I will be a lifelong worshiper who listens to and obeys God's Word'", tip: "Congratulations on completing the 21-day training! Now continue practicing so this becomes a lifelong habit.", isPrayer: true }
+            ]
+        };
+        
+        const prayerText = {
+            ko: `사랑하는 하나님 아버지,
+
+지난 21일 동안 제 귀를 열어 주시고,
+말씀을 듣고 순종하는 훈련을 시켜 주셔서 감사합니다.
+
+이제 저는 고백합니다.
+
+저는 더 이상 설교를 소비하는 청중이 아니라,
+말씀을 사모하고, 듣고, 순종하는 예배자입니다.
+
+저는 더 이상 비판하는 심사위원이 아니라,
+설교자와 함께 말씀을 완성해가는 협력자입니다.
+
+저는 더 이상 거울을 보고 잊어버리는 자가 아니라,
+말씀을 행하여 복 받는 자입니다.
+
+주님, 앞으로도 계속해서 제 귀를 열어 주시고,
+마음을 부드럽게 하시며,
+발을 순종의 길로 인도하여 주옵소서.
+
+이 서약을 예수 그리스도의 이름으로 기도합니다.
+아멘.`,
+            en: `Dear Heavenly Father,
+
+Thank You for opening my ears over the past 21 days
+and training me to hear and obey Your Word.
+
+Now I confess:
+
+I am no longer a consumer of sermons,
+but a worshiper who longs for, hears, and obeys the Word.
+
+I am no longer a critical judge,
+but a partner completing the Word together with the preacher.
+
+I am no longer one who looks in the mirror and forgets,
+but one who does the Word and is blessed.
+
+Lord, continue to open my ears,
+soften my heart,
+and guide my feet on the path of obedience.
+
+I pray this covenant in Jesus Christ's name.
+Amen.`
+        };
+
+        let currentLang = 'ko';
+        let completedDays = JSON.parse(localStorage.getItem('completedDays') || '[]');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDays();
+            updateProgress();
+            updateLanguage();
+        });
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateLanguage();
+            renderDays();
+        }
+
+        function updateLanguage() {
+            // Update title
+            document.getElementById('main-title').textContent = currentLang === 'ko' ? '🎧 하나님의 음성이 들리는 귀' : '🎧 The Ear that Hears God\'s Voice';
+            document.getElementById('main-subtitle').textContent = currentLang === 'ko' ? '21일 경청 프로젝트' : '21-Day Listening Project';
+            
+            // Update progress text
+            const completed = completedDays.length;
+            document.getElementById('progress-text').textContent = currentLang === 'ko' 
+                ? `${completed} / 21 일 완료` 
+                : `${completed} / 21 Days Completed`;
+
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-ko]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        function renderDays() {
+            const days = daysData[currentLang];
+            
+            // Week 1 (Days 1-7)
+            let week1HTML = '';
+            for (let i = 0; i < 7; i++) {
+                week1HTML += createDayCard(days[i]);
+            }
+            document.getElementById('week1-days').innerHTML = week1HTML;
+            
+            // Week 2 (Days 8-14)
+            let week2HTML = '';
+            for (let i = 7; i < 14; i++) {
+                week2HTML += createDayCard(days[i]);
+            }
+            document.getElementById('week2-days').innerHTML = week2HTML;
+            
+            // Week 3 (Days 15-21)
+            let week3HTML = '';
+            for (let i = 14; i < 21; i++) {
+                week3HTML += createDayCard(days[i]);
+            }
+            document.getElementById('week3-days').innerHTML = week3HTML;
+        }
+
+        function createDayCard(dayData) {
+            const isCompleted = completedDays.includes(dayData.day);
+            const missionLabel = currentLang === 'ko' ? '오늘의 미션' : "Today's Mission";
+            const tipLabel = currentLang === 'ko' ? '실천 팁' : 'Practice Tip';
+            
+            let prayerHTML = '';
+            if (dayData.isPrayer) {
+                const prayerTitle = currentLang === 'ko' ? '🙏 평생 경청 서약 기도문' : '🙏 Lifelong Listening Covenant Prayer';
+                prayerHTML = `
+                    <div class="prayer-box">
+                        <p class="prayer-title">${prayerTitle}</p>
+                        <p class="prayer-text" style="white-space: pre-line;">${prayerText[currentLang]}</p>
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="day-card ${isCompleted ? 'completed' : ''}" id="day-card-${dayData.day}">
+                    <div class="day-header" onclick="toggleDay(${dayData.day})">
+                        <input type="checkbox" class="day-checkbox" 
+                            ${isCompleted ? 'checked' : ''} 
+                            onclick="event.stopPropagation(); toggleComplete(${dayData.day})">
+                        <span class="day-number">Day ${dayData.day}</span>
+                        <span class="day-title">${dayData.title}</span>
+                        <span class="day-toggle">▼</span>
+                    </div>
+                    <div class="day-content" id="day-content-${dayData.day}">
+                        <div class="mission-box">
+                            <p class="mission-label">📌 ${missionLabel}</p>
+                            <p>${dayData.mission}</p>
+                        </div>
+                        <div class="tip-box">
+                            <p class="tip-label">💡 ${tipLabel}</p>
+                            <p>${dayData.tip}</p>
+                        </div>
+                        ${prayerHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleDay(day) {
+            const content = document.getElementById(`day-content-${day}`);
+            content.classList.toggle('show');
+        }
+
+        function toggleComplete(day) {
+            if (completedDays.includes(day)) {
+                completedDays = completedDays.filter(d => d !== day);
+            } else {
+                completedDays.push(day);
+            }
+            localStorage.setItem('completedDays', JSON.stringify(completedDays));
+            
+            const card = document.getElementById(`day-card-${day}`);
+            card.classList.toggle('completed');
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const completed = completedDays.length;
+            const percentage = (completed / 21) * 100;
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = currentLang === 'ko' 
+                ? `${completed} / 21 일 완료` 
+                : `${completed} / 21 Days Completed`;
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function calculateTotal() {
+            const inputs = document.querySelectorAll('.score-input');
+            let total = 0;
+            inputs.forEach(input => {
+                const value = parseInt(input.value) || 0;
+                if (value > 5) input.value = 5;
+                if (value < 0) input.value = 0;
+                total += Math.min(5, Math.max(0, value));
+            });
+            document.getElementById('total-score').textContent = total;
+            
+            // Show result
+            const resultDiv = document.getElementById('score-result');
+            const titleEl = document.getElementById('score-result-title');
+            const textEl = document.getElementById('score-result-text');
+            
+            resultDiv.style.display = 'block';
+            
+            if (currentLang === 'ko') {
+                if (total >= 35) {
+                    titleEl.textContent = '🌾 옥토 (Good Soil)';
+                    textEl.textContent = '축하합니다! 당신은 이미 말씀을 잘 듣고 실천하는 건강한 청중입니다. 이제 목장 식구들을 격려하고 도와주는 멘토가 되어 주십시오.';
+                } else if (total >= 25) {
+                    titleEl.textContent = '🌱 성장 중';
+                    textEl.textContent = '좋은 출발입니다! 이 훈련을 통해 더 깊은 경청의 기술을 익히면 큰 성장을 경험할 것입니다.';
+                } else if (total >= 15) {
+                    titleEl.textContent = '🔨 훈련 필요';
+                    textEl.textContent = '솔직한 자기 평가에 감사합니다. 21일 훈련이 당신에게 큰 변화를 가져올 것입니다. 함께 시작합시다!';
+                } else {
+                    titleEl.textContent = '🚨 긴급';
+                    textEl.textContent = '지금 바로 시작해야 합니다. 이 훈련이 당신의 영적 생명을 살리는 계기가 될 것입니다.';
+                }
+            } else {
+                if (total >= 35) {
+                    titleEl.textContent = '🌾 Good Soil';
+                    textEl.textContent = 'Congratulations! You are already a healthy listener who hears and practices the Word. Now become a mentor who encourages and helps your small group members.';
+                } else if (total >= 25) {
+                    titleEl.textContent = '🌱 Growing';
+                    textEl.textContent = 'Good start! Through this training, you will experience great growth as you learn deeper listening skills.';
+                } else if (total >= 15) {
+                    titleEl.textContent = '🔨 Needs Training';
+                    textEl.textContent = 'Thank you for your honest self-assessment. The 21-day training will bring great change. Let\'s begin together!';
+                } else {
+                    titleEl.textContent = '🚨 Urgent';
+                    textEl.textContent = 'You need to start right now. This training will be the turning point for your spiritual life.';
+                }
+            }
+        }
+
+        function resetProgress() {
+            const confirmMsg = currentLang === 'ko' 
+                ? '정말로 진행 상황을 초기화하시겠습니까?' 
+                : 'Are you sure you want to reset all progress?';
+            
+            if (confirm(confirmMsg)) {
+                completedDays = [];
+                localStorage.setItem('completedDays', JSON.stringify(completedDays));
+                renderDays();
+                updateProgress();
+            }
+        }
+    </script>
+</body>
+</html>
