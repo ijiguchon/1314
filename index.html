@@ -729,11 +729,6 @@
                         style="flex:1; padding:10px 5px; border:none; background:var(--navy); color:white; border-radius:8px; font-size:12px; cursor:pointer; white-space:nowrap;">
                     신학적 기초
                 </button>
-                <button class="challenge-tab-btn" onclick="showChallengeSection('assessment')"
-                        data-ko="자가 진단" data-en="Assessment"
-                        style="flex:1; padding:10px 5px; border:none; background:transparent; color:#666; border-radius:8px; font-size:12px; cursor:pointer; white-space:nowrap;">
-                    자가 진단
-                </button>
                 <button class="challenge-tab-btn" onclick="showChallengeSection('training')"
                         data-ko="21일 훈련" data-en="21-Day"
                         style="flex:1; padding:10px 5px; border:none; background:transparent; color:#666; border-radius:8px; font-size:12px; cursor:pointer; white-space:nowrap;">
@@ -805,26 +800,7 @@
                 </div>
             </div>
 
-            <!-- Part 2: 자가 진단 -->
-            <div id="section-assessment" class="challenge-section" style="display:none;">
-                <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="자가 진단 테스트" data-en="Self-Assessment Test">자가 진단 테스트</h3>
-                <p style="color:#666; margin-bottom:20px; font-size:14px;" data-ko="지난 주일 예배를 떠올리며 솔직하게 답하세요 (각 5점)" data-en="Think back to last Sunday (5 points each)">지난 주일 예배를 떠올리며 솔직하게 답하세요 (각 5점)</p>
-                
-                <div id="assessmentContainer"></div>
-                
-                <div class="card" style="text-align:center; margin-top:15px;">
-                    <p style="font-size:18px; font-weight:700; color:var(--navy);">
-                        <span data-ko="총점:" data-en="Total:">총점:</span> 
-                        <span id="assessmentTotal">0</span>/40
-                    </p>
-                    <div id="assessmentResult" style="margin-top:10px; padding:15px; background:#E3F2FD; border-radius:8px; display:none;">
-                        <p style="font-weight:700; color:var(--navy);" id="assessmentResultTitle"></p>
-                        <p style="font-size:14px; margin-top:5px;" id="assessmentResultText"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Part 3: 21일 훈련 -->
+            <!-- Part 2: 21일 훈련 -->
             <div id="section-training" class="challenge-section" style="display:none;">
                 <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="21일 경청 프로젝트" data-en="21-Day Listening Project">21일 경청 프로젝트</h3>
                 
@@ -888,7 +864,7 @@
                 </div>
             </div>
 
-            <!-- Part 4: 목장 가이드 -->
+            <!-- Part 3: 목장 가이드 -->
             <div id="section-group" class="challenge-section" style="display:none;">
                 <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="목장 나눔 가이드" data-en="Small Group Guide">목장 나눔 가이드</h3>
                 <p style="color:#666; margin-bottom:20px; font-size:14px;" data-ko="설교는 나눔을 통해 근육이 됩니다" data-en="Sermons become muscle through sharing">설교는 나눔을 통해 근육이 됩니다</p>
@@ -948,6 +924,50 @@
         </div>
         <!-- 탭 3: 목장 -->
         <div id="tab-mokjang" class="tab-content">
+            <!-- 목장 나눔 가이드 -->
+            <div class="card" style="margin-bottom:15px; border-left:4px solid var(--gold);">
+                <h3 style="color:var(--navy); margin-bottom:12px;" 
+                    data-ko="🏠 목장 나눔, 이렇게 하세요" 
+                    data-en="🏠 How to Share in Small Group">🏠 목장 나눔, 이렇게 하세요</h3>
+                
+                <div style="background:#f8f9fa; padding:12px; border-radius:8px; margin-bottom:12px;">
+                    <p style="font-weight:700; color:var(--navy); font-size:14px; margin-bottom:8px;"
+                       data-ko="📋 3단계 나눔법" data-en="📋 3-Step Sharing">📋 3단계 나눔법</p>
+                    
+                    <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px;">
+                        <span style="background:var(--navy); color:white; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;">1</span>
+                        <div>
+                            <p style="font-weight:600; font-size:13px; color:var(--navy);" data-ko="내게 꽂힌 한 문장" data-en="One sentence that pierced me">내게 꽂힌 한 문장</p>
+                            <p style="font-size:12px; color:#666;" data-ko="설교에서 가장 마음에 와닿은 말씀을 나눕니다" data-en="Share the word that touched your heart most">설교에서 가장 마음에 와닿은 말씀을 나눕니다</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px;">
+                        <span style="background:var(--navy); color:white; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;">2</span>
+                        <div>
+                            <p style="font-weight:600; font-size:13px; color:var(--navy);" data-ko="내 삶에 적용한 한 가지" data-en="One thing I applied">내 삶에 적용한 한 가지</p>
+                            <p style="font-size:12px; color:#666;" data-ko="이번 주 말씀대로 순종한 경험을 나눕니다" data-en="Share how you obeyed the Word this week">이번 주 말씀대로 순종한 경험을 나눕니다</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; align-items:flex-start; gap:10px;">
+                        <span style="background:var(--navy); color:white; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;">3</span>
+                        <div>
+                            <p style="font-weight:600; font-size:13px; color:var(--navy);" data-ko="서로를 위한 기도" data-en="Pray for each other">서로를 위한 기도</p>
+                            <p style="font-size:12px; color:#666;" data-ko="나눈 내용을 기억하며 서로를 위해 기도합니다" data-en="Pray for each other remembering what was shared">나눈 내용을 기억하며 서로를 위해 기도합니다</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background:#E3F2FD; padding:10px; border-radius:8px;">
+                    <p style="font-size:12px; color:var(--navy); line-height:1.6;"
+                       data-ko="💡 팁: 일지에 기록한 '하나님이 주신 마음'과 '순종할 행동'을 목장에서 나누면 더욱 풍성한 나눔이 됩니다."
+                       data-en="💡 Tip: Sharing what you recorded in your journal makes for richer discussion.">
+                        💡 팁: 일지에 기록한 '하나님이 주신 마음'과 '순종할 행동'을 목장에서 나누면 더욱 풍성한 나눔이 됩니다.
+                    </p>
+                </div>
+            </div>
+
             <div id="mokjang-not-setup" style="display:none;">
                 <div class="mokjang-setup">
                     <h3>👥 목장 설정이 필요합니다</h3>
@@ -980,6 +1000,15 @@
                     </div>
                 </div>
 
+                <!-- 목장 리더보드 -->
+                <div class="card">
+                    <h3 style="color:var(--navy); margin-bottom:12px;">🏆 목장 리더보드</h3>
+                    <p style="font-size:12px; color:#666; margin-bottom:10px;" data-ko="21일 경청 프로젝트 진행률" data-en="21-Day Listening Project Progress">21일 경청 프로젝트 진행률</p>
+                    <div id="mokjangLeaderboard" style="font-size:14px;">
+                        <p style="text-align:center; color:#999;">로딩 중...</p>
+                    </div>
+                </div>
+
                 <div class="card">
                     <h3 style="color:var(--navy); margin-bottom:10px;">💬 격려 메시지</h3>
                     <p style="text-align:center; color:#666; font-size:0.9rem; padding:20px;">
@@ -1006,12 +1035,26 @@
                 </div>
 
                 <h3 style="color:var(--navy); margin:20px 0 15px 0;">주기도문으로 하는 경청법 (5 Step)</h3>
+                
+                <div style="background:#FFF8E1; padding:12px; border-radius:8px; margin-bottom:15px; border-left:3px solid var(--gold);">
+                    <p style="font-size:13px; color:#666; line-height:1.6;">
+                        <strong style="color:var(--navy);">💡 시작하기 전에:</strong> 
+                        조용한 장소에서 15분을 확보하세요. 휴대폰은 무음으로 하고, 
+                        성경과 노트를 준비합니다. 눈을 감고 심호흡 3번으로 마음을 가라앉히세요.
+                    </p>
+                </div>
 
                 <div class="guide-step">
                     <div class="step-num">1</div>
                     <div class="step-content">
                         <h4>하늘에 계신 우리 아버지</h4>
                         <p>멈추세요(Stop). 그리고 나를 부르시는 아버지의 사랑 안에서 평안을 누리세요.</p>
+                        <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                                <strong>🙏 실천:</strong> "아버지, 저는 당신의 자녀입니다"를 천천히 3번 고백하세요. 
+                                하나님이 나를 어떤 눈으로 바라보시는지 묵상합니다. (2분)
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -1020,6 +1063,12 @@
                     <div class="step-content">
                         <h4>나라가 임하시오며</h4>
                         <p>내 계획을 내려놓고, 오늘 내 가정과 일터에 임하실 하나님의 뜻을 물으세요.</p>
+                        <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                                <strong>🙏 실천:</strong> "주님, 오늘 제 삶의 어떤 영역에서 당신의 나라가 임하길 원하십니까?" 
+                                질문하고 조용히 기다립니다. 떠오르는 생각을 노트에 적으세요. (3분)
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -1028,6 +1077,13 @@
                     <div class="step-content">
                         <h4>일용할 양식을 주옵시고</h4>
                         <p>오늘 주신 말씀(QT)을 펴세요. 말씀 밖의 음성은 위험합니다. 성경을 통해 들으세요.</p>
+                        <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                                <strong>🙏 실천:</strong> 오늘의 본문을 천천히 2번 읽습니다. 
+                                "이 말씀에서 무엇을 말씀하고 계십니까?"라고 묻고, 
+                                마음에 꽂히는 한 구절을 적으세요. (5분)
+                            </p>
+                        </div>
                     </div>
                 </div>
                 
@@ -1036,6 +1092,13 @@
                     <div class="step-content">
                         <h4>우리가 우리에게 죄 지은 자를...</h4>
                         <p>마음에 걸리는 관계나 죄가 있나요? 성령님께 묻고 회개하며 마음을 정결케 하세요.</p>
+                        <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                                <strong>🙏 실천:</strong> "성령님, 제 마음에 회개할 것이 있습니까?" 
+                                떠오르는 사람, 상황이 있으면 구체적으로 회개합니다. 
+                                용서해야 할 사람이 있다면 이름을 불러 용서를 선포하세요. (3분)
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -1044,14 +1107,29 @@
                     <div class="step-content">
                         <h4>나라와 권세와 영광이...</h4>
                         <p>들은 말씀에 순종하기로 결단하며, 찬양으로 기도를 마치세요.</p>
+                        <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                                <strong>🙏 실천:</strong> 오늘 들은 것을 한 문장으로 요약하세요: 
+                                "오늘 하나님은 ______를 말씀하셨고, 나는 ______를 순종하겠습니다." 
+                                감사와 찬양으로 마칩니다. (2분)
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-                    <p style="font-size: 0.9rem; font-weight: bold; color: var(--navy); line-height: 1.6;">
+                <div style="background: linear-gradient(135deg, var(--navy) 0%, #2F5597 100%); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px; color:white;">
+                    <p style="font-size: 0.9rem; font-weight: bold; line-height: 1.6;">
                         "말씀(Logos)으로 검증하고,<br>
                         성령(Pneuma)으로 감동받아,<br>
                         삶으로 순종(Obey)합니다."
+                    </p>
+                </div>
+                
+                <div style="background:#E8F5E9; padding:12px; border-radius:8px; margin-top:15px; border-left:3px solid #4CAF50;">
+                    <p style="font-size:13px; color:#2E7D32; line-height:1.6;">
+                        <strong>⚠️ 분별의 원칙:</strong> 
+                        들은 음성이 ① 성경 말씀과 일치하는가? ② 하나님의 성품(사랑, 거룩)과 일치하는가? 
+                        ③ 신뢰할 수 있는 성도의 확인을 받았는가? 세 가지로 검증하세요.
                     </p>
                 </div>
             </div>
@@ -1276,10 +1354,6 @@
             <div class="nav-icon">📖</div>
             <span>일지</span>
         </div>
-        <div class="nav-item" onclick="switchTab('challenge', this)">
-            <div class="nav-icon">🎯</div>
-            <span>21일</span>
-        </div>
         <div class="nav-item" onclick="switchTab('mokjang', this)">
             <div class="nav-icon">👥</div>
             <span>목장</span>
@@ -1287,6 +1361,10 @@
         <div class="nav-item" onclick="switchTab('guide', this)">
             <div class="nav-icon">📚</div>
             <span>가이드</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('challenge', this)">
+            <div class="nav-icon">🎯</div>
+            <span>21일</span>
         </div>
         <div class="nav-item" onclick="switchTab('interpreter', this)">
             <div class="nav-icon">🎤</div>
@@ -1414,6 +1492,7 @@
         let editId = null, viewId = null;
         let timerInterval, timeLeft = 15 * 60, isTimerRunning = false;
         let chimeEnabled = true; // 기본값: 차임벨 켜짐
+        let audioCtx = null; // 전역 오디오 컨텍스트 (모바일 대응)
 
         // 다국어
         const lang = {
@@ -1859,12 +1938,12 @@
             safeUpdate('t-time3', t.time3);
             safeUpdate('t-verse', t.verse);
             
-            // 탭 네비게이션
+            // 탭 네비게이션 (순서: 일지 → 목장 → 가이드 → 21일 → 통역)
             const navItems = document.querySelectorAll('.nav-item span');
             if(navItems[0]) navItems[0].innerText = t.tab_journal;
-            if(navItems[1]) navItems[1].innerText = t.tab_challenge;
-            if(navItems[2]) navItems[2].innerText = t.tab_mokjang;
-            if(navItems[3]) navItems[3].innerText = t.tab_guide;
+            if(navItems[1]) navItems[1].innerText = t.tab_mokjang;
+            if(navItems[2]) navItems[2].innerText = t.tab_guide;
+            if(navItems[3]) navItems[3].innerText = t.tab_challenge;
             if(navItems[4]) navItems[4].innerText = t.tab_interpreter;
             
             // 일지 탭
@@ -2094,9 +2173,8 @@
                 if(text) el.innerHTML = text;
             });
             
-            // 21일 훈련과 자가 진단 다시 렌더링 (언어 전환 시)
+            // 21일 훈련 다시 렌더링 (언어 전환 시)
             if(typeof renderTrainingDays === 'function') renderTrainingDays();
-            if(typeof renderAssessment === 'function') renderAssessment();
         }
 
         function updateInterpreterText() {
@@ -2181,6 +2259,15 @@
         function toggleTimer() {
             const t = lang[curLang];
             const btn = document.getElementById('t-timer-btn');
+            
+            // 모바일 오디오 활성화: 사용자 클릭 시 AudioContext 초기화
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if(audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
             if(!isTimerRunning) {
                 isTimerRunning = true; 
                 btn.innerText = t.btn_pause; 
@@ -2289,7 +2376,16 @@
             // 차임벨이 꺼져있으면 소리 안 냄
             if(!chimeEnabled) return;
             
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            // 전역 AudioContext 사용 (없으면 생성)
+            if(!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            // suspended 상태면 resume (모바일 대응)
+            if(audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            const ctx = audioCtx;
             
             if(times === 1) {
                 // 5분 경과: 낮은 음 짧게 1번
@@ -2324,7 +2420,7 @@
                 const gain = ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(880, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+                osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1.5);
                 gain.gain.setValueAtTime(0.5, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
                 osc.connect(gain);
@@ -2696,6 +2792,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 document.getElementById('mokjang-not-setup').style.display = 'none';
                 document.getElementById('mokjang-content').style.display = 'block';
                 loadMokjangData(code);
+                loadMokjangLeaderboard();
             } else {
                 document.getElementById('mokjang-not-setup').style.display = 'block';
                 document.getElementById('mokjang-content').style.display = 'none';
@@ -2749,37 +2846,128 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             }
         }
 
-        function loadMokjangData(code) {
-            document.getElementById('mokjangName').innerText = code.replace('MOKJANG', '목장');
-            
-            // 예시 데이터 (실제로는 Firebase에서 로드)
-            const members = [
-                { name: '홍길동', completed: true },
-                { name: '김철수', completed: true },
-                { name: '이영희', completed: false },
-                { name: '박민수', completed: true },
-                { name: '최다윗', completed: false },
-                { name: '정은혜', completed: true }
-            ];
-            
+        // Google Sheets API URL
+        const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzuXErOWs9c8pj9AJcmsi1WAXVLx8UrFS6vsHd0KDl50pVo0Hzm1Bg4O-hDFIQLaBHAqQ/exec';
+        
+        // 전체 멤버 데이터 캐시
+        let allMembersData = [];
+
+        async function loadMokjangData(code) {
+            const mokjangNameEl = document.getElementById('mokjangName');
             const grid = document.getElementById('memberGrid');
-            grid.innerHTML = '';
+            const completedEl = document.getElementById('mokjangCompleted');
+            const totalEl = document.getElementById('mokjangTotal');
             
-            let completedCount = 0;
-            members.forEach(member => {
-                if(member.completed) completedCount++;
+            mokjangNameEl.innerText = '로딩 중...';
+            grid.innerHTML = '<p style="text-align:center; color:#666;">데이터를 불러오는 중...</p>';
+            
+            try {
+                const response = await fetch(SHEETS_API_URL);
+                const data = await response.json();
+                allMembersData = data;
                 
-                const div = document.createElement('div');
-                div.className = 'member-item' + (member.completed ? ' completed' : '');
-                div.innerHTML = `
-                    <div class="member-name">${member.name}</div>
-                    <div class="member-status">${member.completed ? '✓' : '○'}</div>
-                `;
-                grid.appendChild(div);
-            });
+                // 해당 목장 멤버 필터링
+                const members = data.filter(m => m['목장코드'] === code);
+                
+                if (members.length === 0) {
+                    mokjangNameEl.innerText = code;
+                    grid.innerHTML = '<p style="text-align:center; color:#999;">등록된 목장식구가 없습니다.<br>시트에 멤버를 추가해주세요.</p>';
+                    completedEl.innerText = '0';
+                    totalEl.innerText = '0';
+                    return;
+                }
+                
+                // 목장 이름 표시
+                mokjangNameEl.innerText = members[0]['목장'] || code;
+                
+                // 오늘 날짜 기준 완료 체크
+                const today = new Date();
+                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('galtar_challenge_day') || '1')));
+                const dayKey = 'Day' + dayNum;
+                
+                grid.innerHTML = '';
+                let completedCount = 0;
+                
+                members.forEach(member => {
+                    const isCompleted = member[dayKey] === '✓';
+                    if (isCompleted) completedCount++;
+                    
+                    const role = member['역할'] || '목장식구';
+                    const roleIcon = role === '목자' ? '👨‍🌾' : role === '목녀' ? '👩‍🌾' : '';
+                    
+                    const div = document.createElement('div');
+                    div.className = 'member-item' + (isCompleted ? ' completed' : '');
+                    div.innerHTML = `
+                        <div class="member-name">${roleIcon} ${member['이름']}</div>
+                        <div class="member-status">${isCompleted ? '✓' : '○'}</div>
+                    `;
+                    grid.appendChild(div);
+                });
+                
+                completedEl.innerText = completedCount;
+                totalEl.innerText = members.length;
+                
+            } catch (error) {
+                console.error('목장 데이터 로드 실패:', error);
+                mokjangNameEl.innerText = code;
+                grid.innerHTML = '<p style="text-align:center; color:#e74c3c;">데이터 로드 실패<br>인터넷 연결을 확인하세요.</p>';
+            }
+        }
+        
+        // 목장 리더보드 로드
+        async function loadMokjangLeaderboard() {
+            const leaderboardEl = document.getElementById('mokjangLeaderboard');
+            if (!leaderboardEl) return;
             
-            document.getElementById('mokjangCompleted').innerText = completedCount;
-            document.getElementById('mokjangTotal').innerText = members.length;
+            try {
+                if (allMembersData.length === 0) {
+                    const response = await fetch(SHEETS_API_URL);
+                    allMembersData = await response.json();
+                }
+                
+                // 목장별 통계 계산
+                const mokjangStats = {};
+                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('galtar_challenge_day') || '1')));
+                
+                allMembersData.forEach(member => {
+                    const code = member['목장코드'];
+                    const name = member['목장'];
+                    if (!code || code === 'ADMIN') return;
+                    
+                    if (!mokjangStats[code]) {
+                        mokjangStats[code] = { name: name, total: 0, completed: 0 };
+                    }
+                    mokjangStats[code].total++;
+                    
+                    // 전체 Day 완료율 계산
+                    let daysCompleted = 0;
+                    for (let d = 1; d <= dayNum; d++) {
+                        if (member['Day' + d] === '✓') daysCompleted++;
+                    }
+                    mokjangStats[code].completed += daysCompleted;
+                });
+                
+                // 완료율 기준 정렬
+                const sorted = Object.entries(mokjangStats)
+                    .map(([code, stats]) => ({
+                        code,
+                        name: stats.name,
+                        rate: stats.total > 0 ? Math.round((stats.completed / (stats.total * dayNum)) * 100) : 0
+                    }))
+                    .sort((a, b) => b.rate - a.rate);
+                
+                // 리더보드 표시
+                const medals = ['🥇', '🥈', '🥉'];
+                leaderboardEl.innerHTML = sorted.map((m, i) => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;">
+                        <span>${i < 3 ? medals[i] : (i+1) + '.'} ${m.name}</span>
+                        <span style="font-weight:700; color:${m.rate >= 80 ? '#4CAF50' : m.rate >= 50 ? '#FF9800' : '#999'};">${m.rate}%</span>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('리더보드 로드 실패:', error);
+            }
         }
 
         // ========== 설정 기능 ==========
@@ -3017,14 +3205,13 @@ function showChallengeSection(sectionId) {
     event.target.style.color = 'white';
     
     // 섹션별 초기화
-    if (sectionId === 'assessment') renderAssessment();
     if (sectionId === 'training') renderTrainingDays();
 }
 
 // 자가 진단 렌더링
 function renderAssessment() {
-    const lang = getCurrentLang();
-    const questions = assessmentQData[lang];
+    const currentLang = (typeof curLang !== 'undefined') ? curLang : 'ko';
+    const questions = assessmentQData[currentLang];
     const container = document.getElementById('assessmentContainer');
     if (!container) return;
     
@@ -3049,7 +3236,8 @@ function renderAssessment() {
 
 // 자가 진단 점수 계산
 function calcAssessmentScore() {
-    const lang = getCurrentLang();
+    // curLang 직접 사용 (같은 스크립트 블록 내 전역 변수)
+    const currentLang = (typeof curLang !== 'undefined') ? curLang : 'ko';
     let total = 0;
     for (let i = 0; i < 8; i++) {
         const sel = document.querySelector(`input[name="assess${i}"]:checked`);
@@ -3063,7 +3251,7 @@ function calcAssessmentScore() {
     
     if (total > 0) {
         resultDiv.style.display = 'block';
-        if (lang === 'ko') {
+        if (currentLang === 'ko') {
             if (total >= 35) {
                 titleEl.textContent = '🌾 옥토 (Good Soil)';
                 textEl.textContent = '축하합니다! 건강한 청중입니다.';
@@ -3091,11 +3279,11 @@ function calcAssessmentScore() {
 
 // 21일 훈련 렌더링
 function renderTrainingDays() {
-    const lang = getCurrentLang();
-    const days = trainingDaysData[lang];
-    const missionLabel = lang === 'ko' ? '오늘의 미션' : "Today's Mission";
-    const tipLabel = lang === 'ko' ? '실천 팁' : 'Practice Tip';
-    const prayerTitle = lang === 'ko' ? '🙏 평생 경청 서약 기도문' : '🙏 Covenant Prayer';
+    const currentLang = (typeof curLang !== 'undefined') ? curLang : 'ko';
+    const days = trainingDaysData[currentLang];
+    const missionLabel = currentLang === 'ko' ? '오늘의 미션' : "Today's Mission";
+    const tipLabel = currentLang === 'ko' ? '실천 팁' : 'Practice Tip';
+    const prayerTitle = currentLang === 'ko' ? '🙏 평생 경청 서약 기도문' : '🙏 Covenant Prayer';
     
     let week1 = '', week2 = '', week3 = '';
     
@@ -3104,7 +3292,7 @@ function renderTrainingDays() {
         const prayerHTML = d.isPrayer ? `
             <div style="background:#E8F5E9; border-left:3px solid #4CAF50; padding:12px; margin-top:10px; border-radius:0 8px 8px 0;">
                 <p style="font-weight:700; color:var(--navy); margin-bottom:8px;">${prayerTitle}</p>
-                <p style="font-style:italic; font-size:13px; white-space:pre-line;">${prayerTextData[lang]}</p>
+                <p style="font-style:italic; font-size:13px; white-space:pre-line;">${prayerTextData[currentLang]}</p>
             </div>
         ` : '';
         
@@ -3183,8 +3371,8 @@ function updateTrainingProgress() {
 
 // 진행 초기화
 function resetTrainingProgress() {
-    const lang = getCurrentLang();
-    const msg = lang === 'ko' ? '정말로 초기화하시겠습니까?' : 'Reset all progress?';
+    const currentLang = (typeof curLang !== 'undefined') ? curLang : 'ko';
+    const msg = currentLang === 'ko' ? '정말로 초기화하시겠습니까?' : 'Reset all progress?';
     if (confirm(msg)) {
         trainingCompleted = [];
         localStorage.setItem('trainingCompleted', JSON.stringify([]));
