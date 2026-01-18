@@ -619,7 +619,7 @@
         </div>
         <div class="app-title-box">
             <div class="main-title">G-ALTAR 1314</div>
-            <div class="sub-title" id="t-subtitle">하나님의 음성이 들리는 귀</div>
+            <div class="sub-title" id="t-subtitle">하나님의 음성 듣기</div>
         </div>
         <div class="id-card" onclick="openSettings()">
             <span class="role-badge" id="t-role">순례자</span>
@@ -970,15 +970,15 @@
 
             <div id="mokjang-not-setup" style="display:none;">
                 <div class="mokjang-setup">
-                    <h3>👥 목장 설정이 필요합니다</h3>
-                    <p>목장 식구들과 함께 21일을 완주하세요!</p>
-                    <button class="btn" onclick="openMokjangSetup()" style="margin-bottom:10px;">기존 멤버 로그인</button>
-                    <button class="btn btn-secondary" onclick="openMemberRegister()">🙋 새로 등록하기</button>
+                    <h3 data-ko="👥 목장 설정이 필요합니다" data-en="👥 Group Setup Required">👥 목장 설정이 필요합니다</h3>
+                    <p data-ko="목장 식구들과 함께 21일을 완주하세요!" data-en="Complete 21 days with your group members!">목장 식구들과 함께 21일을 완주하세요!</p>
+                    <button class="btn" onclick="openMokjangSetup()" style="margin-bottom:10px;" data-ko="기존 멤버 로그인" data-en="Existing Member Login">기존 멤버 로그인</button>
+                    <button class="btn btn-secondary" onclick="openMemberRegister()" data-ko="🙋 새로 등록하기" data-en="🙋 Register New">🙋 새로 등록하기</button>
                 </div>
                 
                 <div class="card">
-                    <h3 style="color:var(--navy); margin-bottom:10px;">💡 목장 기능이란?</h3>
-                    <p style="line-height:1.6; color:#666; font-size:0.9rem;">
+                    <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="💡 목장 기능이란?" data-en="💡 What is Group Feature?">💡 목장 기능이란?</h3>
+                    <p style="line-height:1.6; color:#666; font-size:0.9rem;" data-ko="목장 코드를 입력하면 목장 식구들의 21일 챌린지 진행 상황(완료 여부)을 확인할 수 있습니다. 개인 일지 내용은 완전히 비공개이며, 오직 완료 여부(O/X)만 공유됩니다." data-en="Enter your group code to see your group members' 21-day challenge progress. Personal journal entries are completely private - only completion status (O/X) is shared.">
                         목장 코드를 입력하면 목장 식구들의 21일 챌린지 진행 상황(완료 여부)을 확인할 수 있습니다. 
                         개인 일지 내용은 완전히 비공개이며, 오직 완료 여부(O/X)만 공유됩니다.
                     </p>
@@ -991,7 +991,7 @@
                         <div>
                             <div style="font-weight:700; color:var(--navy); font-size:1.1rem;" id="mokjangName">목장명</div>
                             <div style="font-size:0.85rem; color:#666; margin-top:3px;">
-                                <span id="mokjangCompleted">0</span> / <span id="mokjangTotal">0</span> 명 오늘 완료
+                                <span id="mokjangCompleted">0</span> / <span id="mokjangTotal">0</span> <span data-ko="명 오늘 완료" data-en="completed today">명 오늘 완료</span>
                             </div>
                         </div>
                     </div>
@@ -1003,42 +1003,206 @@
 
                 <!-- 목장 리더보드 -->
                 <div class="card">
-                    <h3 style="color:var(--navy); margin-bottom:12px;">🏆 목장 리더보드</h3>
+                    <h3 style="color:var(--navy); margin-bottom:12px;" data-ko="🏆 목장 리더보드" data-en="🏆 Group Leaderboard">🏆 목장 리더보드</h3>
                     <p style="font-size:12px; color:#666; margin-bottom:10px;" data-ko="21일 경청 프로젝트 진행률" data-en="21-Day Listening Project Progress">21일 경청 프로젝트 진행률</p>
                     <div id="mokjangLeaderboard" style="font-size:14px;">
-                        <p style="text-align:center; color:#999;">로딩 중...</p>
+                        <p style="text-align:center; color:#999;" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3 style="color:var(--navy); margin-bottom:10px;">💬 격려 메시지</h3>
-                    <p style="text-align:center; color:#666; font-size:0.9rem; padding:20px;">
+                    <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="💬 격려 메시지" data-en="💬 Encouragement">💬 격려 메시지</h3>
+                    <p style="text-align:center; color:#666; font-size:0.9rem; padding:20px;" data-ko="함께 달려가는 우리 목장 식구들을 위해 기도합니다 🙏" data-en="Praying for our group members running together 🙏">
                         함께 달려가는 우리 목장 식구들을 위해 기도합니다 🙏
                     </p>
                 </div>
 
-                <button class="btn btn-secondary" onclick="leaveMokjang()">목장 나가기</button>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn" onclick="openEditMokjangModal()" style="flex:1;" data-ko="✏️ 내 정보 수정" data-en="✏️ Edit My Info">✏️ 내 정보 수정</button>
+                    <button class="btn btn-secondary" onclick="leaveMokjang()" style="flex:1;" data-ko="목장 나가기" data-en="Leave Group">목장 나가기</button>
+                </div>
             </div>
         </div>
 
         <!-- 탭 4: 가이드 -->
         <div id="tab-guide" class="tab-content">
             <div class="card">
-                <h2 style="color:var(--navy); margin-bottom:15px; text-align:center;">📚 경청 가이드</h2>
+                <h2 style="color:var(--navy); margin-bottom:15px; text-align:center;" data-ko="📚 경청 가이드" data-en="📚 Listening Guide">📚 경청 가이드</h2>
 
                 <div class="guide-box">
-                    <div class="guide-title">💡 왜 '듣는 기도'인가요?</div>
-                    <div class="guide-text">
+                    <div class="guide-title" data-ko="💡 왜 '듣는 기도'인가요?" data-en="💡 Why 'Listening Prayer'?">💡 왜 '듣는 기도'인가요?</div>
+                    <div class="guide-text" data-ko='경청기도는 신비주의가 아닙니다.<br><strong>"내 양은 내 음성을 들으며"</strong> (요 10:27) 하신 예수님의 말씀처럼, 목자이신 주님의 뜻을 듣고 <strong>순종하기 위한 훈련</strong>입니다.' data-en='Listening prayer is not mysticism.<br>As Jesus said, <strong>"My sheep listen to my voice"</strong> (John 10:27), it is <strong>training to hear and obey</strong> the will of our Shepherd Lord.'>
                         경청기도는 신비주의가 아닙니다.<br>
                         <strong>"내 양은 내 음성을 들으며"</strong> (요 10:27) 하신 예수님의 말씀처럼, 
                         목자이신 주님의 뜻을 듣고 <strong>순종하기 위한 훈련</strong>입니다.
                     </div>
                 </div>
+            </div>
 
-                <h3 style="color:var(--navy); margin:20px 0 15px 0;">주기도문으로 하는 경청법 (5 Step)</h3>
+            <!-- 하나님의 음성 듣기 신학적 기초 -->
+            <div class="card">
+                <h3 style="color:var(--navy); margin-bottom:15px;" data-ko="🎧 하나님의 음성 듣기 5대 원리" data-en="🎧 5 Principles for Hearing God's Voice">🎧 하나님의 음성 듣기 5대 원리</h3>
+                
+                <div style="background:#FFF8E1; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid var(--gold);">
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="1. 귀가 가려운 시대를 경계하라" data-en="1. Beware of the Itching Ears Era">1. 귀가 가려운 시대를 경계하라</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"때가 오면, 사람들이 건전한 교훈을 받으려 하지 않고, 귀를 즐겁게 하는 말을 들으려고 자기네 욕심에 맞추어 스승을 모아들일 것입니다." (디모데후서 4:3)<br><br><strong>⚠️ 경고:</strong> 설교를 "쇼핑"하며 내 입맛에 맞는 메시지만 선택하는 것은 예배가 아니라 종교적 소비입니다. 불편한 말씀도 "아멘"으로 받아들이세요.' data-en='"For the time will come when people will not put up with sound doctrine. Instead, to suit their own desires, they will gather around them teachers to say what their itching ears want to hear." (2 Timothy 4:3)<br><br><strong>⚠️ Warning:</strong> "Shopping" for sermons that only please you is not worship—it is religious consumerism. Accept uncomfortable words with "Amen" too.'>
+                        "때가 오면, 사람들이 건전한 교훈을 받으려 하지 않고, 귀를 즐겁게 하는 말을 
+                        들으려고 자기네 욕심에 맞추어 스승을 모아들일 것입니다." <em>(디모데후서 4:3)</em><br><br>
+                        <strong>⚠️ 경고:</strong> 설교를 '쇼핑'하며 내 입맛에 맞는 메시지만 선택하는 것은 
+                        예배가 아니라 종교적 소비입니다. 불편한 말씀도 "아멘"으로 받아들이세요.
+                    </p>
+                </div>
+
+                <div style="background:#E8F5E9; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #4CAF50;">
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="2. 옥토의 비밀 - 마음 밭을 준비하라" data-en="2. Secret of Good Soil - Prepare Your Heart">2. 옥토의 비밀 - 마음 밭을 준비하라</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"씨를 뿌리는 사람이 씨를 뿌리러 나갔다... 좋은 땅에 떨어지니, 삼십 배와 육십 배와 백 배의 열매를 맺었다." (마가복음 4:3-8)<br><br>같은 설교를 듣고도 어떤 이는 0배, 어떤 이는 100배의 열매를 맺습니다. 유일한 변수는 <strong>"땅"</strong>, 즉 청중의 마음 상태입니다.<br><br><strong>✅ 실천:</strong> 예배 시작 전 10분이 승부처입니다. 토요일 밤 일찍 자고, 주일 아침 기도로 마음을 준비하세요.' data-en='"A farmer went out to sow his seed... Still other seed fell on good soil, producing thirty, sixty, or a hundred times what was sown." (Mark 4:3-8)<br><br>Hearing the same sermon, some bear 0x fruit while others bear 100x. The only variable is the <strong>"soil"</strong>—the listener's heart condition.<br><br><strong>✅ Practice:</strong> The 10 minutes before worship is crucial. Sleep early Saturday night and prepare your heart with Sunday morning prayer.'>
+                        "씨를 뿌리는 사람이 씨를 뿌리러 나갔다... 좋은 땅에 떨어지니, 삼십 배와 육십 배와 
+                        백 배의 열매를 맺었다." <em>(마가복음 4:3-8)</em><br><br>
+                        같은 설교를 듣고도 어떤 이는 0배, 어떤 이는 100배의 열매를 맺습니다. 
+                        유일한 변수는 <strong>'땅'</strong>, 즉 청중의 마음 상태입니다.<br><br>
+                        <strong>✅ 실천:</strong> 예배 시작 전 10분이 승부처입니다. 토요일 밤 일찍 자고, 
+                        주일 아침 기도로 마음을 준비하세요.
+                    </p>
+                </div>
+
+                <div style="background:#E3F2FD; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #1976D2;">
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="3. 베뢰아적 경청 - 열정과 지성의 균형" data-en="3. Berean Listening - Balance of Passion and Intellect">3. 베뢰아적 경청 - 열정과 지성의 균형</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"베뢰아 사람들은 더 고상한 사람들이어서, 아주 기꺼이 말씀을 받아들이고, 그것이 사실인지 알아보려고 날마다 성경을 상고하였습니다." (사도행전 17:11)<br><br><strong>① 열정적 수용:</strong> 목마른 사슴이 시냇물을 찾듯 간절히 말씀을 사모하세요.<br><strong>② 지성적 검증:</strong> 설교가 성경에 부합하는지 직접 확인하세요.<br><br>열정 없는 검증은 냉소주의, 검증 없는 열정은 맹목적 광신입니다.' data-en='"Now the Berean Jews were of more noble character, for they received the message with great eagerness and examined the Scriptures every day to see if what Paul said was true." (Acts 17:11)<br><br><strong>① Eager Reception:</strong> Long for the Word like a deer pants for water.<br><strong>② Intellectual Verification:</strong> Check if the sermon aligns with Scripture.<br><br>Verification without passion is cynicism; passion without verification is blind fanaticism.'>
+                        "베뢰아 사람들은 더 고상한 사람들이어서, 아주 기꺼이 말씀을 받아들이고, 
+                        그것이 사실인지 알아보려고 날마다 성경을 상고하였습니다." <em>(사도행전 17:11)</em><br><br>
+                        <strong>① 열정적 수용:</strong> 목마른 사슴이 시냇물을 찾듯 간절히 말씀을 사모하세요.<br>
+                        <strong>② 지성적 검증:</strong> 설교가 성경에 부합하는지 직접 확인하세요.<br><br>
+                        열정 없는 검증은 냉소주의, 검증 없는 열정은 맹목적 광신입니다.
+                    </p>
+                </div>
+
+                <div style="background:#FCE4EC; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #E91E63;">
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="4. 거울의 법칙 - 듣고 반드시 행하라" data-en="4. Law of the Mirror - Hear and Do">4. 거울의 법칙 - 듣고 반드시 행하라</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"누구든지 말씀을 듣고 실천하지 않는 사람은, 거울에 자기 얼굴을 비추어 보고 나서 곧 잊어버리는 사람과 같습니다." (야고보서 1:23-24)<br><br><strong>⚠️ 위험:</strong> 가장 위험한 자기기만은 "많이 들었지만 전혀 변하지 않는 것"입니다. 감동은 변화가 아닙니다. 감동은 변화를 위한 에너지일 뿐입니다.<br><br><strong>✅ 실천:</strong> 예배당 문을 나설 때, "이번 주 실천할 한 가지"를 반드시 정하세요.' data-en='"Anyone who listens to the word but does not do what it says is like someone who looks at his face in a mirror and, after looking at himself, goes away and immediately forgets what he looks like." (James 1:23-24)<br><br><strong>⚠️ Danger:</strong> The most dangerous self-deception is "hearing much but never changing." Emotion is not transformation. Emotion is only energy for transformation.<br><br><strong>✅ Practice:</strong> When leaving worship, always decide "one thing to practice this week."'>
+                        "누구든지 말씀을 듣고 실천하지 않는 사람은, 거울에 자기 얼굴을 비추어 보고 나서 
+                        곧 잊어버리는 사람과 같습니다." <em>(야고보서 1:23-24)</em><br><br>
+                        <strong>⚠️ 위험:</strong> 가장 위험한 자기기만은 '많이 들었지만 전혀 변하지 않는 것'입니다. 
+                        감동은 변화가 아닙니다. 감동은 변화를 위한 에너지일 뿐입니다.<br><br>
+                        <strong>✅ 실천:</strong> 예배당 문을 나설 때, "이번 주 실천할 한 가지"를 반드시 정하세요.
+                    </p>
+                </div>
+
+                <div style="background:#F3E5F5; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #9C27B0;">
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다" data-en="5. Synergy of Listening - Grace Multiplies Together">5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"여러분이 우리에게서 하나님의 말씀을 들을 때에, 그것을 사람의 말로 받아들이지 아니하고, 사실 그대로 하나님의 말씀으로 받아들였기 때문입니다." (데살로니가전서 2:13)<br><br>설교자가 말씀을 전할 때, 성령께서는 청중의 상황에 맞게 그 말씀을 적용하고 조명하십니다. <strong>설교자의 준비(50%) + 청중의 준비(50%) = 100%가 아닙니다.</strong> 양쪽이 모두 성령 앞에 엎드릴 때, <strong>1+1=200, 300이 됩니다.</strong>' data-en='"When you received the word of God, which you heard from us, you accepted it not as a human word, but as it actually is, the word of God." (1 Thessalonians 2:13)<br><br>When the preacher delivers the Word, the Holy Spirit applies and illuminates it to each listener's situation. <strong>Preacher's prep (50%) + Listener's prep (50%) ≠ 100%.</strong> When both bow before the Spirit, <strong>1+1=200, 300.</strong>'>
+                        "여러분이 우리에게서 하나님의 말씀을 들을 때에, 그것을 사람의 말로 받아들이지 아니하고, 
+                        사실 그대로 하나님의 말씀으로 받아들였기 때문입니다." <em>(데살로니가전서 2:13)</em><br><br>
+                        설교자가 말씀을 전할 때, 성령께서는 청중의 상황에 맞게 그 말씀을 적용하고 조명하십니다.
+                        <strong>설교자의 준비(50%) + 청중의 준비(50%) = 100%가 아닙니다.</strong>
+                        양쪽이 모두 성령 앞에 엎드릴 때, <strong>1+1=200, 300이 됩니다.</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 음성 분별 가이드 -->
+            <div class="card">
+                <h3 style="color:var(--navy); margin-bottom:15px;" data-ko="⚖️ 하나님의 음성 분별법" data-en="⚖️ Discerning God's Voice">⚖️ 하나님의 음성 분별법</h3>
+                
+                <div style="background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%); padding:15px; border-radius:8px; border:1px solid #ddd;">
+                    <p style="font-size:13px; color:#555; line-height:1.6; margin-bottom:15px;" data-ko='기도 중 들려오는 음성이 정말 하나님의 음성인지 어떻게 알 수 있을까요? 아래 <strong>3가지 분별 기준</strong>으로 검증하세요:' data-en='How can you know if what you hear in prayer is truly God's voice? Test it with these <strong>3 criteria</strong>:'>
+                        기도 중 들려오는 음성이 정말 하나님의 음성인지 어떻게 알 수 있을까요? 
+                        아래 <strong>3가지 분별 기준</strong>으로 검증하세요:
+                    </p>
+                    
+                    <div style="display:grid; gap:12px;">
+                        <div style="background:#E3F2FD; padding:12px; border-radius:6px; display:flex; align-items:flex-start; gap:10px;">
+                            <span style="background:#1976D2; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">1</span>
+                            <div>
+                                <strong style="color:#1976D2;" data-ko="성경 말씀과 일치하는가?" data-en="Does it align with Scripture?">성경 말씀과 일치하는가?</strong>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 성경과 모순되는 말씀을 하지 않으십니다. 들은 내용이 성경의 가르침과 일치하는지 확인하세요." data-en="God never contradicts Scripture. Verify that what you heard aligns with biblical teaching.">
+                                    하나님은 성경과 모순되는 말씀을 하지 않으십니다. 
+                                    들은 내용이 성경의 가르침과 일치하는지 확인하세요.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="background:#E8F5E9; padding:12px; border-radius:6px; display:flex; align-items:flex-start; gap:10px;">
+                            <span style="background:#4CAF50; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">2</span>
+                            <div>
+                                <strong style="color:#388E3C;" data-ko="하나님의 성품과 일치하는가?" data-en="Does it align with God's character?">하나님의 성품과 일치하는가?</strong>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 사랑, 거룩, 공의, 자비의 하나님이십니다. 정죄하고 두렵게 하는 음성은 하나님의 음성이 아닙니다." data-en="God is love, holiness, justice, and mercy. Condemning and fearful voices are not from God.">
+                                    하나님은 사랑, 거룩, 공의, 자비의 하나님이십니다. 
+                                    정죄하고 두렵게 하는 음성은 하나님의 음성이 아닙니다.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="background:#FFF3E0; padding:12px; border-radius:6px; display:flex; align-items:flex-start; gap:10px;">
+                            <span style="background:#FF9800; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">3</span>
+                            <div>
+                                <strong style="color:#F57C00;" data-ko="신뢰할 수 있는 성도의 확인이 있는가?" data-en="Is it confirmed by trusted believers?">신뢰할 수 있는 성도의 확인이 있는가?</strong>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko='중요한 결정일수록 목자, 목녀, 또는 영적 멘토와 나누어 확인을 받으세요. "지혜는 조언자가 많은 데에 있습니다" (잠 11:14)' data-en='For important decisions, seek confirmation from your shepherd or spiritual mentor. "In abundance of counselors there is victory." (Prov 11:14)'>
+                                    중요한 결정일수록 목자, 목녀, 또는 영적 멘토와 나누어 확인을 받으세요. 
+                                    "지혜는 조언자가 많은 데에 있습니다" (잠 11:14)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background:#FFEBEE; padding:12px; border-radius:8px; margin-top:15px; border-left:3px solid #F44336;">
+                    <p style="font-size:12px; color:#C62828; line-height:1.6;" data-ko="<strong>🚫 주의:</strong> 성경 밖의 음성, 흥분과 감정에 치우친 판단, 다른 사람의 확인 없이 내린 중대한 결정은 위험할 수 있습니다. 특히 '하나님이 ○○하라고 하셨다'며 타인을 강요하는 것은 하나님 이름을 빙자한 것일 수 있으니 조심하세요." data-en="<strong>🚫 Caution:</strong> Voices outside Scripture, emotionally-driven decisions, and major choices without others' confirmation can be dangerous. Be especially careful of those who pressure others saying 'God told me...'">
+                        <strong>🚫 주의:</strong> 성경 밖의 음성, 흥분과 감정에 치우친 판단, 
+                        다른 사람의 확인 없이 내린 중대한 결정은 위험할 수 있습니다. 
+                        특히 '하나님이 ○○하라고 하셨다'며 타인을 강요하는 것은 
+                        하나님 이름을 빙자한 것일 수 있으니 조심하세요.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 예배 전 준비 체크리스트 -->
+            <div class="card">
+                <h3 style="color:var(--navy); margin-bottom:15px;" data-ko="📋 예배 전 준비 체크리스트" data-en="📋 Pre-Worship Preparation Checklist">📋 예배 전 준비 체크리스트</h3>
+                
+                <div style="background:#f8f9fa; padding:15px; border-radius:8px;">
+                    <div style="margin-bottom:12px; display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:18px;">🌙</span>
+                        <div>
+                            <strong data-ko="토요일 밤" data-en="Saturday Night">토요일 밤</strong>
+                            <p style="font-size:12px; color:#666;" data-ko="10시 이후 미디어 끄기, 일찍 잠자리" data-en="Turn off media after 10pm, go to bed early">10시 이후 미디어 끄기, 일찍 잠자리</p>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:12px; display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:18px;">🌅</span>
+                        <div>
+                            <strong data-ko="주일 아침" data-en="Sunday Morning">주일 아침</strong>
+                            <p style="font-size:12px; color:#666;" data-ko="여유있게 기상, 기도로 마음 준비" data-en="Wake up early, prepare heart with prayer">여유있게 기상, 기도로 마음 준비</p>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:12px; display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:18px;">🚗</span>
+                        <div>
+                            <strong data-ko="이동 중" data-en="On the Way">이동 중</strong>
+                            <p style="font-size:12px; color:#666;" data-ko="뉴스/세상 음악 대신 찬양 또는 침묵" data-en="Worship music or silence instead of news">뉴스/세상 음악 대신 찬양 또는 침묵</p>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:12px; display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:18px;">⏰</span>
+                        <div>
+                            <strong data-ko="예배 10분 전" data-en="10 Min Before Worship">예배 10분 전</strong>
+                            <p style="font-size:12px; color:#666;" data-ko='도착하여 "주님, 오늘 제게 말씀하옵소서" 10번 고백' data-en='Arrive and confess "Lord, speak to me today" 10 times'>도착하여 "주님, 오늘 제게 말씀하옵소서" 10번 고백</p>
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:18px;">🙏</span>
+                        <div>
+                            <strong data-ko="설교자를 위한 중보" data-en="Intercede for the Preacher">설교자를 위한 중보</strong>
+                            <p style="font-size:12px; color:#666;" data-ko='"목사님의 입술을 성령께서 주관해 주소서"' data-en='"Holy Spirit, guide the pastor's words"'>"목사님의 입술을 성령께서 주관해 주소서"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="color:var(--navy); margin-bottom:15px;" data-ko="🙏 주기도문으로 하는 경청법 (5 Step)" data-en="🙏 Listening Prayer with Lord's Prayer (5 Steps)">🙏 주기도문으로 하는 경청법 (5 Step)</h3>
                 
                 <div style="background:#FFF8E1; padding:12px; border-radius:8px; margin-bottom:15px; border-left:3px solid var(--gold);">
-                    <p style="font-size:13px; color:#666; line-height:1.6;">
+                    <p style="font-size:13px; color:#666; line-height:1.6;" data-ko='<strong style="color:var(--navy);">💡 시작하기 전에:</strong> 조용한 장소에서 15분을 확보하세요. 휴대폰은 무음으로 하고, 성경과 노트를 준비합니다. 눈을 감고 심호흡 3번으로 마음을 가라앉히세요.' data-en='<strong style="color:var(--navy);">💡 Before Starting:</strong> Find a quiet place for 15 minutes. Silence your phone and prepare Bible and notes. Close your eyes and take 3 deep breaths to calm your heart.'>
                         <strong style="color:var(--navy);">💡 시작하기 전에:</strong> 
                         조용한 장소에서 15분을 확보하세요. 휴대폰은 무음으로 하고, 
                         성경과 노트를 준비합니다. 눈을 감고 심호흡 3번으로 마음을 가라앉히세요.
@@ -1048,10 +1212,10 @@
                 <div class="guide-step">
                     <div class="step-num">1</div>
                     <div class="step-content">
-                        <h4>하늘에 계신 우리 아버지</h4>
-                        <p>멈추세요(Stop). 그리고 나를 부르시는 아버지의 사랑 안에서 평안을 누리세요.</p>
+                        <h4 data-ko="하늘에 계신 우리 아버지" data-en="Our Father in Heaven">하늘에 계신 우리 아버지</h4>
+                        <p data-ko="멈추세요(Stop). 그리고 나를 부르시는 아버지의 사랑 안에서 평안을 누리세요." data-en="Stop. Rest in the love of the Father who calls you.">멈추세요(Stop). 그리고 나를 부르시는 아버지의 사랑 안에서 평안을 누리세요.</p>
                         <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
-                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;" data-ko='<strong>🙏 실천:</strong> "아버지, 저는 당신의 자녀입니다"를 천천히 3번 고백하세요. 하나님이 나를 어떤 눈으로 바라보시는지 묵상합니다. (2분)' data-en='<strong>🙏 Practice:</strong> Slowly confess "Father, I am Your child" 3 times. Meditate on how God sees you. (2 min)'>
                                 <strong>🙏 실천:</strong> "아버지, 저는 당신의 자녀입니다"를 천천히 3번 고백하세요. 
                                 하나님이 나를 어떤 눈으로 바라보시는지 묵상합니다. (2분)
                             </p>
@@ -1062,10 +1226,10 @@
                 <div class="guide-step">
                     <div class="step-num">2</div>
                     <div class="step-content">
-                        <h4>나라가 임하시오며</h4>
-                        <p>내 계획을 내려놓고, 오늘 내 가정과 일터에 임하실 하나님의 뜻을 물으세요.</p>
+                        <h4 data-ko="나라가 임하시오며" data-en="Your Kingdom Come">나라가 임하시오며</h4>
+                        <p data-ko="내 계획을 내려놓고, 오늘 내 가정과 일터에 임하실 하나님의 뜻을 물으세요." data-en="Lay down your plans and ask God's will for your home and workplace today.">내 계획을 내려놓고, 오늘 내 가정과 일터에 임하실 하나님의 뜻을 물으세요.</p>
                         <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
-                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;" data-ko='<strong>🙏 실천:</strong> "주님, 오늘 제 삶의 어떤 영역에서 당신의 나라가 임하길 원하십니까?" 질문하고 조용히 기다립니다. 떠오르는 생각을 노트에 적으세요. (3분)' data-en='<strong>🙏 Practice:</strong> Ask "Lord, where in my life do You want Your kingdom to come today?" Wait quietly. Write down thoughts in your notes. (3 min)'>
                                 <strong>🙏 실천:</strong> "주님, 오늘 제 삶의 어떤 영역에서 당신의 나라가 임하길 원하십니까?" 
                                 질문하고 조용히 기다립니다. 떠오르는 생각을 노트에 적으세요. (3분)
                             </p>
@@ -1076,10 +1240,10 @@
                 <div class="guide-step">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h4>일용할 양식을 주옵시고</h4>
-                        <p>오늘 주신 말씀(QT)을 펴세요. 말씀 밖의 음성은 위험합니다. 성경을 통해 들으세요.</p>
+                        <h4 data-ko="일용할 양식을 주옵시고" data-en="Give Us Today Our Daily Bread">일용할 양식을 주옵시고</h4>
+                        <p data-ko="오늘 주신 말씀(QT)을 펴세요. 말씀 밖의 음성은 위험합니다. 성경을 통해 들으세요." data-en="Open today's Word (QT). Voices outside Scripture are dangerous. Listen through the Bible.">오늘 주신 말씀(QT)을 펴세요. 말씀 밖의 음성은 위험합니다. 성경을 통해 들으세요.</p>
                         <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
-                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;" data-ko='<strong>🙏 실천:</strong> 오늘의 본문을 천천히 2번 읽습니다. "이 말씀에서 무엇을 말씀하고 계십니까?"라고 묻고, 마음에 꽂히는 한 구절을 적으세요. (5분)' data-en='<strong>🙏 Practice:</strong> Read today's passage slowly twice. Ask "What are You saying through this Word?" Write down one verse that pierces your heart. (5 min)'>
                                 <strong>🙏 실천:</strong> 오늘의 본문을 천천히 2번 읽습니다. 
                                 "이 말씀에서 무엇을 말씀하고 계십니까?"라고 묻고, 
                                 마음에 꽂히는 한 구절을 적으세요. (5분)
@@ -1091,10 +1255,10 @@
                 <div class="guide-step">
                     <div class="step-num">4</div>
                     <div class="step-content">
-                        <h4>우리가 우리에게 죄 지은 자를...</h4>
-                        <p>마음에 걸리는 관계나 죄가 있나요? 성령님께 묻고 회개하며 마음을 정결케 하세요.</p>
+                        <h4 data-ko="우리가 우리에게 죄 지은 자를..." data-en="Forgive Us Our Debts...">우리가 우리에게 죄 지은 자를...</h4>
+                        <p data-ko="마음에 걸리는 관계나 죄가 있나요? 성령님께 묻고 회개하며 마음을 정결케 하세요." data-en="Any relationships or sins weighing on you? Ask the Spirit, repent, and purify your heart.">마음에 걸리는 관계나 죄가 있나요? 성령님께 묻고 회개하며 마음을 정결케 하세요.</p>
                         <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
-                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;" data-ko='<strong>🙏 실천:</strong> "성령님, 제 마음에 회개할 것이 있습니까?" 떠오르는 사람, 상황이 있으면 구체적으로 회개합니다. 용서해야 할 사람이 있다면 이름을 불러 용서를 선포하세요. (3분)' data-en='<strong>🙏 Practice:</strong> Ask "Holy Spirit, is there anything I need to repent of?" If someone or situation comes to mind, repent specifically. Declare forgiveness by name if needed. (3 min)'>
                                 <strong>🙏 실천:</strong> "성령님, 제 마음에 회개할 것이 있습니까?" 
                                 떠오르는 사람, 상황이 있으면 구체적으로 회개합니다. 
                                 용서해야 할 사람이 있다면 이름을 불러 용서를 선포하세요. (3분)
@@ -1106,10 +1270,10 @@
                 <div class="guide-step">
                     <div class="step-num">5</div>
                     <div class="step-content">
-                        <h4>나라와 권세와 영광이...</h4>
-                        <p>들은 말씀에 순종하기로 결단하며, 찬양으로 기도를 마치세요.</p>
+                        <h4 data-ko="나라와 권세와 영광이..." data-en="For Yours is the Kingdom...">나라와 권세와 영광이...</h4>
+                        <p data-ko="들은 말씀에 순종하기로 결단하며, 찬양으로 기도를 마치세요." data-en="Decide to obey what you heard and close with praise.">들은 말씀에 순종하기로 결단하며, 찬양으로 기도를 마치세요.</p>
                         <div style="background:#E3F2FD; padding:10px; border-radius:6px; margin-top:8px;">
-                            <p style="font-size:12px; color:#1565C0; line-height:1.5;">
+                            <p style="font-size:12px; color:#1565C0; line-height:1.5;" data-ko='<strong>🙏 실천:</strong> 오늘 들은 것을 한 문장으로 요약하세요: "오늘 하나님은 ______를 말씀하셨고, 나는 ______를 순종하겠습니다." 감사와 찬양으로 마칩니다. (2분)' data-en='<strong>🙏 Practice:</strong> Summarize what you heard: "Today God said ______, and I will obey by ______." Close with thanksgiving and praise. (2 min)'>
                                 <strong>🙏 실천:</strong> 오늘 들은 것을 한 문장으로 요약하세요: 
                                 "오늘 하나님은 ______를 말씀하셨고, 나는 ______를 순종하겠습니다." 
                                 감사와 찬양으로 마칩니다. (2분)
@@ -1119,25 +1283,17 @@
                 </div>
 
                 <div style="background: linear-gradient(135deg, var(--navy) 0%, #2F5597 100%); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px; color:white;">
-                    <p style="font-size: 0.9rem; font-weight: bold; line-height: 1.6;">
+                    <p style="font-size: 0.9rem; font-weight: bold; line-height: 1.6;" data-ko='"말씀(Logos)으로 검증하고,<br>성령(Pneuma)으로 감동받아,<br>삶으로 순종(Obey)합니다."' data-en='"Verify with the Word (Logos),<br>Be moved by the Spirit (Pneuma),<br>Obey with your life."'>
                         "말씀(Logos)으로 검증하고,<br>
                         성령(Pneuma)으로 감동받아,<br>
                         삶으로 순종(Obey)합니다."
                     </p>
                 </div>
-                
-                <div style="background:#E8F5E9; padding:12px; border-radius:8px; margin-top:15px; border-left:3px solid #4CAF50;">
-                    <p style="font-size:13px; color:#2E7D32; line-height:1.6;">
-                        <strong>⚠️ 분별의 원칙:</strong> 
-                        들은 음성이 ① 성경 말씀과 일치하는가? ② 하나님의 성품(사랑, 거룩)과 일치하는가? 
-                        ③ 신뢰할 수 있는 성도의 확인을 받았는가? 세 가지로 검증하세요.
-                    </p>
-                </div>
             </div>
 
             <div class="card">
-                <h3 style="color:var(--navy); margin-bottom:15px;" id="guide-selfcheck-title">📖 자가 진단 (8문항)</h3>
-                <p style="line-height:1.6; color:#666; margin-bottom:15px;" id="guide-selfcheck-desc">
+                <h3 style="color:var(--navy); margin-bottom:15px;" id="guide-selfcheck-title" data-ko="📖 자가 진단 (8문항)" data-en="📖 Self-Assessment (8 Questions)">📖 자가 진단 (8문항)</h3>
+                <p style="line-height:1.6; color:#666; margin-bottom:15px;" id="guide-selfcheck-desc" data-ko="지난 주일 예배를 떠올리며 솔직하게 체크해보세요. (각 문항 1~5점)" data-en="Reflect on last Sunday's worship and check honestly. (1-5 points each)">
                     지난 주일 예배를 떠올리며 솔직하게 체크해보세요. (각 문항 1~5점)
                 </p>
                 <div style="background:#f8f9fa; padding:15px; border-radius:8px;">
@@ -1462,15 +1618,15 @@
     <div id="mokjangSetupModal" class="modal-wrap">
         <div class="modal-box">
             <div class="close-btn" onclick="closeMokjangSetup()">&times;</div>
-            <h3 style="color:var(--navy); margin-bottom:10px;" id="mokjang-setup-title">목장 설정</h3>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" id="mokjang-setup-desc">
+            <h3 style="color:var(--navy); margin-bottom:10px;" id="mokjang-setup-title" data-ko="목장 설정" data-en="Group Setup">목장 설정</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" id="mokjang-setup-desc" data-ko="목장 코드를 입력하면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다." data-en="Enter your group code to share progress with your group members.">
                 목장 코드를 입력하면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다.
             </p>
             <input type="text" id="inputMokjangCode" placeholder="예: 1MOKJANG" style="text-transform:uppercase; margin-bottom:10px;">
-            <p style="font-size:0.75rem; color:#999; margin-bottom:15px;" id="mokjang-setup-help">
+            <p style="font-size:0.75rem; color:#999; margin-bottom:15px;" id="mokjang-setup-help" data-ko="* 목자님께 목장 코드를 문의하세요" data-en="* Ask your shepherd for the group code">
                 * 목자님께 목장 코드를 문의하세요
             </p>
-            <button class="btn" onclick="joinMokjang()" id="mokjang-join-btn">참여하기</button>
+            <button class="btn" onclick="joinMokjang()" id="mokjang-join-btn" data-ko="참여하기" data-en="Join">참여하기</button>
         </div>
     </div>
 
@@ -1478,22 +1634,42 @@
     <div id="memberRegisterModal" class="modal-wrap">
         <div class="modal-box">
             <div class="close-btn" onclick="closeMemberRegister()">&times;</div>
-            <h3 style="color:var(--navy); margin-bottom:10px;">🙋 목장식구 등록</h3>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;">
+            <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="🙋 목장식구 등록" data-en="🙋 Register as Member">🙋 목장식구 등록</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" data-ko="처음이시라면 등록해 주세요!<br>목장코드는 목자님께 문의하세요." data-en="New here? Please register!<br>Ask your shepherd for the group code.">
                 처음이시라면 등록해 주세요!<br>목장코드는 목자님께 문의하세요.
             </p>
             <input type="text" id="registerName" placeholder="이름" style="margin-bottom:10px;">
             <input type="text" id="registerMokjangName" placeholder="목장 이름 (예: 이스라엘)" style="margin-bottom:10px;">
             <input type="text" id="registerMokjangCode" placeholder="목장코드 (예: ISRAEL)" style="text-transform:uppercase; margin-bottom:10px;">
             <select id="registerRole" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; font-size:1rem;">
-                <option value="목장식구">목장식구</option>
-                <option value="목자">목자</option>
-                <option value="목녀">목녀</option>
+                <option value="목원" data-ko="목원" data-en="Member">목원</option>
+                <option value="목자" data-ko="목자" data-en="Shepherd">목자</option>
+                <option value="목녀" data-ko="목녀" data-en="Shepherdess">목녀</option>
+                <option value="목부" data-ko="목부" data-en="Assistant">목부</option>
+                <option value="전도사" data-ko="전도사" data-en="Evangelist">전도사</option>
+                <option value="목사" data-ko="목사" data-en="Pastor">목사</option>
             </select>
-            <button class="btn" onclick="registerMember()" style="width:100%;">등록하기</button>
-            <p style="font-size:0.75rem; color:#999; margin-top:10px; text-align:center;">
+            <button class="btn" onclick="registerMember()" style="width:100%;" data-ko="등록하기" data-en="Register">등록하기</button>
+            <p style="font-size:0.75rem; color:#999; margin-top:10px; text-align:center;" data-ko="등록 후 바로 목장에 참여됩니다" data-en="You'll join the group right after registration">
                 등록 후 바로 목장에 참여됩니다
             </p>
+        </div>
+    </div>
+
+    <!-- 목장 정보 수정 모달 -->
+    <div id="editMokjangModal" class="modal-wrap">
+        <div class="modal-content" style="max-width:340px;">
+            <span class="modal-close" onclick="closeEditMokjangModal()">&times;</span>
+            <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="✏️ 내 정보 수정" data-en="✏️ Edit My Info">✏️ 내 정보 수정</h3>
+            <p style="font-size:0.85rem; color:#666; margin-bottom:15px; line-height:1.5;" data-ko="이름과 역할을 수정할 수 있습니다." data-en="You can edit your name and role.">이름과 역할을 수정할 수 있습니다.</p>
+            <input type="text" id="editMemberName" placeholder="이름" style="margin-bottom:10px;">
+            <select id="editMemberRole" style="margin-bottom:15px; padding:12px; border:1px solid #ddd; border-radius:8px; width:100%; font-size:14px;">
+                <option value="목원" data-ko="목원" data-en="Member">목원</option>
+                <option value="목자" data-ko="목자" data-en="Shepherd">목자</option>
+                <option value="목녀" data-ko="목녀" data-en="Shepherdess">목녀</option>
+                <option value="목사" data-ko="목사" data-en="Pastor">목사</option>
+            </select>
+            <button class="btn" onclick="saveEditMokjang()" style="width:100%;" data-ko="저장하기" data-en="Save">저장하기</button>
         </div>
     </div>
 
@@ -1522,7 +1698,7 @@
         const lang = {
             ko: {
                 church: "시애틀지구촌교회", 
-                subtitle: "하나님의 음성이 들리는 귀",
+                subtitle: "하나님의 음성 듣기",
                 
                 // 영적 여정
                 journey_seeker: "순례자 (VIP)", 
@@ -1711,7 +1887,7 @@
             },
             en: {
                 church: "Global Mission Church of Greater Seattle", 
-                subtitle: "The Ear that Hears God's Voice",
+                subtitle: "Hearing God's Voice",
                 
                 // Spiritual Journey
                 journey_seeker: "Seeker (VIP)", 
@@ -2028,82 +2204,75 @@
 
 
         function updateMokjangText() {
-            const t = lang[curLang];
+            // 목장 탭의 모든 data-ko/data-en 속성이 있는 요소 자동 처리
+            const mokjangTab = document.getElementById('tab-mokjang');
+            if(mokjangTab) {
+                const translatableElements = mokjangTab.querySelectorAll('[data-ko][data-en]');
+                translatableElements.forEach(el => {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                });
+            }
             
-            // 미설정 화면
-            const setupTitle = document.querySelector('#mokjang-not-setup h3');
-            if(setupTitle) setupTitle.innerHTML = t.mokjang_setup_title;
+            // 목장 설정 모달
+            const mokjangSetupModal = document.getElementById('mokjangSetupModal');
+            if(mokjangSetupModal) {
+                const elements = mokjangSetupModal.querySelectorAll('[data-ko][data-en]');
+                elements.forEach(el => {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                });
+            }
             
-            const setupDesc = document.querySelector('#mokjang-not-setup .mokjang-setup p');
-            if(setupDesc) setupDesc.innerText = t.mokjang_setup_desc;
+            // 새 멤버 등록 모달
+            const memberRegisterModal = document.getElementById('memberRegisterModal');
+            if(memberRegisterModal) {
+                const elements = memberRegisterModal.querySelectorAll('[data-ko][data-en]');
+                elements.forEach(el => {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                });
+            }
             
-            const setupBtn = document.querySelector('#mokjang-not-setup .btn');
-            if(setupBtn) setupBtn.innerText = t.mokjang_setup_btn;
+            // 정보 수정 모달
+            const editMokjangModal = document.getElementById('editMokjangModal');
+            if(editMokjangModal) {
+                const elements = editMokjangModal.querySelectorAll('[data-ko][data-en]');
+                elements.forEach(el => {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                });
+            }
             
-            const whatTitle = document.querySelector('#mokjang-not-setup .card h3');
-            if(whatTitle) whatTitle.innerHTML = t.mokjang_what_title;
+            // input placeholder 업데이트
+            const registerNameInput = document.getElementById('registerName');
+            if(registerNameInput) registerNameInput.placeholder = curLang === 'ko' ? '이름' : 'Name';
             
-            const whatDesc = document.querySelector('#mokjang-not-setup .card p');
-            if(whatDesc) whatDesc.innerText = t.mokjang_what_desc;
+            const registerMokjangNameInput = document.getElementById('registerMokjangName');
+            if(registerMokjangNameInput) registerMokjangNameInput.placeholder = curLang === 'ko' ? '목장 이름 (예: 이스라엘)' : 'Group name (e.g. Israel)';
             
-            // 설정 완료 화면
-            const encourageTitle = document.querySelector('#mokjang-content .card:last-of-type h3');
-            if(encourageTitle) encourageTitle.innerHTML = t.mokjang_encourage_title;
+            const registerMokjangCodeInput = document.getElementById('registerMokjangCode');
+            if(registerMokjangCodeInput) registerMokjangCodeInput.placeholder = curLang === 'ko' ? '목장코드 (예: ISRAEL)' : 'Group code (e.g. ISRAEL)';
             
-            const encourageMsg = document.querySelector('#mokjang-content .card:last-of-type p');
-            if(encourageMsg) encourageMsg.innerText = t.mokjang_encourage_msg;
+            const inputMokjangCodeInput = document.getElementById('inputMokjangCode');
+            if(inputMokjangCodeInput) inputMokjangCodeInput.placeholder = curLang === 'ko' ? '예: 1MOKJANG' : 'e.g. 1MOKJANG';
             
-            const leaveBtn = document.querySelector('[onclick="leaveMokjang()"]');
-            if(leaveBtn) leaveBtn.innerText = t.mokjang_leave;
+            const editMemberNameInput = document.getElementById('editMemberName');
+            if(editMemberNameInput) editMemberNameInput.placeholder = curLang === 'ko' ? '이름' : 'Name';
         }
 
         function updateGuideText() {
             const t = lang[curLang];
             
-            const guideTitle = document.querySelector('#tab-guide h2');
-            if(guideTitle) guideTitle.innerHTML = t.guide_title;
-            
-            const whyTitle = document.querySelector('.guide-box .guide-title');
-            if(whyTitle) whyTitle.innerHTML = t.guide_why_title;
-            
-            const whyDesc = document.querySelector('.guide-box .guide-text');
-            if(whyDesc) whyDesc.innerHTML = t.guide_why_desc;
-            
-            const lordsPrayerTitle = document.querySelector('#tab-guide h3');
-            if(lordsPrayerTitle) lordsPrayerTitle.innerText = t.guide_lordsprayer;
-            
-            // 5단계
-            const steps = document.querySelectorAll('.step-content');
-            if(steps[0]) {
-                steps[0].querySelector('h4').innerText = t.guide_step1_title;
-                steps[0].querySelector('p').innerText = t.guide_step1_desc;
+            // 가이드 탭의 모든 data-ko/data-en 속성이 있는 요소 자동 처리
+            const guideTab = document.getElementById('tab-guide');
+            if(guideTab) {
+                const translatableElements = guideTab.querySelectorAll('[data-ko][data-en]');
+                translatableElements.forEach(el => {
+                    const text = curLang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+                    if(text) el.innerHTML = text;
+                });
             }
-            if(steps[1]) {
-                steps[1].querySelector('h4').innerText = t.guide_step2_title;
-                steps[1].querySelector('p').innerText = t.guide_step2_desc;
-            }
-            if(steps[2]) {
-                steps[2].querySelector('h4').innerText = t.guide_step3_title;
-                steps[2].querySelector('p').innerText = t.guide_step3_desc;
-            }
-            if(steps[3]) {
-                steps[3].querySelector('h4').innerText = t.guide_step4_title;
-                steps[3].querySelector('p').innerText = t.guide_step4_desc;
-            }
-            if(steps[4]) {
-                steps[4].querySelector('h4').innerText = t.guide_step5_title;
-                steps[4].querySelector('p').innerText = t.guide_step5_desc;
-            }
-            
-            const principle = document.querySelector('#tab-guide .card:first-of-type > div[style*="background: #f0f0f0"] p');
-            if(principle) principle.innerHTML = t.guide_principle;
-            
-            // 자가 진단
-            const selfcheckTitle = document.getElementById('guide-selfcheck-title');
-            if(selfcheckTitle) selfcheckTitle.innerHTML = t.guide_selfcheck_title;
-            
-            const selfcheckDesc = document.getElementById('guide-selfcheck-desc');
-            if(selfcheckDesc) selfcheckDesc.innerText = t.guide_selfcheck_desc;
             
             // 자가진단 8문항 - data 속성에서 읽기
             for(let i = 1; i <= 8; i++) {
@@ -2866,22 +3035,22 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             const role = document.getElementById('registerRole').value;
 
             if (!name) {
-                showToast('이름을 입력해주세요');
+                showToast(curLang === 'ko' ? '이름을 입력해주세요' : 'Please enter your name');
                 return;
             }
             if (!mokjangName) {
-                showToast('목장 이름을 입력해주세요');
+                showToast(curLang === 'ko' ? '목장 이름을 입력해주세요' : 'Please enter group name');
                 return;
             }
             if (!code) {
-                showToast('목장코드를 입력해주세요');
+                showToast(curLang === 'ko' ? '목장코드를 입력해주세요' : 'Please enter group code');
                 return;
             }
 
             // 등록 중 표시
             const btn = document.querySelector('#memberRegisterModal .btn');
             const originalText = btn.innerText;
-            btn.innerText = '등록 중...';
+            btn.innerText = curLang === 'ko' ? '등록 중...' : 'Registering...';
             btn.disabled = true;
 
             try {
@@ -2904,6 +3073,14 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                     localStorage.setItem('galtar_name', name);
                     localStorage.setItem('galtar_mokjang', mokjangName);
                     localStorage.setItem('galtar_mokjang_code', code);
+                    
+                    // Member ID 저장 (수정 기능에 필요)
+                    if (result.id) {
+                        localStorage.setItem('galtar_member_id', result.id);
+                    } else {
+                        // ID가 없으면 이름+코드 조합으로 생성
+                        localStorage.setItem('galtar_member_id', name + '_' + code);
+                    }
 
                     // 입력 필드 초기화
                     document.getElementById('registerName').value = '';
@@ -2912,13 +3089,13 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
 
                     closeMemberRegister();
                     checkMokjangStatus();
-                    showToast('🎉 등록 완료! 환영합니다!');
+                    showToast(curLang === 'ko' ? '🎉 등록 완료! 환영합니다!' : '🎉 Welcome!');
                 } else {
-                    showToast('등록 실패. 다시 시도해주세요.');
+                    showToast(curLang === 'ko' ? '등록 실패. 다시 시도해주세요.' : 'Registration failed. Try again.');
                 }
             } catch (error) {
                 console.error('등록 실패:', error);
-                showToast('네트워크 오류. 인터넷 연결을 확인하세요.');
+                showToast(curLang === 'ko' ? '네트워크 오류. 인터넷 연결을 확인하세요.' : 'Network error.');
             } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
@@ -2940,10 +3117,80 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         }
 
         function leaveMokjang() {
-            if(confirm('목장에서 나가시겠습니까?')) {
+            const msg = curLang === 'ko' ? '목장에서 나가시겠습니까?' : 'Leave this group?';
+            if(confirm(msg)) {
                 localStorage.removeItem('galtar_mokjang_code');
+                localStorage.removeItem('galtar_member_id');
                 checkMokjangStatus();
-                showToast('목장에서 나왔습니다');
+                showToast(curLang === 'ko' ? '목장에서 나왔습니다' : 'Left the group');
+            }
+        }
+
+        function openEditMokjangModal() {
+            const memberId = localStorage.getItem('galtar_member_id');
+            const mokjangCode = localStorage.getItem('galtar_mokjang_code');
+            
+            if (!memberId || !mokjangCode) {
+                showToast(curLang === 'ko' ? '등록 정보를 찾을 수 없습니다' : 'Registration info not found');
+                return;
+            }
+            
+            // 현재 정보 로드
+            const member = allMembersData.find(m => m['ID'] === memberId && m['목장코드'] === mokjangCode);
+            if (member) {
+                document.getElementById('editMemberName').value = member['이름'] || '';
+                document.getElementById('editMemberRole').value = member['역할'] || '목원';
+            }
+            
+            document.getElementById('editMokjangModal').style.display = 'flex';
+        }
+
+        function closeEditMokjangModal() {
+            document.getElementById('editMokjangModal').style.display = 'none';
+        }
+
+        async function saveEditMokjang() {
+            const name = document.getElementById('editMemberName').value.trim();
+            const role = document.getElementById('editMemberRole').value;
+            const memberId = localStorage.getItem('galtar_member_id');
+            const mokjangCode = localStorage.getItem('galtar_mokjang_code');
+            
+            if (!name) {
+                showToast(curLang === 'ko' ? '이름을 입력해주세요' : 'Please enter your name');
+                return;
+            }
+            
+            if (!memberId || !mokjangCode) {
+                showToast(curLang === 'ko' ? '등록 정보를 찾을 수 없습니다' : 'Registration info not found');
+                return;
+            }
+            
+            try {
+                const response = await fetch(SHEETS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'updateMember',
+                        id: memberId,
+                        mokjangCode: mokjangCode,
+                        name: name,
+                        role: role
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast(curLang === 'ko' ? '정보가 수정되었습니다' : 'Info updated');
+                    closeEditMokjangModal();
+                    // 데이터 새로고침
+                    loadMokjangData(mokjangCode);
+                } else {
+                    showToast(curLang === 'ko' ? '수정 실패: ' + (result.error || '알 수 없는 오류') : 'Update failed');
+                }
+            } catch (error) {
+                console.error('Update error:', error);
+                showToast(curLang === 'ko' ? '서버 오류가 발생했습니다' : 'Server error');
             }
         }
 
@@ -2980,6 +3227,15 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 
                 // 목장 이름 표시
                 mokjangNameEl.innerText = members[0]['목장'] || code;
+                
+                // 현재 사용자 찾기 (이름으로 매칭하여 ID 저장)
+                const myName = localStorage.getItem('galtar_name');
+                if (myName) {
+                    const myMember = members.find(m => m['이름'] === myName);
+                    if (myMember && myMember['ID']) {
+                        localStorage.setItem('galtar_member_id', myMember['ID']);
+                    }
+                }
                 
                 // 오늘 날짜 기준 완료 체크
                 const today = new Date();
