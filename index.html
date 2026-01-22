@@ -1491,7 +1491,7 @@
     <!-- 일지 상세보기 모달 -->
     <div id="viewModal" class="modal-wrap">
         <div class="modal-box">
-            <div class="close-btn" onclick="closeViewModal()">&times;</div>
+            <div class="close-btn" onclick="closeAllModals()">&times;</div>
             <h3 style="color:var(--navy); margin-bottom:5px;" id="v-date">Date</h3>
             <h4 style="color:#666; margin-bottom:8px; font-size:0.95rem;" id="v-sermon-title"></h4>
             <h2 style="font-family:'Noto Serif KR'; margin-bottom:20px;" id="v-ref">Ref</h2>
@@ -1505,6 +1505,7 @@
             <div class="view-content" id="v-thanks"></div>
             <div class="view-actions">
                 <button class="btn-action" style="background:#f1f3f5; color:#ff6b6b;" onclick="deleteCurrentLog()" id="v-btn-del">삭제</button>
+                <button class="btn-action" style="background:#f1f3f5; color:#666;" onclick="closeAllModals()" id="v-btn-close">닫기</button>
                 <button class="btn-action" style="background:var(--navy); color:white;" onclick="editCurrentLog()" id="v-btn-edit">수정하기</button>
             </div>
         </div>
@@ -1818,6 +1819,7 @@
                 v_lbl3: "👣 순종할 행동",
                 v_lbl4: "🙏 감사 기도",
                 btn_del: "삭제",
+                btn_close: "닫기",
                 btn_edit: "수정하기",
                 
                 // 메시지
@@ -2008,6 +2010,7 @@
                 v_lbl3: "👣 Action",
                 v_lbl4: "🙏 Thanksgiving",
                 btn_del: "Delete",
+                btn_close: "Close",
                 btn_edit: "Edit",
                 
                 // Messages
@@ -2148,6 +2151,7 @@
             safeUpdate('v-lbl3', t.v_lbl3);
             safeUpdate('v-lbl4', t.v_lbl4);
             safeUpdate('v-btn-del', t.btn_del);
+            safeUpdate('v-btn-close', t.btn_close);
             safeUpdate('v-btn-edit', t.btn_edit);
             
             // 사용자 정보 다시 로드
@@ -2764,7 +2768,7 @@
             if(!viewId) return; 
             const logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); 
             const log = logs.find(l => l.id === viewId);
-            closeViewModal(); 
+            closeAllModals(); // 모든 모달 닫기로 변경 
             
             // 일지 탭으로 전환
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -2783,15 +2787,33 @@
         }
 
         function deleteCurrentLog() {
-            if(!viewId) return; 
-            if(confirm('이 기록을 삭제하시겠습니까?')) {
-                let logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]'); 
-                logs = logs.filter(l => l.id !== viewId);
-                localStorage.setItem(DB_KEY, JSON.stringify(logs)); 
-                showToast('삭제되었습니다'); 
-                closeViewModal(); 
-                renderHistory();
+            if(!viewId) {
+                alert('viewId가 없습니다');
+                return;
             }
+            
+            const userConfirmed = confirm('이 기록을 삭제하시겠습니까?');
+            if(!userConfirmed) {
+                return;
+            }
+            
+            let logs = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
+            logs = logs.filter(l => l.id !== viewId);
+            localStorage.setItem(DB_KEY, JSON.stringify(logs));
+            
+            alert('삭제되었습니다');
+            closeAllModals();
+            renderHistory();
+        }
+        
+        function closeAllModals() {
+            const viewModal = document.getElementById('viewModal');
+            const historyModal = document.getElementById('historyModal');
+            
+            if(viewModal) viewModal.classList.remove('active');
+            if(historyModal) historyModal.classList.remove('active');
+            
+            viewId = null;
         }
         
         function exitEditMode() { 
