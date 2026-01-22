@@ -656,8 +656,9 @@
                 <div class="card-header">
                     <div class="icon-box">📖</div>
                     <span class="card-title" id="t-card1">말씀 묵상 (10분)</span>
-                    <button class="btn-reset" onclick="resetInput('inRef','inText')">↻</button>
+                    <button class="btn-reset" onclick="resetInput('inSermonTitle','inRef','inText')">↻</button>
                 </div>
+                <input type="text" id="inSermonTitle" class="input-ref" placeholder="설교 제목" style="margin-bottom:8px;">
                 <input type="text" id="inRef" class="input-ref" placeholder="오늘의 본문">
                 <textarea id="inText" placeholder="묵상한 말씀을 기록하세요"></textarea>
             </div>
@@ -1031,11 +1032,7 @@
 
                 <div class="guide-box">
                     <div class="guide-title" data-ko="💡 왜 '듣는 기도'인가요?" data-en="💡 Why 'Listening Prayer'?">💡 왜 '듣는 기도'인가요?</div>
-                    <div class="guide-text" data-ko='경청기도는 신비주의가 아닙니다.<br><strong>"내 양은 내 음성을 들으며"</strong> (요 10:27) 하신 예수님의 말씀처럼, 목자이신 주님의 뜻을 듣고 <strong>순종하기 위한 훈련</strong>입니다.' data-en='Listening prayer is not mysticism.<br>As Jesus said, <strong>"My sheep listen to my voice"</strong> (John 10:27), it is <strong>training to hear and obey</strong> the will of our Shepherd Lord.'>
-                        경청기도는 신비주의가 아닙니다.<br>
-                        <strong>"내 양은 내 음성을 들으며"</strong> (요 10:27) 하신 예수님의 말씀처럼, 
-                        목자이신 주님의 뜻을 듣고 <strong>순종하기 위한 훈련</strong>입니다.
-                    </div>
+                    <div class="guide-text" data-ko='경청기도는 신비주의가 아닙니다.<br><strong>"내 양은 내 음성을 들으며"</strong> (요 10:27) 하신 예수님의 말씀처럼, 목자이신 주님의 뜻을 듣고 <strong>순종하기 위한 훈련</strong>입니다.' data-en='Listening prayer is not mysticism.<br>As Jesus said, <strong>"My sheep listen to my voice"</strong> (John 10:27), it is <strong>training to hear and obey</strong> the will of our Shepherd Lord.'></div>
                 </div>
             </div>
 
@@ -1045,57 +1042,27 @@
                 
                 <div style="background:#FFF8E1; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid var(--gold);">
                     <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="1. 귀가 가려운 시대를 경계하라" data-en="1. Beware of the Itching Ears Era">1. 귀가 가려운 시대를 경계하라</h4>
-                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"때가 오면, 사람들이 건전한 교훈을 받으려 하지 않고, 귀를 즐겁게 하는 말을 들으려고 자기네 욕심에 맞추어 스승을 모아들일 것입니다." (디모데후서 4:3)<br><br><strong>⚠️ 경고:</strong> 설교를 "쇼핑"하며 내 입맛에 맞는 메시지만 선택하는 것은 예배가 아니라 종교적 소비입니다. 불편한 말씀도 "아멘"으로 받아들이세요.' data-en='"For the time will come when people will not put up with sound doctrine. Instead, to suit their own desires, they will gather around them teachers to say what their itching ears want to hear." (2 Timothy 4:3)<br><br><strong>⚠️ Warning:</strong> "Shopping" for sermons that only please you is not worship—it is religious consumerism. Accept uncomfortable words with "Amen" too.'>
-                        "때가 오면, 사람들이 건전한 교훈을 받으려 하지 않고, 귀를 즐겁게 하는 말을 
-                        들으려고 자기네 욕심에 맞추어 스승을 모아들일 것입니다." <em>(디모데후서 4:3)</em><br><br>
-                        <strong>⚠️ 경고:</strong> 설교를 '쇼핑'하며 내 입맛에 맞는 메시지만 선택하는 것은 
-                        예배가 아니라 종교적 소비입니다. 불편한 말씀도 "아멘"으로 받아들이세요.
-                    </p>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"때가 오면, 사람들이 건전한 교훈을 받으려 하지 않고, 귀를 즐겁게 하는 말을 들으려고 자기네 욕심에 맞추어 스승을 모아들일 것입니다." (디모데후서 4:3)<br><br><strong>⚠️ 경고:</strong> 설교를 "쇼핑"하며 내 입맛에 맞는 메시지만 선택하는 것은 예배가 아니라 종교적 소비입니다. 불편한 말씀도 "아멘"으로 받아들이세요.' data-en='"For the time will come when people will not put up with sound doctrine. Instead, to suit their own desires, they will gather around them teachers to say what their itching ears want to hear." (2 Timothy 4:3)<br><br><strong>⚠️ Warning:</strong> "Shopping" for sermons that only please you is not worship—it is religious consumerism. Accept uncomfortable words with "Amen" too.'></p>
                 </div>
 
                 <div style="background:#E8F5E9; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #4CAF50;">
                     <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="2. 옥토의 비밀 - 마음 밭을 준비하라" data-en="2. Secret of Good Soil - Prepare Your Heart">2. 옥토의 비밀 - 마음 밭을 준비하라</h4>
-                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"씨를 뿌리는 사람이 씨를 뿌리러 나갔다... 좋은 땅에 떨어지니, 삼십 배와 육십 배와 백 배의 열매를 맺었다." (마가복음 4:3-8)<br><br>같은 설교를 듣고도 어떤 이는 0배, 어떤 이는 100배의 열매를 맺습니다. 유일한 변수는 <strong>"땅"</strong>, 즉 청중의 마음 상태입니다.<br><br><strong>✅ 실천:</strong> 예배 시작 전 10분이 승부처입니다. 토요일 밤 일찍 자고, 주일 아침 기도로 마음을 준비하세요.' data-en='"A farmer went out to sow his seed... Still other seed fell on good soil, producing thirty, sixty, or a hundred times what was sown." (Mark 4:3-8)<br><br>Hearing the same sermon, some bear 0x fruit while others bear 100x. The only variable is the <strong>"soil"</strong>—the listener's heart condition.<br><br><strong>✅ Practice:</strong> The 10 minutes before worship is crucial. Sleep early Saturday night and prepare your heart with Sunday morning prayer.'>
-                        "씨를 뿌리는 사람이 씨를 뿌리러 나갔다... 좋은 땅에 떨어지니, 삼십 배와 육십 배와 
-                        백 배의 열매를 맺었다." <em>(마가복음 4:3-8)</em><br><br>
-                        같은 설교를 듣고도 어떤 이는 0배, 어떤 이는 100배의 열매를 맺습니다. 
-                        유일한 변수는 <strong>'땅'</strong>, 즉 청중의 마음 상태입니다.<br><br>
-                        <strong>✅ 실천:</strong> 예배 시작 전 10분이 승부처입니다. 토요일 밤 일찍 자고, 
-                        주일 아침 기도로 마음을 준비하세요.
-                    </p>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"씨를 뿌리는 사람이 씨를 뿌리러 나갔다... 좋은 땅에 떨어지니, 삼십 배와 육십 배와 백 배의 열매를 맺었다." <em>(마가복음 4:3-8, 새번역)</em><br><br>같은 설교를 듣고도 어떤 이는 0배, 어떤 이는 100배의 열매를 맺습니다. 유일한 변수는 <strong>땅</strong>, 즉 청중의 마음 상태입니다.<br><br><strong>✅ 실천:</strong> 예배 시작 전 10분이 승부처입니다. 토요일 밤 일찍 자고, 주일 아침 기도로 마음을 준비하세요.' data-en='"A farmer went out to sow his seed... Some fell on good soil, producing a crop—thirty, sixty, or even a hundred times what was sown." <em>(Mark 4:3-8)</em><br><br>Hearing the same sermon, some bear 0 fruit while others bear 100-fold fruit. The only variable is the <strong>soil</strong>—the condition of the listener&apos;s heart.<br><br><strong>✅ Practice:</strong> The 10 minutes before worship is crucial. Sleep early Saturday night and prepare your heart with Sunday morning prayer.'></p>
                 </div>
 
                 <div style="background:#E3F2FD; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #1976D2;">
                     <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="3. 베뢰아적 경청 - 열정과 지성의 균형" data-en="3. Berean Listening - Balance of Passion and Intellect">3. 베뢰아적 경청 - 열정과 지성의 균형</h4>
-                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"베뢰아 사람들은 더 고상한 사람들이어서, 아주 기꺼이 말씀을 받아들이고, 그것이 사실인지 알아보려고 날마다 성경을 상고하였습니다." (사도행전 17:11)<br><br><strong>① 열정적 수용:</strong> 목마른 사슴이 시냇물을 찾듯 간절히 말씀을 사모하세요.<br><strong>② 지성적 검증:</strong> 설교가 성경에 부합하는지 직접 확인하세요.<br><br>열정 없는 검증은 냉소주의, 검증 없는 열정은 맹목적 광신입니다.' data-en='"Now the Berean Jews were of more noble character, for they received the message with great eagerness and examined the Scriptures every day to see if what Paul said was true." (Acts 17:11)<br><br><strong>① Eager Reception:</strong> Long for the Word like a deer pants for water.<br><strong>② Intellectual Verification:</strong> Check if the sermon aligns with Scripture.<br><br>Verification without passion is cynicism; passion without verification is blind fanaticism.'>
-                        "베뢰아 사람들은 더 고상한 사람들이어서, 아주 기꺼이 말씀을 받아들이고, 
-                        그것이 사실인지 알아보려고 날마다 성경을 상고하였습니다." <em>(사도행전 17:11)</em><br><br>
-                        <strong>① 열정적 수용:</strong> 목마른 사슴이 시냇물을 찾듯 간절히 말씀을 사모하세요.<br>
-                        <strong>② 지성적 검증:</strong> 설교가 성경에 부합하는지 직접 확인하세요.<br><br>
-                        열정 없는 검증은 냉소주의, 검증 없는 열정은 맹목적 광신입니다.
-                    </p>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"베뢰아 사람들은 더 고상한 사람들이어서, 아주 기꺼이 말씀을 받아들이고, 그것이 사실인지 알아보려고 날마다 성경을 상고하였습니다." (사도행전 17:11)<br><br><strong>① 열정적 수용:</strong> 목마른 사슴이 시냇물을 찾듯 간절히 말씀을 사모하세요.<br><strong>② 지성적 검증:</strong> 설교가 성경에 부합하는지 직접 확인하세요.<br><br>열정 없는 검증은 냉소주의, 검증 없는 열정은 맹목적 광신입니다.' data-en='"Now the Berean Jews were of more noble character, for they received the message with great eagerness and examined the Scriptures every day to see if what Paul said was true." (Acts 17:11)<br><br><strong>① Eager Reception:</strong> Long for the Word like a deer pants for water.<br><strong>② Intellectual Verification:</strong> Check if the sermon aligns with Scripture.<br><br>Verification without passion is cynicism; passion without verification is blind fanaticism.'></p>
                 </div>
 
                 <div style="background:#FCE4EC; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #E91E63;">
                     <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="4. 거울의 법칙 - 듣고 반드시 행하라" data-en="4. Law of the Mirror - Hear and Do">4. 거울의 법칙 - 듣고 반드시 행하라</h4>
-                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"누구든지 말씀을 듣고 실천하지 않는 사람은, 거울에 자기 얼굴을 비추어 보고 나서 곧 잊어버리는 사람과 같습니다." (야고보서 1:23-24)<br><br><strong>⚠️ 위험:</strong> 가장 위험한 자기기만은 "많이 들었지만 전혀 변하지 않는 것"입니다. 감동은 변화가 아닙니다. 감동은 변화를 위한 에너지일 뿐입니다.<br><br><strong>✅ 실천:</strong> 예배당 문을 나설 때, "이번 주 실천할 한 가지"를 반드시 정하세요.' data-en='"Anyone who listens to the word but does not do what it says is like someone who looks at his face in a mirror and, after looking at himself, goes away and immediately forgets what he looks like." (James 1:23-24)<br><br><strong>⚠️ Danger:</strong> The most dangerous self-deception is "hearing much but never changing." Emotion is not transformation. Emotion is only energy for transformation.<br><br><strong>✅ Practice:</strong> When leaving worship, always decide "one thing to practice this week."'>
-                        "누구든지 말씀을 듣고 실천하지 않는 사람은, 거울에 자기 얼굴을 비추어 보고 나서 
-                        곧 잊어버리는 사람과 같습니다." <em>(야고보서 1:23-24)</em><br><br>
-                        <strong>⚠️ 위험:</strong> 가장 위험한 자기기만은 '많이 들었지만 전혀 변하지 않는 것'입니다. 
-                        감동은 변화가 아닙니다. 감동은 변화를 위한 에너지일 뿐입니다.<br><br>
-                        <strong>✅ 실천:</strong> 예배당 문을 나설 때, "이번 주 실천할 한 가지"를 반드시 정하세요.
-                    </p>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"누구든지 말씀을 듣고 실천하지 않는 사람은, 거울에 자기 얼굴을 비추어 보고 나서 곧 잊어버리는 사람과 같습니다." (야고보서 1:23-24)<br><br><strong>⚠️ 위험:</strong> 가장 위험한 자기기만은 "많이 들었지만 전혀 변하지 않는 것"입니다. 감동은 변화가 아닙니다. 감동은 변화를 위한 에너지일 뿐입니다.<br><br><strong>✅ 실천:</strong> 예배당 문을 나설 때, "이번 주 실천할 한 가지"를 반드시 정하세요.' data-en='"Anyone who listens to the word but does not do what it says is like someone who looks at his face in a mirror and, after looking at himself, goes away and immediately forgets what he looks like." (James 1:23-24)<br><br><strong>⚠️ Danger:</strong> The most dangerous self-deception is "hearing much but never changing." Emotion is not transformation. Emotion is only energy for transformation.<br><br><strong>✅ Practice:</strong> When leaving worship, always decide "one thing to practice this week."'></p>
                 </div>
 
                 <div style="background:#F3E5F5; padding:15px; border-radius:8px; margin-bottom:15px; border-left:3px solid #9C27B0;">
-                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다" data-en="5. Synergy of Listening - Grace Multiplies Together">5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다</h4>
-                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"여러분이 우리에게서 하나님의 말씀을 들을 때에, 그것을 사람의 말로 받아들이지 아니하고, 사실 그대로 하나님의 말씀으로 받아들였기 때문입니다." (데살로니가전서 2:13)<br><br>설교자가 말씀을 전할 때, 성령께서는 청중의 상황에 맞게 그 말씀을 적용하고 조명하십니다. <strong>설교자의 준비(50%) + 청중의 준비(50%) = 100%가 아닙니다.</strong> 양쪽이 모두 성령 앞에 엎드릴 때, <strong>1+1=200, 300이 됩니다.</strong>' data-en='"When you received the word of God, which you heard from us, you accepted it not as a human word, but as it actually is, the word of God." (1 Thessalonians 2:13)<br><br>When the preacher delivers the Word, the Holy Spirit applies and illuminates it to each listener's situation. <strong>Preacher's prep (50%) + Listener's prep (50%) ≠ 100%.</strong> When both bow before the Spirit, <strong>1+1=200, 300.</strong>'>
-                        "여러분이 우리에게서 하나님의 말씀을 들을 때에, 그것을 사람의 말로 받아들이지 아니하고, 
-                        사실 그대로 하나님의 말씀으로 받아들였기 때문입니다." <em>(데살로니가전서 2:13)</em><br><br>
-                        설교자가 말씀을 전할 때, 성령께서는 청중의 상황에 맞게 그 말씀을 적용하고 조명하십니다.
-                        <strong>설교자의 준비(50%) + 청중의 준비(50%) = 100%가 아닙니다.</strong>
-                        양쪽이 모두 성령 앞에 엎드릴 때, <strong>1+1=200, 300이 됩니다.</strong>
-                    </p>
+                    <h4 style="color:var(--navy); margin-bottom:8px;" data-ko="5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다" data-en="5. Listening Synergy - Grace Multiplies When We Listen Together">5. 경청의 시너지 - 함께 들을 때 은혜가 배가된다</h4>
+                    <p style="font-size:13px; color:#555; line-height:1.6;" data-ko='"여러분이 우리에게서 하나님의 말씀을 들을 때에, 그것을 사람의 말로 받아들이지 아니하고, 사실 그대로 하나님의 말씀으로 받아들였기 때문입니다." <em>(데살로니가전서 2:13, 새번역)</em><br><br>설교자가 말씀을 전할 때, 성령께서는 청중의 상황에 맞게 그 말씀을 적용하고 조명하십니다. <strong>설교자의 준비(50%) + 청중의 준비(50%) = 100%가 아닙니다.</strong> 양쪽이 모두 성령 앞에 엎드릴 때, <strong>1+1=200, 300이 됩니다.</strong>' data-en='"When you received the word of God, which you heard from us, you accepted it not as a human word, but as it actually is, the word of God." <em>(1 Thessalonians 2:13)</em><br><br>When the preacher delivers the Word, the Holy Spirit applies and illuminates it to each listener&apos;s situation. <strong>Preacher&apos;s prep (50%) + Listener&apos;s prep (50%) ≠ 100%.</strong> When both bow before the Spirit, <strong>1+1=200, 300.</strong>'></p>
                 </div>
             </div>
 
@@ -1104,20 +1071,14 @@
                 <h3 style="color:var(--navy); margin-bottom:15px;" data-ko="⚖️ 하나님의 음성 분별법" data-en="⚖️ Discerning God's Voice">⚖️ 하나님의 음성 분별법</h3>
                 
                 <div style="background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%); padding:15px; border-radius:8px; border:1px solid #ddd;">
-                    <p style="font-size:13px; color:#555; line-height:1.6; margin-bottom:15px;" data-ko='기도 중 들려오는 음성이 정말 하나님의 음성인지 어떻게 알 수 있을까요? 아래 <strong>3가지 분별 기준</strong>으로 검증하세요:' data-en='How can you know if what you hear in prayer is truly God's voice? Test it with these <strong>3 criteria</strong>:'>
-                        기도 중 들려오는 음성이 정말 하나님의 음성인지 어떻게 알 수 있을까요? 
-                        아래 <strong>3가지 분별 기준</strong>으로 검증하세요:
-                    </p>
+                    <p style="font-size:13px; color:#555; line-height:1.6; margin-bottom:15px;" data-ko="기도 중 들려오는 음성이 정말 하나님의 음성인지 어떻게 알 수 있을까요? 아래 <strong>3가지 분별 기준</strong>으로 검증하세요:" data-en="How can you know if the voice you hear in prayer is truly God's voice? Verify it with these <strong>3 criteria</strong>:"></p>
                     
                     <div style="display:grid; gap:12px;">
                         <div style="background:#E3F2FD; padding:12px; border-radius:6px; display:flex; align-items:flex-start; gap:10px;">
                             <span style="background:#1976D2; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">1</span>
                             <div>
                                 <strong style="color:#1976D2;" data-ko="성경 말씀과 일치하는가?" data-en="Does it align with Scripture?">성경 말씀과 일치하는가?</strong>
-                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 성경과 모순되는 말씀을 하지 않으십니다. 들은 내용이 성경의 가르침과 일치하는지 확인하세요." data-en="God never contradicts Scripture. Verify that what you heard aligns with biblical teaching.">
-                                    하나님은 성경과 모순되는 말씀을 하지 않으십니다. 
-                                    들은 내용이 성경의 가르침과 일치하는지 확인하세요.
-                                </p>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 성경과 모순되는 말씀을 하지 않으십니다. 들은 내용이 성경의 가르침과 일치하는지 확인하세요." data-en="God never contradicts Scripture. Verify that what you heard aligns with biblical teaching."></p>
                             </div>
                         </div>
                         
@@ -1125,10 +1086,7 @@
                             <span style="background:#4CAF50; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">2</span>
                             <div>
                                 <strong style="color:#388E3C;" data-ko="하나님의 성품과 일치하는가?" data-en="Does it align with God's character?">하나님의 성품과 일치하는가?</strong>
-                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 사랑, 거룩, 공의, 자비의 하나님이십니다. 정죄하고 두렵게 하는 음성은 하나님의 음성이 아닙니다." data-en="God is love, holiness, justice, and mercy. Condemning and fearful voices are not from God.">
-                                    하나님은 사랑, 거룩, 공의, 자비의 하나님이십니다. 
-                                    정죄하고 두렵게 하는 음성은 하나님의 음성이 아닙니다.
-                                </p>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko="하나님은 사랑, 거룩, 공의, 자비의 하나님이십니다. 정죄하고 두렵게 하는 음성은 하나님의 음성이 아닙니다." data-en="God is love, holiness, justice, and mercy. Condemning and fearful voices are not from God."></p>
                             </div>
                         </div>
                         
@@ -1136,22 +1094,14 @@
                             <span style="background:#FF9800; color:white; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">3</span>
                             <div>
                                 <strong style="color:#F57C00;" data-ko="신뢰할 수 있는 성도의 확인이 있는가?" data-en="Is it confirmed by trusted believers?">신뢰할 수 있는 성도의 확인이 있는가?</strong>
-                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko='중요한 결정일수록 목자, 목녀, 또는 영적 멘토와 나누어 확인을 받으세요. "지혜는 조언자가 많은 데에 있습니다" (잠 11:14)' data-en='For important decisions, seek confirmation from your shepherd or spiritual mentor. "In abundance of counselors there is victory." (Prov 11:14)'>
-                                    중요한 결정일수록 목자, 목녀, 또는 영적 멘토와 나누어 확인을 받으세요. 
-                                    "지혜는 조언자가 많은 데에 있습니다" (잠 11:14)
-                                </p>
+                                <p style="font-size:12px; color:#555; margin-top:4px;" data-ko='중요한 결정일수록 목자, 목녀, 또는 영적 멘토와 나누어 확인을 받으세요. "지혜는 조언자가 많은 데에 있습니다" (잠 11:14)' data-en='For important decisions, seek confirmation from your shepherd or spiritual mentor. "In abundance of counselors there is victory." (Prov 11:14)'></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div style="background:#FFEBEE; padding:12px; border-radius:8px; margin-top:15px; border-left:3px solid #F44336;">
-                    <p style="font-size:12px; color:#C62828; line-height:1.6;" data-ko="<strong>🚫 주의:</strong> 성경 밖의 음성, 흥분과 감정에 치우친 판단, 다른 사람의 확인 없이 내린 중대한 결정은 위험할 수 있습니다. 특히 '하나님이 ○○하라고 하셨다'며 타인을 강요하는 것은 하나님 이름을 빙자한 것일 수 있으니 조심하세요." data-en="<strong>🚫 Caution:</strong> Voices outside Scripture, emotionally-driven decisions, and major choices without others' confirmation can be dangerous. Be especially careful of those who pressure others saying 'God told me...'">
-                        <strong>🚫 주의:</strong> 성경 밖의 음성, 흥분과 감정에 치우친 판단, 
-                        다른 사람의 확인 없이 내린 중대한 결정은 위험할 수 있습니다. 
-                        특히 '하나님이 ○○하라고 하셨다'며 타인을 강요하는 것은 
-                        하나님 이름을 빙자한 것일 수 있으니 조심하세요.
-                    </p>
+                    <p style="font-size:12px; color:#C62828; line-height:1.6;" data-ko="<strong>🚫 주의:</strong> 성경 밖의 음성, 흥분과 감정에 치우친 판단, 다른 사람의 확인 없이 내린 중대한 결정은 위험할 수 있습니다. 특히 '하나님이 ○○하라고 하셨다'며 타인을 강요하는 것은 하나님 이름을 빙자한 것일 수 있으니 조심하세요." data-en="<strong>🚫 Caution:</strong> Voices outside Scripture, emotionally-driven decisions, and major choices without others' confirmation can be dangerous. Be especially careful of those who pressure others saying 'God told me...'"></p>
                 </div>
             </div>
 
@@ -1543,6 +1493,7 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeViewModal()">&times;</div>
             <h3 style="color:var(--navy); margin-bottom:5px;" id="v-date">Date</h3>
+            <h4 style="color:#666; margin-bottom:8px; font-size:0.95rem;" id="v-sermon-title"></h4>
             <h2 style="font-family:'Noto Serif KR'; margin-bottom:20px;" id="v-ref">Ref</h2>
             <span class="view-label" id="v-lbl1">📖 말씀 묵상</span>
             <div class="view-content" id="v-text"></div>
@@ -1730,6 +1681,7 @@
                 
                 // 일지 탭
                 card1: "말씀 묵상 (10분)",
+                ph_sermon_title: "설교 제목",
                 ph_ref: "오늘의 본문",
                 ph_text: "묵상한 말씀을 기록하세요",
                 card2: "침묵 기도 (15분)",
@@ -1919,6 +1871,7 @@
                 
                 // Journal Tab
                 card1: "Scripture (10min)",
+                ph_sermon_title: "Sermon Title",
                 ph_ref: "Scripture Reference",
                 ph_text: "Write your meditation...",
                 card2: "Silence (15min)",
@@ -2148,6 +2101,7 @@
             
             // 일지 탭
             safeUpdate('t-card1', t.card1);
+            safeUpdate('inSermonTitle', t.ph_sermon_title, true);
             safeUpdate('inRef', t.ph_ref, true);
             safeUpdate('inText', t.ph_text, true);
             safeUpdate('t-card2', t.card2);
@@ -2446,6 +2400,9 @@
             if(tabName === 'mokjang') {
                 checkMokjangStatus();
             }
+            if(tabName === 'guide') {
+                updateGuideText();
+            }
         }
 
         // ========== 일지 기능 (기존 유지) ==========
@@ -2701,6 +2658,7 @@
             const data = {
                 id: editId ? editId : Date.now(),
                 date: new Date().toLocaleDateString(),
+                sermonTitle: document.getElementById('inSermonTitle').value,
                 ref: document.getElementById('inRef').value,
                 text: document.getElementById('inText').value,
                 rhema: document.getElementById('inRhema').value,
@@ -2734,7 +2692,7 @@
         }
         
         function clearInputs() { 
-            resetInput('inRef','inText','inRhema','inAction','inThanks'); 
+            resetInput('inSermonTitle','inRef','inText','inRhema','inAction','inThanks'); 
         }
         
         function viewHistory() {
@@ -2765,6 +2723,7 @@
                 el.innerHTML = `
                     <div>
                         <div class="log-date">${log.date}</div>
+                        ${log.sermonTitle ? `<div style="font-size:0.85rem; color:#666; margin:2px 0;">${log.sermonTitle}</div>` : ''}
                         <div class="log-ref">${log.ref||'-'}</div>
                     </div>
                     <div style="font-size:1.2rem; color:#ccc;">›</div>
@@ -2780,7 +2739,14 @@
             const log = logs.find(l => l.id === id); 
             if(!log) return;
             
-            document.getElementById('v-date').innerText = log.date; 
+            document.getElementById('v-date').innerText = log.date;
+            const sermonTitleEl = document.getElementById('v-sermon-title');
+            if(log.sermonTitle) {
+                sermonTitleEl.innerText = log.sermonTitle;
+                sermonTitleEl.style.display = 'block';
+            } else {
+                sermonTitleEl.style.display = 'none';
+            }
             document.getElementById('v-ref').innerText = log.ref || '-';
             document.getElementById('v-text').innerText = log.text; 
             document.getElementById('v-rhema').innerText = log.rhema;
@@ -2806,6 +2772,7 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             document.querySelectorAll('.nav-item')[0].classList.add('active');
             
+            document.getElementById('inSermonTitle').value = log.sermonTitle || '';
             document.getElementById('inRef').value = log.ref; 
             document.getElementById('inText').value = log.text;
             document.getElementById('inRhema').value = log.rhema; 
