@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hebron - GMC Seattle</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,...">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@700;900&family=Noto+Serif+KR:wght@600;700&display=swap');
+        
+        :root { --navy: #1F4788; --navy-dark: #152E5A; --gold: #C9A227; --bg: #F8FAFC; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        .main-title { font-family: 'Cinzel', serif; }
+        .app-container { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; background: var(--bg); }
+        
+        /* [수정] 교회 로고: 공백 없이 원 안에 꽉 차게 */
+        .logo-circle { 
+            width: 50px; height: 50px; background: white; border-radius: 50%; 
+            padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.3);
+        }
+        .logo-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 아이폰 스타일 플로팅 바 (로그인 후 표시) */
+        .ios-nav {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 420px;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-radius: 40px; display: none; justify-content: space-around;
+            padding: 12px 5px; box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            z-index: 1000; border: 1px solid rgba(255,255,255,0.4);
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94A3B8; flex: 1; border: none; background: none; cursor: pointer; }
+        .nav-item.active { color: var(--navy); }
+        .nav-label { font-size: 10px; font-weight: 700; }
+
+        .tab-content { display: none; width: 100%; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hidden { display: none !important; }
+
+        /* 기존 스타일 보존 */
+        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .timer-display { font-family: 'Cinzel', monospace; font-size: 3.5rem; font-weight: 900; text-align: center; color: var(--gold); margin: 20px 0; }
+    </style>
+</head>
+<body class="pb-32">
+
+    <div class="app-container shadow-2xl">
+        <header class="bg-gradient-to-br from-[#152E5A] to-[#1F4788] text-white p-10 rounded-b-[50px] shadow-2xl">
+            <div class="flex justify-center mb-8">
+                <a href="https://www.ijiguchon.org" target="_blank" class="logo-circle">
+                    <img src="SGMC_Logo.png" onerror="this.src='app-icon.png'" class="logo-img" alt="GMC Logo">
+                </a>
+            </div>
+            <div class="text-center">
+                <h1 class="main-title text-6xl font-black mb-2 tracking-tighter">Hebron</h1>
+                <p class="text-[#C9A227] font-bold tracking-[0.4em] text-[12px] uppercase">Genesis 13:14</p>
+                <div class="w-8 h-1 bg-[#C9A227] mx-auto my-6 opacity-30"></div>
+                <p class="text-sm opacity-80 font-light">하나님과 연합하는 나의 제단</p>
+            </div>
+        </header>
+
+        <main class="px-6">
+            <div id="loginNotice" class="mt-24 text-center">
+                <button id="gateBtn" class="w-full py-5 bg-[#1F4788] text-white rounded-2xl font-bold shadow-2xl active:scale-95 transition-all text-xl tracking-widest">
+                    시작하기
+                </button>
+                <p class="text-gray-400 text-[10px] mt-8 opacity-50 tracking-widest uppercase">GMC Seattle Online Ministry</p>
+            </div>
+
+            <div id="mainContent" class="hidden">
+                <div id="tab-journal" class="tab-content active pt-6">
+                    <div class="card">
+                        <h3 class="font-bold text-[#1F4788]">📖 오늘의 경청</h3>
+                        <div class="timer-display" id="timer">15:00</div>
+                        <button class="w-full py-4 bg-[#1F4788] text-white rounded-xl font-bold" id="timerBtn">타이머 시작</button>
+                    </div>
+                </div>
+
+                <div id="tab-mokjang" class="tab-content pt-6">
+                    <div class="card">
+                        <h3 class="font-bold mb-4">👥 목장 소통</h3>
+                        <select id="userMokjang" class="w-full p-3 bg-gray-50 rounded-xl border-none text-sm">
+                            <option value="">목장을 선택하세요</option>
+                            <option value="Israel">이스라엘 (Israel)</option>
+                            <option value="Mexico">멕시코 (Mexico)</option>
+                            <option value="Indonesia">인도네시아 (Indonesia)</option>
+                            <option value="GMC Y">GMC Y</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="tab-guide" class="tab-content pt-6">
+                    <div id="assessmentContainer"></div> </div>
+
+                <div id="tab-training" class="tab-content pt-6">
+                    <div id="week1Container"></div>
+                </div>
+
+                <div id="tab-settings" class="tab-content pt-6">
+                    <div class="card text-center">
+                        <button id="signOutBtn" class="text-red-500 font-bold">로그아웃 (Sign Out)</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <nav id="bottomNav" class="ios-nav">
+            <button onclick="switchTab('journal')" class="nav-item active" id="btn-journal"><span>📖</span><span class="nav-label">일지</span></button>
+            <button onclick="switchTab('mokjang')" class="nav-item" id="btn-mokjang"><span>👥</span><span class="nav-label">목장</span></button>
+            <button onclick="switchTab('guide')" class="nav-item" id="btn-guide"><span>💡</span><span class="nav-label">가이드</span></button>
+            <button onclick="switchTab('training')" class="nav-item" id="btn-training"><span>🎯</span><span class="nav-label">21일</span></button>
+            <button onclick="switchTab('settings')" class="nav-item" id="btn-settings"><span>⚙️</span><span class="nav-label">설정</span></button>
+        </nav>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXYxfn6-rKCgelRE3GMO8d9zFykS76hng",
+            authDomain: "hebron-ijiguchon.firebaseapp.com",
+            projectId: "hebron-ijiguchon",
+            storageBucket: "hebron-ijiguchon.firebasestorage.app",
+            messagingSenderId: "290054266382",
+            appId: "1:290054266382:web:f7cdcf0ff441b943b9e65f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // [근본 해결] 시작하기 버튼에 직접 이벤트 연결
+        document.getElementById('gateBtn').addEventListener('click', () => {
+            console.log("로그인 시도...");
+            signInWithRedirect(auth, provider);
+        });
+
+        document.getElementById('signOutBtn').addEventListener('click', () => signOut(auth));
+
+        // 로그인 상태 감시 및 화면 전환
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('loginNotice').style.display = 'none';
+                document.getElementById('mainContent').classList.remove('hidden');
+                document.getElementById('bottomNav').style.display = 'flex';
+                // 로그인 성공 시 원본 데이터 렌더링 함수들을 호출 가능
+            } else {
+                document.getElementById('loginNotice').style.display = 'block';
+                document.getElementById('mainContent').classList.add('hidden');
+                document.getElementById('bottomNav').style.display = 'none';
+            }
+        });
+
+        // 탭 전환 함수 전역 등록
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('btn-' + tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+</body>
+</html>
