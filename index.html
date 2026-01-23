@@ -14,20 +14,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@700;900&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #F8FAFC; margin: 0; padding: 0; }
         .main-title { font-family: 'Cinzel', serif; }
-        
-        /* 중앙 정렬 컨테이너 */
         .app-container { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #F8FAFC; position: relative; }
         
-        /* 로고 스타일 수정: 여백(padding)을 줄여서 꽉 차게 만듦 */
+        /* 교회 로고: 여백 1px로 꽉 차게 */
         .church-logo { 
-            width: 45px; height: 45px; 
-            background: white; border-radius: 50%; 
-            padding: 1px; /* <-- 여기를 1px로 줄였습니다 */
-            object-fit: contain; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 46px; height: 46px; background: white; border-radius: 50%; 
+            padding: 1px; object-fit: contain; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* 아이폰 스타일 플로팅 네비게이션 */
+        /* 아이폰 스타일 플로팅 바 */
         .ios-nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 400px;
@@ -36,7 +31,7 @@
             padding: 15px 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             z-index: 1000; border: 1px solid rgba(255,255,255,0.4);
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94A3B8; flex: 1; border: none; background: none; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94A3B8; flex: 1; border: none; background: none; cursor: pointer; }
         .nav-item.active { color: #1F4788; }
         .nav-label { font-size: 10px; font-weight: 700; }
 
@@ -56,33 +51,32 @@
                 </a>
             </div>
             <div class="text-center">
-                <h1 class="main-title text-6xl font-black mb-2">Hebron</h1>
-                <p class="text-[#C9A227] font-bold tracking-[0.5em] text-[12px] uppercase">Genesis 13:14</p>
-                <div class="w-8 h-1 bg-[#C9A227] mx-auto my-6 opacity-50"></div>
-                <p class="text-sm opacity-80 font-light tracking-wide">하나님과 연합하는 나의 제단</p>
+                <h1 class="main-title text-6xl font-black mb-2 tracking-tighter">Hebron</h1>
+                <p class="text-[#C9A227] font-bold tracking-[0.4em] text-[12px] uppercase">Genesis 13:14</p>
+                <div class="w-8 h-1 bg-[#C9A227] mx-auto my-6 opacity-30"></div>
+                <p class="text-sm opacity-80 font-light">하나님과 연합하는 나의 제단</p>
             </div>
         </header>
 
-        <main class="px-10">
-            <div id="loginNotice" class="mt-24 text-center">
-                <button onclick="handleLogin()" class="w-full py-5 bg-[#1F4788] text-white rounded-2xl font-bold shadow-2xl shadow-blue-900/30 active:scale-95 transition-all text-xl tracking-widest">
+        <main class="px-6">
+            <div id="loginNotice" class="mt-20 text-center">
+                <button id="mainStartBtn" class="w-full py-5 bg-[#1F4788] text-white rounded-2xl font-bold shadow-2xl shadow-blue-900/30 active:scale-95 transition-all text-xl">
                     시작하기
                 </button>
-                <p class="text-gray-400 text-[10px] mt-6 opacity-60">GMC Seattle Online Ministry</p>
+                <p class="text-gray-400 text-[10px] mt-8 opacity-50">GMC Seattle Online Ministry</p>
             </div>
 
             <div id="mainContent" class="hidden">
-                <div id="tab-journal" class="tab-content active pt-8">
-                    <div class="bg-white p-12 rounded-[40px] text-center border border-gray-100 shadow-sm">
-                        <p class="text-gray-400 font-medium">오늘의 묵상을 시작합니다.</p>
-                        </div>
+                <div id="tab-journal" class="tab-content active pt-6">
+                    <div id="originalMeditationLogic"></div> 
                 </div>
-                <div id="tab-mokjang" class="tab-content pt-8"></div>
-                <div id="tab-guide" class="tab-content pt-8"></div>
-                <div id="tab-21days" class="tab-content pt-8"></div>
-                <div id="tab-settings" class="tab-content pt-8">
-                    <div class="bg-white p-8 rounded-[40px] text-center border border-gray-100 shadow-sm">
-                        <button onclick="handleLogout()" class="text-red-400 font-bold text-sm">로그아웃</button>
+                
+                <div id="tab-mokjang" class="tab-content pt-6"></div>
+                <div id="tab-guide" class="tab-content pt-6"></div>
+                <div id="tab-training" class="tab-content pt-6"></div>
+                <div id="tab-settings" class="tab-content pt-6">
+                    <div class="bg-white p-8 rounded-[40px] text-center shadow-sm border border-gray-100">
+                        <button id="logoutBtn" class="text-red-500 font-bold">로그아웃 (Sign Out)</button>
                     </div>
                 </div>
             </div>
@@ -92,15 +86,16 @@
             <button onclick="switchTab('journal')" class="nav-item active" id="btn-journal"><span>📖</span><span class="nav-label">일지</span></button>
             <button onclick="switchTab('mokjang')" class="nav-item" id="btn-mokjang"><span>👥</span><span class="nav-label">목장</span></button>
             <button onclick="switchTab('guide')" class="nav-item" id="btn-guide"><span>💡</span><span class="nav-label">가이드</span></button>
-            <button onclick="switchTab('21days')" class="nav-item" id="btn-21days"><span>🎯</span><span class="nav-label">21일</span></button>
+            <button onclick="switchTab('training')" class="nav-item" id="btn-training"><span>🎯</span><span class="nav-label">21일</span></button>
             <button onclick="switchTab('settings')" class="nav-item" id="btn-settings"><span>⚙️</span><span class="nav-label">설정</span></button>
         </nav>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // 파이어베이스 설정
         const firebaseConfig = {
             apiKey: "AIzaSyAXYxfn6-rKCgelRE3GMO8d9zFykS76hng",
             authDomain: "hebron-ijiguchon.firebaseapp.com",
@@ -114,19 +109,29 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        window.handleLogin = () => signInWithRedirect(auth, provider);
-        window.handleLogout = () => signOut(auth);
+        // [중요] 버튼 클릭 이벤트 직접 연결
+        document.getElementById('mainStartBtn').onclick = () => {
+            console.log("시작하기 클릭됨");
+            signInWithRedirect(auth, provider).catch(err => alert("로그인 오류: " + err.message));
+        };
+
+        document.getElementById('logoutBtn').onclick = () => signOut(auth);
+
+        // 결과 처리 및 UI 전환
+        getRedirectResult(auth).catch(console.error);
 
         onAuthStateChanged(auth, (user) => {
             const loginNotice = document.getElementById('loginNotice');
             const mainContent = document.getElementById('mainContent');
             const bottomNav = document.getElementById('bottomNav');
+            
             if (user) {
-                loginNotice.classList.add('hidden');
+                loginNotice.style.display = 'none';
                 mainContent.classList.remove('hidden');
                 bottomNav.style.display = 'flex';
+                // 여기에 목사님의 데이터 로드 함수(예: loadData())를 호출하세요
             } else {
-                loginNotice.classList.remove('hidden');
+                loginNotice.style.display = 'block';
                 mainContent.classList.add('hidden');
                 bottomNav.style.display = 'none';
             }
