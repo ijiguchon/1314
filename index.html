@@ -72,14 +72,14 @@
             bottom: 30px; 
             left: 50%; 
             transform: translateX(-50%);
-            width: 92%; 
-            max-width: 420px;
+            width: 96%; 
+            max-width: 480px;
             background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(20px);
             border-radius: 40px; 
             display: none; 
             justify-content: space-around;
-            padding: 12px 5px; 
+            padding: 10px 3px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             z-index: 1000; 
             border: 1px solid rgba(255,255,255,0.4);
@@ -89,13 +89,14 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 4px; 
+            gap: 3px; 
             color: #94A3B8; 
             flex: 1; 
             border: none; 
             background: none; 
             cursor: pointer;
             transition: all 0.3s ease;
+            padding: 2px;
         }
         
         .nav-item.active { 
@@ -103,7 +104,7 @@
         }
         
         .nav-label { 
-            font-size: 10px; 
+            font-size: 9px; 
             font-weight: 700; 
         }
 
@@ -961,34 +962,29 @@
                     </div>
                 </div>
 
-                <!-- 탭 5: 설정 -->
-                <div id="tab-settings" class="tab-content pt-6">
+                <!-- 탭 5: 통역 -->
+                <div id="tab-interpreter" class="tab-content pt-6">
                     <div class="card">
-                        <h3 class="font-bold mb-4 text-xl">⚙️ 설정</h3>
+                        <h3 class="font-bold mb-4 text-xl text-center" style="color: var(--navy);">🎤 설교 통역기</h3>
+                        <p class="text-center text-gray-600 mb-4">실시간으로 설교를 통역합니다</p>
                         
-                        <div class="mb-4">
-                            <p class="text-sm font-bold text-gray-700 mb-2">로그인 정보</p>
-                            <div class="p-3 bg-gray-50 rounded-lg">
-                                <p class="text-sm" id="userEmail">이메일 로딩 중...</p>
-                            </div>
+                        <div style="position:relative; width:100%; height:70vh; min-height:500px; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                            <iframe 
+                                src="https://main.sermon-translator-frontend.pages.dev/"
+                                style="width:100%; height:100%; border:none;"
+                                allow="microphone; camera"
+                                title="Sermon Interpreter">
+                            </iframe>
                         </div>
                         
-                        <div class="mb-4">
-                            <p class="text-sm font-bold text-gray-700 mb-2">앱 버전</p>
-                            <p class="text-sm text-gray-600">Hebron v1.0.0</p>
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-800">
+                            <p class="font-bold mb-2">💡 사용 안내:</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>마이크 권한을 허용해주세요</li>
+                                <li>설교 시작 전에 미리 접속하세요</li>
+                                <li>안정적인 인터넷 연결이 필요합니다</li>
+                            </ul>
                         </div>
-                        
-                        <div class="mb-4">
-                            <p class="text-sm font-bold text-gray-700 mb-2">교회 웹사이트</p>
-                            <a href="https://www.ijiguchon.org" target="_blank" 
-                               class="text-sm text-blue-600 underline">
-                                www.ijiguchon.org
-                            </a>
-                        </div>
-                        
-                        <button id="signOutBtn" class="w-full py-3 text-red-500 font-bold border-2 border-red-500 rounded-xl">
-                            로그아웃 (Sign Out)
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1011,6 +1007,10 @@
             <button onclick="switchTab('training')" class="nav-item" id="btn-training">
                 <span style="font-size: 20px;">🎯</span>
                 <span class="nav-label">21일</span>
+            </button>
+            <button onclick="switchTab('interpreter')" class="nav-item" id="btn-interpreter">
+                <span style="font-size: 20px;">🎤</span>
+                <span class="nav-label">통역</span>
             </button>
             <button onclick="switchTab('settings')" class="nav-item" id="btn-settings">
                 <span style="font-size: 20px;">⚙️</span>
