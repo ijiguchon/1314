@@ -12,9 +12,9 @@
         <div class="flex justify-between items-center max-w-4xl mx-auto">
             <div class="flex items-center gap-2">
                 <img src="logo.png" alt="GMC Logo" class="h-10">
-                <h1 class="text-xl font-bold text-blue-900 hidden sm:block">Hebron 21일 묵상</h1>
+                <h1 class="text-xl font-bold text-blue-900">Hebron 21일 묵상</h1>
             </div>
-            <div id="userStatus" class="flex items-center gap-2">
+            <div id="userStatus">
                 <button id="loginBtn" class="bg-blue-700 text-white px-4 py-1 rounded-full text-sm font-bold">로그인 (Login)</button>
             </div>
         </div>
@@ -27,40 +27,36 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">소속 목장 (Select Mokjang)</label>
-                    <select id="userMokjang" class="w-full p-2 border rounded-lg border-gray-300">
-                        <option value="">목장을 선택하세요</option>
+                    <select id="userMokjang" class="w-full p-3 border rounded-lg border-gray-300 bg-gray-50 focus:ring-2 focus:ring-blue-500">
+                        <option value="">목장을 선택하세요 (Select)</option>
                         <option value="이스라엘">이스라엘 (Israel)</option>
                         <option value="멕시코">멕시코 (Mexico)</option>
                         <option value="인도네시아">인도네시아 (Indonesia)</option>
                         <option value="GMC Y">GMC Y</option>
                     </select>
                 </div>
-                <button onclick="updateProfile()" class="w-full bg-blue-600 text-white py-2 rounded-xl font-bold hover:bg-blue-700 transition">설정 저장 (Save Settings)</button>
+                <button onclick="updateProfile()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">설정 저장 (Save Settings)</button>
             </div>
         </section>
 
         <section id="writeSection" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-            <h2 class="text-lg font-bold mb-4 text-green-700 text-center">오늘의 묵상 (Today's Meditation)</h2>
+            <h2 class="text-lg font-bold mb-4 text-green-700 text-center">오늘의 묵상 (Meditation)</h2>
             <div class="space-y-3">
                 <input id="title" type="text" placeholder="설교 제목 (Sermon Title)" class="w-full p-3 border rounded-xl border-gray-200">
-                <textarea id="content" rows="4" placeholder="하나님의 음성 및 순종 실천 (God's Voice)" class="w-full p-3 border rounded-xl border-gray-200"></textarea>
-                <button onclick="saveMeditation()" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 transition">기록 완료 (Submit)</button>
+                <textarea id="content" rows="4" placeholder="하나님의 음성 및 순종 (God's Voice)" class="w-full p-3 border rounded-xl border-gray-200"></textarea>
+                <button onclick="saveMeditation()" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold text-lg shadow-lg">기록 완료 (Submit)</button>
             </div>
         </section>
 
         <section id="mokjangSection" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-            <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 class="text-lg font-bold text-orange-700">우리 목장 소식 (Mokjang News)</h2>
-                <span id="streakCount" class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-bold">🔥 0일 연속</span>
-            </div>
+            <h2 class="text-lg font-bold text-orange-700 mb-4 border-b pb-2">우리 목장 소식 (Mokjang News)</h2>
             <div id="mokjangList" class="space-y-4">
-                <p class="text-center text-gray-400 py-4">목장을 선택하고 묵상을 기록해 보세요!</p>
+                <p class="text-center text-gray-400">목장을 선택하시면 소식이 나타납니다.</p>
             </div>
         </section>
 
-        <div id="loginNotice" class="text-center py-20 text-gray-500 bg-white rounded-2xl shadow-inner border border-dashed border-gray-300">
-            <p class="text-2xl mb-2 text-blue-900">⛪</p>
-            <p>시애틀 지구촌교회 21일 묵상입니다.<br>먼저 로그인해 주세요.</p>
+        <div id="loginNotice" class="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
+            <p class="text-blue-900 font-bold">시애틀 지구촌교회 21일 묵상<br>먼저 로그인해 주세요.</p>
         </div>
     </main>
 
@@ -155,7 +151,7 @@
                 collection(db, "journals"),
                 where("mokjang", "==", mokjangName),
                 orderBy("timestamp", "desc"),
-                limit(10)
+                limit(15)
             );
             onSnapshot(q, (snapshot) => {
                 const listDiv = document.getElementById('mokjangList');
