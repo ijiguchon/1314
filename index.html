@@ -567,9 +567,10 @@
             <div class="flex justify-center mb-8">
                 <a href="https://www.ijiguchon.org" target="_blank" class="logo-circle">
                     <img src="https://www.ijiguchon.org/images/logo.png" 
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size:24px;font-weight:900;color:#1F4788&quot;>GMC</span>'" 
                          class="logo-img" 
-                         alt="GMC Logo">
+                         alt="GMC Logo"
+                         onload="this.style.opacity='1'"
+                         onerror="this.outerHTML='<div style=&quot;width:50px;height:50px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1F4788;&quot;>GMC</div>'">
                 </a>
             </div>
             <div class="text-center">
@@ -583,6 +584,17 @@
         <main class="px-6">
             <!-- 로그인 화면 -->
             <div id="loginNotice" class="login-hero">
+                <!-- 교회 로고 -->
+                <div class="flex justify-center mb-8 fade-in-up">
+                    <a href="https://www.ijiguchon.org" target="_blank" class="logo-circle">
+                        <img src="https://www.ijiguchon.org/images/logo.png" 
+                             class="logo-img" 
+                             alt="GMC Logo"
+                             onload="this.style.opacity='1'"
+                             onerror="this.outerHTML='<div style=&quot;width:50px;height:50px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1F4788;&quot;>GMC</div>'">
+                    </a>
+                </div>
+                
                 <!-- 히어로 섹션 -->
                 <div class="hero-content">
                     <div class="hero-badge fade-in-up" style="animation-delay: 0.1s;">
