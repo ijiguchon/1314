@@ -4125,37 +4125,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const appContent = document.querySelector('header')?.parentElement;
         if (appContent) appContent.style.display = 'block';
         
-        // 프로필 UI 추가
-        addProfileUI();
+        // 프로필 UI는 추가하지 않음 - 기존 헤더 유지
+        console.log('✅ 로그인 완료:', currentUser.email);
     }
 
     function addProfileUI() {
-        if (!currentUser) return;
-        
-        // 언어 버튼 옆에 프로필 아이콘 추가 (언어 버튼은 유지)
-        const langBtn = document.getElementById('langBtn');
-        if (langBtn && !document.getElementById('user-profile-btn')) {
-            const profileBtn = document.createElement('button');
-            profileBtn.id = 'user-profile-btn';
-            profileBtn.style.cssText = `
-                background: none; border: none; cursor: pointer;
-                width: 35px; height: 35px; border-radius: 50%;
-                overflow: hidden; padding: 0; margin-left: 10px;
-            `;
-            
-            if (currentUser.photoURL) {
-                profileBtn.innerHTML = `<img src="${currentUser.photoURL}" style="width: 100%; height: 100%; object-fit: cover;">`;
-            } else {
-                profileBtn.innerHTML = `<div style="width: 100%; height: 100%; background: #C9A227; 
-                    display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">
-                    ${currentUser.email?.[0]?.toUpperCase() || 'U'}</div>`;
-            }
-            
-            profileBtn.onclick = () => showProfileMenu();
-            
-            // 언어 버튼 다음에 프로필 버튼 삽입
-            langBtn.parentNode.insertBefore(profileBtn, langBtn.nextSibling);
-        }
+        // 헤더에 프로필 버튼 추가하지 않음
+        // 기존 헤더 레이아웃 완전히 유지
+        return;
     }
 
     function showProfileMenu() {
