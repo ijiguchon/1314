@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test</title>
+</head>
+<body>
+    <h1>Firebase 연결 테스트</h1>
+    <div id="status">로딩 중...</div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Firebase SDK 로드 대기
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyAXYxfn6-rKCgelRE3GMO8d9zFykS76hng",
+                    authDomain: "hebron-ijiguchon.firebaseapp.com",
+                    projectId: "hebron-ijiguchon",
+                    storageBucket: "hebron-ijiguchon.firebasestorage.app",
+                    messagingSenderId: "290054266382",
+                    appId: "1:290054266382:web:f7cdcf0ff441b943b9e65f"
+                };
+                
+                // Firebase 초기화
+                try {
+                    if (typeof firebase === 'undefined') {
+                        document.getElementById('status').innerHTML = '❌ Firebase SDK 로드 실패';
+                        return;
+                    }
+                    
+                    const app = firebase.initializeApp(firebaseConfig);
+                    const auth = firebase.auth();
+                    const db = firebase.firestore();
+                    
+                    document.getElementById('status').innerHTML = '✅ Firebase 연결 성공!<br><button onclick="testLogin()">Google 로그인 테스트</button>';
+                    
+                    window.testLogin = async function() {
+                        const provider = new firebase.auth.GoogleAuthProvider();
+                        try {
+                            const result = await auth.signInWithPopup(provider);
+                            document.getElementById('status').innerHTML = '✅ 로그인 성공: ' + result.user.email;
+                        } catch (error) {
+                            document.getElementById('status').innerHTML = '❌ 로그인 실패: ' + error.message;
+                        }
+                    };
+                    
+                } catch (error) {
+                    document.getElementById('status').innerHTML = '❌ Firebase 실패: ' + error.message;
+                }
+            }, 1000); // 1초 대기
+        });
+    </script>
+</body>
+</html>
