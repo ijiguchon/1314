@@ -7726,6 +7726,606 @@ async function saveToFirestore(journalData) {
     // 페이지 로드 시 오늘 하이라이트
     window.addEventListener('load', highlightToday);
     </script>
+// ============================================
+// 🔥 HEBRON FIRESTORE 데이터 관리 시스템
+// ============================================
 
+// ============================================
+// FIRESTORE 데이터 관리 함수들
+// ============================================
+
+/**
+ * 사용자 프로필을 Firestore에 저장
+ */
+async function saveUserProfile(uid, profileData) {
+    try {
+        await db.collection('users').doc(uid).set({
+            uid: uid,
+            email: profileData.email || '',
+            name: profileData.name || '',
+            role: profileData.role || 'member',
+            mokjangCode: profileData.mokjangCode || null,
+            shepherdType: profileData.shepherdType || null,
+            journeyStage: profileData.journeyStage || 'seeker',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            lastLoginAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        
+        console.log('✅ 사용자 프로필 저장 성공');
+        return true;
+    } catch (error) {
+        console.error('❌ 사용자 프로필 저장 실패:', error);
+        return false;
+    }
+}
+
+/**
+ * 사용자 프로필 가져오기
+ */
+async function getUserProfile(uid) {
+    try {
+        const doc = await db.collection('users').doc(uid).get();
+        if (doc.exists) {
+            return doc.data();
+        }
+        return null;
+    } catch (error) {
+        console.error('❌ 사용자 프로필 가져오기 실패:', error);
+        return null;
+    }
+}
+
+/**
+ * 목장 생성 (목자용)
+ */
+async function createMokjang(mokjangCode, mokjangName, shepherdUid, shepherdName, shepherdType) {
+    try {
+        await db.collection('mokjangs').doc(mokjangCode).set({
+            code: mokjangCode,
+            name: mokjangName,
+            shepherdUid: shepherdUid,
+            shepherdName: shepherdName,
+            shepherdType: shepherdType,
+            memberCount: 1, // 목자 본인
+            activeMembers: 0,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        // 목자 자신을 목장 멤버로 추가
+        await addMokjangMember(mokjangCode, shepherdUid, shepherdName, '');
+        
+        console.log('✅ 목장 생성 성공:', mokjangCode);
+        return true;
+    } catch (error) {
+        console.error('❌ 목장 생성 실패:', error);
+        return false;
+    }
+}
+
+/**
+ * 목장에 목원 추가
+ */
+async function addMokjangMember(mokjangCode, memberUid, memberName, memberEmail) {
+    try {
+        await db.collection('mokjangs')
+            .doc(mokjangCode)
+            .collection('members')
+            .doc(memberUid)
+            .set({
+                uid: memberUid,
+                name: memberName,
+                email: memberEmail,
+                joinedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                completedDays: 0,
+                currentStreak: 0,
+                longestStreak: 0,
+                thisWeekDays: 0,
+                lastWeekDays: 0
+            }, { merge: true });
+        
+        // 목장의 멤버 카운트 증가
+        await db.collection('mokjangs').doc(mokjangCode).update({
+            memberCount: firebase.firestore.FieldValue.increment(1)
+        });
+        
+        console.log('✅ 목장원 추가 성공:', memberName);
+        return true;
+    } catch (error) {
+        console.error('❌ 목장원 추가 실패:', error);
+        return false;
+    }
+}
+
+/**
+ * 일지 작성 시 챌린지 진행 상황 업데이트
+ */
+async function updateChallengeProgress(uid, date) {
+    try {
+        const docRef = db.collection('challenge_progress').doc(uid);
+        const doc = await docRef.get();
+        
+        if (doc.exists) {
+            const data = doc.data();
+            const completedDays = data.completedDays || [];
+            
+            // 이미 완료한 날짜인지 확인
+            if (!completedDays.includes(date)) {
+                completedDays.push(date);
+                completedDays.sort(); // 날짜순 정렬
+                
+                // 연속 기록 계산
+                const streak = calculateStreak(completedDays);
+                
+                await docRef.update({
+                    completedDays: completedDays,
+                    totalDays: completedDays.length,
+                    currentStreak: streak.current,
+                    longestStreak: Math.max(data.longestStreak || 0, streak.longest),
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+        } else {
+            // 첫 일지인 경우
+            await docRef.set({
+                uid: uid,
+                started: true,
+                startDate: date,
+                completedDays: [date],
+                totalDays: 1,
+                currentStreak: 1,
+                longestStreak: 1,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        
+        // 목장 멤버 통계 업데이트
+        const userProfile = await getUserProfile(uid);
+        if (userProfile && userProfile.mokjangCode) {
+            await updateMokjangMemberStats(userProfile.mokjangCode, uid);
+        }
+        
+        console.log('✅ 챌린지 진행 상황 업데이트 성공');
+        return true;
+    } catch (error) {
+        console.error('❌ 챌린지 진행 상황 업데이트 실패:', error);
+        return false;
+    }
+}
+
+/**
+ * 연속 기록 계산
+ */
+function calculateStreak(dates) {
+    if (dates.length === 0) return { current: 0, longest: 0 };
+    
+    dates.sort(); // 날짜순 정렬
+    let currentStreak = 1;
+    let longestStreak = 1;
+    let tempStreak = 1;
+    
+    for (let i = 1; i < dates.length; i++) {
+        const prevDate = new Date(dates[i - 1]);
+        const currDate = new Date(dates[i]);
+        const diffDays = Math.floor((currDate - prevDate) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+            // 연속
+            tempStreak++;
+            currentStreak = tempStreak;
+        } else {
+            // 연속 끊김
+            longestStreak = Math.max(longestStreak, tempStreak);
+            tempStreak = 1;
+            currentStreak = 1;
+        }
+    }
+    
+    longestStreak = Math.max(longestStreak, tempStreak);
+    
+    return { current: currentStreak, longest: longestStreak };
+}
+
+/**
+ * 목장 멤버 통계 업데이트
+ */
+async function updateMokjangMemberStats(mokjangCode, memberUid) {
+    try {
+        const progressDoc = await db.collection('challenge_progress').doc(memberUid).get();
+        
+        if (progressDoc.exists) {
+            const data = progressDoc.data();
+            
+            await db.collection('mokjangs')
+                .doc(mokjangCode)
+                .collection('members')
+                .doc(memberUid)
+                .update({
+                    completedDays: data.totalDays || 0,
+                    currentStreak: data.currentStreak || 0,
+                    longestStreak: data.longestStreak || 0,
+                    lastActive: firebase.firestore.FieldValue.serverTimestamp()
+                });
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('❌ 목장 멤버 통계 업데이트 실패:', error);
+        return false;
+    }
+}
+
+/**
+ * 목장 멤버 목록 가져오기 (목자용)
+ */
+async function getMokjangMembers(mokjangCode) {
+    try {
+        const snapshot = await db.collection('mokjangs')
+            .doc(mokjangCode)
+            .collection('members')
+            .orderBy('completedDays', 'desc')
+            .get();
+        
+        const members = [];
+        snapshot.forEach(doc => {
+            members.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+        
+        return members;
+    } catch (error) {
+        console.error('❌ 목장 멤버 가져오기 실패:', error);
+        return [];
+    }
+}
+
+/**
+ * 전체 목장 목록 가져오기 (관리자용)
+ */
+async function getAllMokjangs() {
+    try {
+        const snapshot = await db.collection('mokjangs')
+            .orderBy('memberCount', 'desc')
+            .get();
+        
+        const mokjangs = [];
+        snapshot.forEach(doc => {
+            mokjangs.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+        
+        return mokjangs;
+    } catch (error) {
+        console.error('❌ 전체 목장 가져오기 실패:', error);
+        return [];
+    }
+}
+
+/**
+ * 목장별 상세 통계 가져오기 (관리자용)
+ */
+async function getMokjangDetailedStats(mokjangCode) {
+    try {
+        const members = await getMokjangMembers(mokjangCode);
+        
+        // 통계 계산
+        const stats = {
+            totalMembers: members.length,
+            active: 0,      // 이번 주 7일 참여
+            partial: 0,     // 이번 주 3-6일
+            inactive: 0,    // 이번 주 1-2일
+            none: 0,        // 이번 주 0일
+            avgCompletedDays: 0,
+            topStreaks: []
+        };
+        
+        members.forEach(member => {
+            const thisWeek = member.thisWeekDays || 0;
+            
+            if (thisWeek === 7) stats.active++;
+            else if (thisWeek >= 3) stats.partial++;
+            else if (thisWeek >= 1) stats.inactive++;
+            else stats.none++;
+            
+            stats.avgCompletedDays += member.completedDays || 0;
+        });
+        
+        if (members.length > 0) {
+            stats.avgCompletedDays = Math.round(stats.avgCompletedDays / members.length);
+        }
+        
+        // 연속 기록 Top 3
+        stats.topStreaks = members
+            .filter(m => m.currentStreak > 0)
+            .sort((a, b) => b.currentStreak - a.currentStreak)
+            .slice(0, 3)
+            .map(m => ({
+                name: m.name,
+                streak: m.currentStreak
+            }));
+        
+        return stats;
+    } catch (error) {
+        console.error('❌ 목장 상세 통계 가져오기 실패:', error);
+        return null;
+    }
+}
+
+/**
+ * 전체 교회 통계 계산 (관리자용)
+ */
+async function getChurchWideStats() {
+    try {
+        const mokjangs = await getAllMokjangs();
+        
+        const stats = {
+            totalMokjangs: mokjangs.length,
+            totalMembers: 0,
+            totalActive: 0,
+            avgCompletionRate: 0,
+            topMokjangs: []
+        };
+        
+        for (const mokjang of mokjangs) {
+            stats.totalMembers += mokjang.memberCount || 0;
+            
+            // 각 목장의 상세 통계 가져오기
+            const mokjangStats = await getMokjangDetailedStats(mokjang.code);
+            if (mokjangStats) {
+                stats.totalActive += mokjangStats.active;
+                stats.avgCompletionRate += mokjangStats.avgCompletedDays;
+            }
+        }
+        
+        if (mokjangs.length > 0) {
+            stats.avgCompletionRate = Math.round(stats.avgCompletionRate / mokjangs.length);
+        }
+        
+        // 상위 목장 (멤버 수 기준)
+        stats.topMokjangs = mokjangs
+            .sort((a, b) => (b.memberCount || 0) - (a.memberCount || 0))
+            .slice(0, 5)
+            .map(m => ({
+                code: m.code,
+                name: m.name,
+                shepherdName: m.shepherdName,
+                memberCount: m.memberCount
+            }));
+        
+        return stats;
+    } catch (error) {
+        console.error('❌ 교회 전체 통계 계산 실패:', error);
+        return null;
+    }
+}
+
+// ============================================
+// 목자 대시보드 실제 데이터 연결
+// ============================================
+
+/**
+ * 목자 대시보드 실제 데이터로 업데이트
+ */
+async function updateShepherdDashboardWithRealData() {
+    try {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+        
+        const userProfile = await getUserProfile(user.uid);
+        if (!userProfile || !userProfile.mokjangCode) {
+            console.log('목장 코드가 없습니다.');
+            return;
+        }
+        
+        const role = userProfile.role;
+        if (role !== 'shepherd' && role !== 'moknye') {
+            console.log('목자/목녀가 아닙니다.');
+            return;
+        }
+        
+        // 대시보드 표시
+        const dashboard = document.getElementById('shepherd-dashboard');
+        if (dashboard) {
+            dashboard.style.display = 'block';
+        }
+        
+        // 목장 통계 가져오기
+        const stats = await getMokjangDetailedStats(userProfile.mokjangCode);
+        
+        if (stats) {
+            // 통계 업데이트
+            document.getElementById('shepherd-stat-active').textContent = stats.active;
+            document.getElementById('shepherd-stat-partial').textContent = stats.partial;
+            document.getElementById('shepherd-stat-inactive').textContent = stats.inactive;
+            document.getElementById('shepherd-stat-none').textContent = stats.none;
+            
+            // 연속 기록 TOP 3 표시
+            const streakList = document.getElementById('shepherd-streak-list');
+            if (streakList && stats.topStreaks.length > 0) {
+                const medals = ['🥇', '🥈', '🥉'];
+                const colors = [
+                    'rgba(255,215,0,0.2)',
+                    'rgba(192,192,192,0.2)',
+                    'rgba(205,127,50,0.2)'
+                ];
+                
+                streakList.innerHTML = stats.topStreaks.map((item, index) => `
+                    <div style="display: flex; align-items: center; gap: 10px; background: ${colors[index]}; padding: 10px; border-radius: 8px;">
+                        <div style="font-size: 1.5rem;">${medals[index]}</div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600;">${item.name}</div>
+                            <div style="font-size: 0.85rem; opacity: 0.8;">${item.streak}일 연속 🔥</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // 격려 필요 목장원 표시
+            const needEncouragement = document.getElementById('shepherd-need-encouragement');
+            if (needEncouragement) {
+                if (stats.inactive + stats.none > 0) {
+                    const members = await getMokjangMembers(userProfile.mokjangCode);
+                    const needHelp = members.filter(m => (m.thisWeekDays || 0) <= 2);
+                    
+                    if (needHelp.length > 0) {
+                        needEncouragement.innerHTML = needHelp.slice(0, 3).map(m => 
+                            `<div style="padding: 5px 0;">• ${m.name}님 - ${7 - (m.thisWeekDays || 0)}일 남았어요</div>`
+                        ).join('') + `
+                            <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">
+                                💬 목장 모임에서 격려해주세요
+                            </div>
+                        `;
+                    } else {
+                        needEncouragement.innerHTML = '<div style="text-align: center; padding: 10px; opacity: 0.7;">모두 잘하고 있어요! 🎉</div>';
+                    }
+                } else {
+                    needEncouragement.innerHTML = '<div style="text-align: center; padding: 10px; opacity: 0.7;">모두 잘하고 있어요! 🎉</div>';
+                }
+            }
+        }
+        
+        console.log('✅ 목자 대시보드 업데이트 성공');
+    } catch (error) {
+        console.error('❌ 목자 대시보드 업데이트 실패:', error);
+    }
+}
+
+// ============================================
+// 관리자 대시보드
+// ============================================
+
+/**
+ * 관리자 대시보드 업데이트
+ */
+async function updateAdminDashboard() {
+    try {
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+        
+        const userProfile = await getUserProfile(user.uid);
+        if (!userProfile || userProfile.role !== 'admin') {
+            console.log('관리자가 아닙니다.');
+            return;
+        }
+        
+        // 관리자 대시보드 표시
+        const adminDashboard = document.getElementById('admin-dashboard');
+        if (adminDashboard) {
+            adminDashboard.style.display = 'block';
+        }
+        
+        // 전체 교회 통계 가져오기
+        const churchStats = await getChurchWideStats();
+        
+        if (churchStats) {
+            // 전체 통계 표시
+            document.getElementById('admin-total-mokjangs').textContent = churchStats.totalMokjangs;
+            document.getElementById('admin-total-members').textContent = churchStats.totalMembers;
+            document.getElementById('admin-total-active').textContent = churchStats.totalActive;
+            document.getElementById('admin-avg-completion').textContent = churchStats.avgCompletionRate + '일';
+            
+            // 상위 목장 표시
+            const topMokjangsList = document.getElementById('admin-top-mokjangs');
+            if (topMokjangsList && churchStats.topMokjangs.length > 0) {
+                topMokjangsList.innerHTML = churchStats.topMokjangs.map((mokjang, index) => `
+                    <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 8px;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 1rem;">${index + 1}. ${mokjang.name}</div>
+                            <div style="font-size: 0.85rem; opacity: 0.8;">목자: ${mokjang.shepherdName}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.3rem; font-weight: 700; color: #fbbf24;">${mokjang.memberCount}명</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // 전체 목장 목록 표시
+        const allMokjangs = await getAllMokjangs();
+        const mokjangListEl = document.getElementById('admin-mokjang-list');
+        
+        if (mokjangListEl && allMokjangs.length > 0) {
+            mokjangListEl.innerHTML = '';
+            
+            for (const mokjang of allMokjangs) {
+                const stats = await getMokjangDetailedStats(mokjang.code);
+                
+                const mokjangCard = document.createElement('div');
+                mokjangCard.className = 'card';
+                mokjangCard.style.marginBottom = '15px';
+                mokjangCard.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="margin: 0 0 5px 0; color: var(--navy); font-size: 1.2rem;">${mokjang.name}</h4>
+                            <div style="color: #666; font-size: 0.9rem;">목자: ${mokjang.shepherdName} | 코드: ${mokjang.code}</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px 15px; border-radius: 20px; font-weight: 600;">
+                            ${mokjang.memberCount}명
+                        </div>
+                    </div>
+                    
+                    ${stats ? `
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px;">
+                        <div style="text-align: center; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;">${stats.active}</div>
+                            <div style="font-size: 0.75rem; color: #666;">매일 참여</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #fbbf24;">${stats.partial}</div>
+                            <div style="font-size: 0.75rem; color: #666;">3-6일</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">${stats.inactive}</div>
+                            <div style="font-size: 0.75rem; color: #666;">1-2일</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: rgba(156, 163, 175, 0.1); border-radius: 8px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #9ca3af;">${stats.none}</div>
+                            <div style="font-size: 0.75rem; color: #666;">미참여</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                `;
+                
+                mokjangListEl.appendChild(mokjangCard);
+            }
+        }
+        
+        console.log('✅ 관리자 대시보드 업데이트 성공');
+    } catch (error) {
+        console.error('❌ 관리자 대시보드 업데이트 실패:', error);
+    }
+}
+
+// ============================================
+// 초기화 및 호출
+// ============================================
+
+// 페이지 로드 시 대시보드 업데이트
+document.addEventListener('DOMContentLoaded', async function() {
+    // Firebase 인증 상태 확인 후 실행
+    firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+            const profile = await getUserProfile(user.uid);
+            
+            if (profile) {
+                // 역할에 따라 대시보드 업데이트
+                if (profile.role === 'admin') {
+                    await updateAdminDashboard();
+                } else if (profile.role === 'shepherd' || profile.role === 'moknye') {
+                    await updateShepherdDashboardWithRealData();
+                }
+            }
+        }
+    });
+});
+
+console.log('✅ Firestore 데이터 관리 시스템 로드 완료');
 </body>
 </html>
