@@ -2333,6 +2333,136 @@
                         <p style="text-align:center; color:#999;" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
                     </div>
                 </div>
+<div id="admin-dashboard" class="card" style="display:none; background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); border: none; color: white; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <div style="font-size: 2.5rem;">👨‍💼</div>
+        <div>
+            <h3 style="margin: 0; font-size: 1.5rem; color: white;">
+                <span data-ko="관리자 대시보드" data-en="Admin Dashboard">관리자 대시보드</span>
+            </h3>
+            <p style="margin: 4px 0 0 0; font-size: 0.9rem; opacity: 0.9;">
+                <span data-ko="전체 교회 영적 현황" data-en="Church-wide Spiritual Status">전체 교회 영적 현황</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 전체 통계 -->
+    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 12px; margin-bottom: 20px; backdrop-filter: blur(10px);">
+        <h4 style="margin: 0 0 15px 0; font-size: 1.1rem; color: #fbbf24;">
+            📊 <span data-ko="전체 교회 통계" data-en="Church Statistics">전체 교회 통계</span>
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700;" id="admin-total-mokjangs">0</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">
+                    <span data-ko="목장 수" data-en="Mokjangs">목장 수</span>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700;" id="admin-total-members">0</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">
+                    <span data-ko="전체 참여자" data-en="Total Participants">전체 참여자</span>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700;" id="admin-total-active">0</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">
+                    <span data-ko="매일 참여" data-en="Daily Active">매일 참여</span>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700;" id="admin-avg-completion">0일</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">
+                    <span data-ko="평균 완료" data-en="Avg Completion">평균 완료</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 상위 목장 TOP 5 -->
+    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 12px; margin-bottom: 20px; backdrop-filter: blur(10px);">
+        <h4 style="margin: 0 0 15px 0; font-size: 1.1rem; color: #fbbf24;">
+            🏆 <span data-ko="상위 목장 TOP 5" data-en="Top 5 Mokjangs">상위 목장 TOP 5</span>
+            <span style="font-size: 0.85rem; opacity: 0.8; font-weight: 400;"> (참여 인원 기준)</span>
+        </h4>
+        <div id="admin-top-mokjangs">
+            <p style="text-align: center; opacity: 0.7;">
+                <span data-ko="데이터 로딩 중..." data-en="Loading data...">데이터 로딩 중...</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 빠른 액션 -->
+    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px);">
+        <h4 style="margin: 0 0 15px 0; font-size: 1.1rem; color: #fbbf24;">
+            ⚡ <span data-ko="빠른 액션" data-en="Quick Actions">빠른 액션</span>
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+            <button onclick="refreshAdminDashboard()" style="background: rgba(16, 185, 129, 0.3); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.background='rgba(16, 185, 129, 0.5)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.3)'">
+                🔄 <span data-ko="새로고침" data-en="Refresh">새로고침</span>
+            </button>
+            <button onclick="exportChurchStats()" style="background: rgba(59, 130, 246, 0.3); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.background='rgba(59, 130, 246, 0.5)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.3)'">
+                📥 <span data-ko="통계 다운로드" data-en="Export Stats">통계 다운로드</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 전체 목장 상세 목록 (관리자 전용) -->
+<div id="admin-mokjang-list-section" style="display:none;">
+    <div class="card">
+        <h3 style="color: var(--navy); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5rem;">📋</span>
+            <span data-ko="전체 목장 상세 현황" data-en="Detailed Mokjang Status">전체 목장 상세 현황</span>
+        </h3>
+        <div id="admin-mokjang-list">
+            <p style="text-align: center; color: #999;">
+                <span data-ko="데이터 로딩 중..." data-en="Loading data...">데이터 로딩 중...</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+// 관리자 대시보드 새로고침
+function refreshAdminDashboard() {
+    if (typeof updateAdminDashboard === 'function') {
+        updateAdminDashboard();
+        alert('대시보드를 새로고침했습니다.');
+    }
+}
+
+// 교회 통계 내보내기
+async function exportChurchStats() {
+    try {
+        const stats = await getChurchWideStats();
+        const allMokjangs = await getAllMokjangs();
+        
+        let csvContent = "목장명,목자,코드,인원수,매일참여,3-6일,1-2일,미참여\\n";
+        
+        for (const mokjang of allMokjangs) {
+            const detail = await getMokjangDetailedStats(mokjang.code);
+            csvContent += `${mokjang.name},${mokjang.shepherdName},${mokjang.code},${mokjang.memberCount},${detail.active},${detail.partial},${detail.inactive},${detail.none}\\n`;
+        }
+        
+        // CSV 다운로드
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `교회통계_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        alert('통계가 다운로드되었습니다.');
+    } catch (error) {
+        console.error('통계 내보내기 실패:', error);
+        alert('통계 내보내기에 실패했습니다.');
+    }
+}
+</script>
 
                 <!-- 🧑‍🏫 목자 대시보드 (목자/목녀만 표시) -->
                 <div id="shepherd-dashboard" class="card" style="display:none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
