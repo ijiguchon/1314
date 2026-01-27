@@ -679,6 +679,28 @@
                 width: calc(100% - 30px);
             }
         }
+        
+        /* 플레이스홀더 스타일 - 연하게 */
+        input::placeholder,
+        textarea::placeholder {
+            color: #bdbdbd;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+        
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder {
+            color: #bdbdbd;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+        
+        input::-moz-placeholder,
+        textarea::-moz-placeholder {
+            color: #bdbdbd;
+            opacity: 0.6;
+            font-weight: 400;
+        }
     </style>
 </head>
 <body>
@@ -2664,10 +2686,10 @@
                     
                     <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; border-left: 3px solid #C9A227; margin-bottom: 15px;">
                         <p style="font-size: 15px; line-height: 1.8; margin: 0;">
-                            <span data-ko="<strong>Hebron(헤브론)</strong>은 히브리어로 '연합, 교제, 동맹'을 의미합니다. 아브라함이 롯과 헤어진 후, 하나님께서 그에게 약속의 땅을 보여주신 곳이 바로 헤브론입니다 (창세기 13:14). 아브라함은 그곳에 제단을 쌓고 하나님과 깊이 교제했습니다." data-en="<strong>Hebron</strong> means 'union, fellowship, alliance' in Hebrew. After separating from Lot, God showed Abraham the promised land at Hebron (Genesis 13:14). Abraham built an altar there and had deep fellowship with God.">
+                            <span data-ko="<strong>Hebron(헤브론)</strong>은 히브리어로 '연합, 교제, 동맹'을 의미합니다. 아브라함이 롯과 헤어진 후, 하나님께서 그에게 약속의 땅을 보여주신 곳이 바로 헤브론입니다 (창세기 13:14). 아브라함은 그곳에 제단을 쌓고 하나님께 예배드렸습니다 (창 13:18)." data-en="<strong>Hebron</strong> means 'union, fellowship, alliance' in Hebrew. After separating from Lot, God showed Abraham the promised land at Hebron (Genesis 13:14). Abraham built an altar there and worshiped God (Gen 13:18).">
                                 <strong>Hebron(헤브론)</strong>은 히브리어로 '연합, 교제, 동맹'을 의미합니다. 
                                 아브라함이 롯과 헤어진 후, 하나님께서 그에게 약속의 땅을 보여주신 곳이 바로 헤브론입니다 (창세기 13:14). 
-                                아브라함은 그곳에 제단을 쌓고 하나님과 깊이 교제했습니다.
+                                아브라함은 그곳에 제단을 쌓고 하나님께 예배드렸습니다 (창 13:18).
                             </span>
                         </p>
                     </div>
@@ -2681,9 +2703,10 @@
                             </span>
                         </p>
                         <p style="font-size: 15px; line-height: 1.8; margin: 0;">
-                            <span data-ko="이 앱의 일지는 단순한 기록이 아니라, <strong>나만의 제단을 쌓는 시간</strong>입니다. 매일 30분씩 하나님과 연합하며 그분의 음성을 듣고, Genesis 13:14 비전을 따라 한 가정, 한 사람, 한 관계를 통해 하나님 나라를 확장하는 사역자로 성장하는 여정입니다." data-en="This journal is not just a record, but <strong>time to build your own altar</strong>. It's a journey of growing as a minister who listens to God's voice daily for 30 minutes, and expands God's kingdom through one family, one person, one relationship, following the Genesis 13:14 vision.">
+                            <span data-ko="이 앱의 일지는 단순한 기록이 아니라, <strong>나만의 제단을 쌓는 시간</strong>입니다. 매일 30분씩 하나님과 연합하며 그분의 음성을 듣고, 내 삶을 산 제사로 드리는 영적 예배의 자리입니다. Genesis 13:14 비전을 따라 한 가정, 한 사람, 한 관계를 통해 하나님 나라를 확장하는 사역자로 성장하는 여정입니다." data-en="This journal is not just a record, but <strong>time to build your own altar</strong>. It's a place of spiritual worship where you unite with God daily for 30 minutes, listen to His voice, and offer your life as a living sacrifice. It's a journey of growing as a minister who expands God's kingdom through one family, one person, one relationship, following the Genesis 13:14 vision.">
                                 이 앱의 일지는 단순한 기록이 아니라, <strong>나만의 제단을 쌓는 시간</strong>입니다. 
                                 매일 30분씩 하나님과 연합하며 그분의 음성을 듣고, 
+                                내 삶을 산 제사로 드리는 영적 예배의 자리입니다. 
                                 Genesis 13:14 비전을 따라 한 가정, 한 사람, 한 관계를 통해 하나님 나라를 확장하는 사역자로 성장하는 여정입니다.
                             </span>
                         </p>
@@ -7947,4 +7970,161 @@ async function saveToFirestore(journalData) {
             
             const isPastor = userRole === 'pastor' || userRole === '목사';
             const isEvangelist = userRole === 'evangelist' || userRole === '전도사';
-      
+            const isShepherd = userRole === 'shepherd' || userRole === '목자';
+            
+            // 대시보드 표시 권한
+            const canSeeDashboard = isPastor || isEvangelist || isShepherd || userProfile.journey === 'shepherd';
+            
+            if (canSeeDashboard) {
+                dashboard.style.display = 'block';
+                
+                // TODO: 실제 Firebase 데이터로 교체 필요
+                // 목장원 데이터 가져오기 (예시)
+                const mockData = {
+                    active: Math.floor(Math.random() * 5) + 3,    // 매일 참여
+                    partial: Math.floor(Math.random() * 3) + 1,   // 3-6일
+                    inactive: Math.floor(Math.random() * 2),      // 1-2일
+                    none: Math.floor(Math.random() * 1)           // 없음
+                };
+                
+                // 통계 업데이트
+                document.getElementById('shepherd-stat-active').textContent = mockData.active;
+                document.getElementById('shepherd-stat-partial').textContent = mockData.partial;
+                document.getElementById('shepherd-stat-inactive').textContent = mockData.inactive;
+                document.getElementById('shepherd-stat-none').textContent = mockData.none;
+                    
+                    // 연속 기록 TOP 3 (예시)
+                    const streakList = document.getElementById('shepherd-streak-list');
+                    if (streakList) {
+                        streakList.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,215,0,0.2); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 1.5rem;">🥇</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600;">김순례</div>
+                                    <div style="font-size: 0.85rem; opacity: 0.8;">21일 연속 🔥</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; background: rgba(192,192,192,0.2); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 1.5rem;">🥈</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600;">이신자</div>
+                                    <div style="font-size: 0.85rem; opacity: 0.8;">18일 연속</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; background: rgba(205,127,50,0.2); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 1.5rem;">🥉</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600;">박제자</div>
+                                    <div style="font-size: 0.85rem; opacity: 0.8;">15일 연속</div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    // 격려 필요 목장원 (예시)
+                    const needEncouragement = document.getElementById('shepherd-need-encouragement');
+                    if (needEncouragement && mockData.inactive > 0) {
+                        needEncouragement.innerHTML = `
+                            <div style="padding: 5px 0;">• 최VIP님 - 3일간 활동 없음</div>
+                            <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">
+                                💡 전화나 문자로 안부를 물어보세요
+                            </div>
+                        `;
+                    }
+                    
+                    // 기도 제목 자동 생성 (예시)
+                    const prayerTopics = document.getElementById('shepherd-prayer-topics');
+                    if (prayerTopics) {
+                        prayerTopics.innerHTML = `
+                            <div style="margin-bottom: 8px;">• 매일 묵상하는 ${mockData.active}명을 위해 - 더욱 깊은 경청의 은혜</div>
+                            <div style="margin-bottom: 8px;">• 어려움 겪는 ${mockData.inactive + mockData.none}명을 위해 - 다시 시작할 용기</div>
+                            <div>• 우리 목장 전체를 위해 - 하나님의 음성 듣는 귀</div>
+                        `;
+                    }
+                    
+            } else {
+                // ✅ 목자가 아니면 대시보드 숨김
+                dashboard.style.display = 'none';
+            }
+            
+        } catch (error) {
+            console.log('목자 대시보드 업데이트 에러:', error);
+        }
+    }
+    
+    // 페이지 로드 시 및 주기적으로 업데이트
+    window.addEventListener('load', function() {
+        updateWeeklyProgress();
+        updateShepherdDashboard();
+        
+        // 성장 추적 초기화
+        if (document.getElementById('weeklyChart')) {
+            renderGrowthCharts();
+            updateRecordsCount();
+        }
+        
+        // 목장 상태 체크 (iPhone 호환성)
+        setTimeout(function() {
+            if(typeof checkMokjangStatus === 'function') {
+                checkMokjangStatus();
+            }
+        }, 500);
+        
+        // 5분마다 자동 업데이트
+        setInterval(updateWeeklyProgress, 5 * 60 * 1000);
+        setInterval(updateShepherdDashboard, 5 * 60 * 1000);
+    });
+    
+    // 일지 저장 시 즉시 업데이트
+    // (saveJournal 함수 호출 후 이 함수들을 호출하도록 수정 필요)
+    
+    // ========================================
+    // 오늘 날짜 자동 하이라이트
+    // ========================================
+    
+    function highlightToday() {
+        try {
+            // 21일 체크리스트에서 오늘 날짜 찾기
+            const today = new Date();
+            const dayNumber = parseInt(localStorage.getItem('current_day') || '1');
+            
+            // 모든 날짜 체크박스 찾기
+            const checkboxes = document.querySelectorAll('[type="checkbox"][id^="day"]');
+            checkboxes.forEach((checkbox, index) => {
+                const dayNum = index + 1;
+                const label = checkbox.parentElement;
+                
+                if (dayNum === dayNumber) {
+                    // 오늘 날짜 스타일 추가
+                    if (label) {
+                        label.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
+                        label.style.color = 'white';
+                        label.style.fontWeight = '700';
+                        label.style.transform = 'scale(1.05)';
+                        label.style.boxShadow = '0 4px 12px rgba(251, 191, 36, 0.4)';
+                        
+                        // "오늘" 표시 추가
+                        const todayBadge = label.querySelector('.today-badge');
+                        if (!todayBadge) {
+                            const badge = document.createElement('span');
+                            badge.className = 'today-badge';
+                            badge.textContent = ' (오늘)';
+                            badge.style.fontSize = '0.8rem';
+                            badge.style.opacity = '0.9';
+                            label.appendChild(badge);
+                        }
+                    }
+                }
+            });
+            
+        } catch (error) {
+            console.log('오늘 하이라이트 에러:', error);
+        }
+    }
+    
+    // 페이지 로드 시 오늘 하이라이트
+    window.addEventListener('load', highlightToday);
+    </script>
+
+</body>
+</html>
