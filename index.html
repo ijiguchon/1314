@@ -828,9 +828,9 @@
                     <!-- 평생 훈련 메시지 -->
                     <div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
                         <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem; line-height: 1.5; margin: 0;">
-                            <span data-ko="💡 21일 경청 훈련 후에는 이 패턴을 계속 유지하여<br>매 주 성숙과 성장하는 삶을 살아가세요." data-en="💡 After 21-day listening training, keep this pattern<br>to live a life of weekly maturity and growth.">
+                            <span data-ko="💡 21일 경청 훈련 후에는 이 패턴을 계속 유지하여<br>그리스도의 충만하심까지 닮아 가세요." data-en="💡 After 21-day listening training, keep this pattern<br>to grow toward the fullness of Christ.">
                                 💡 21일 경청 훈련 후에는 이 패턴을 계속 유지하여<br>
-                                매 주 성숙과 성장하는 삶을 살아가세요.
+                                그리스도의 충만하심까지 닮아 가세요.
                             </span>
                         </p>
                     </div>
@@ -899,13 +899,13 @@
                         color: #1565C0;
                         margin-bottom: 6px;
                     ">
-                        <span data-ko="📌 설교 제목" data-en="📌 Sermon Title">📌 설교 제목</span>
+                        <span data-ko="📖 오늘의 본문" data-en="📖 Today's Scripture">📖 오늘의 본문</span>
                     </label>
                     <input 
                         type="text" 
-                        id="inSermonTitle" 
+                        id="inRef" 
                         class="input-ref" 
-                        placeholder="예: 하나님의 음성이 들리는 귀"
+                        placeholder="예: 요한복음 10:27"
                         style="
                             width: 100%;
                             padding: 12px 15px;
@@ -927,13 +927,13 @@
                         color: #1565C0;
                         margin-bottom: 6px;
                     ">
-                        <span data-ko="📖 오늘의 본문" data-en="📖 Today's Scripture">📖 오늘의 본문</span>
+                        <span data-ko="📌 설교 제목" data-en="📌 Sermon Title">📌 설교 제목</span>
                     </label>
                     <input 
                         type="text" 
-                        id="inRef" 
+                        id="inSermonTitle" 
                         class="input-ref" 
-                        placeholder="예: 요한복음 10:27"
+                        placeholder="예: 하나님의 음성이 들리는 귀"
                         style="
                             width: 100%;
                             padding: 12px 15px;
@@ -1117,20 +1117,6 @@
                         </p>
                     </div>
                     
-                    <!-- 차임벨 설명 -->
-                    <div style="
-                        background: rgba(255, 152, 0, 0.08);
-                        border-radius: 8px;
-                        padding: 10px;
-                        margin-bottom: 12px;
-                        text-align: center;
-                    ">
-                        <p style="font-size: 12px; color:#E65100; line-height:1.4; margin: 0;" id="t-timer-chime">
-                            <span data-ko="🔔 차임벨: 5분(낮은 음), 10분(중간 음 2번), 15분(높은 음)" data-en="🔔 Chime: 5min(low), 10min(mid 2x), 15min(high)">
-                                🔔 차임벨: 5분(낮은 음), 10분(중간 음 2번), 15분(높은 음)
-                            </span>
-                        </p>
-                    </div>
                     
                     <!-- 침묵 기도 가이드 -->
                     <div style="
@@ -2658,6 +2644,7 @@
                     </h4>
                     <ul style="font-size: 15px; line-height: 1.8; color: #555; padding-left: 20px;">
                         <li data-ko="타이머 시작 버튼 클릭 (15분 자동)" data-en="Click timer start button (15 min auto)">타이머 시작 버튼 클릭 (15분 자동)</li>
+                        <li data-ko="🎵 은은한 실로폰 소리가 5분마다 알려드립니다 (끄기 가능)" data-en="🎵 Gentle xylophone chimes every 5 minutes (can be turned off)">🎵 은은한 실로폰 소리가 5분마다 알려드립니다 (끄기 가능)</li>
                         <li data-ko="편안한 자세로 눈 감고 호흡에 집중" data-en="Sit comfortably, close eyes, focus on breathing">편안한 자세로 눈 감고 호흡에 집중</li>
                         <li data-ko="잡념이 들어도 괜찮아요. 다시 하나님께 집중" data-en="Wandering thoughts are okay. Refocus on God">잡념이 들어도 괜찮아요. 다시 하나님께 집중</li>
                         <li data-ko="하나님께서 주시는 생각, 이미지, 느낌 주목" data-en="Notice thoughts, images, feelings God gives">하나님께서 주시는 생각, 이미지, 느낌 주목</li>
@@ -4004,8 +3991,8 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeAllModals()">&times;</div>
             <h3 style="color:var(--navy); margin-bottom:5px;" id="v-date">Date</h3>
-            <h4 style="color:#666; margin-bottom:8px; font-size:0.95rem;" id="v-sermon-title"></h4>
-            <h2 style="font-family:'Noto Serif KR'; margin-bottom:20px;" id="v-ref">Ref</h2>
+            <h2 style="font-family:'Noto Serif KR'; margin-bottom:8px;" id="v-ref">Ref</h2>
+            <h4 style="color:#666; margin-bottom:20px; font-size:0.95rem;" id="v-sermon-title"></h4>
             <span class="view-label" id="v-lbl1">📖 말씀 묵상</span>
             <div class="view-content" id="v-text"></div>
             <span class="view-label" id="v-lbl2">👂 하나님이 주신 마음</span>
@@ -4072,6 +4059,27 @@
             </div>
             
             <input type="text" id="setMokjang" placeholder="목장 이름 (예: 멕시코, 이스라엘, 인도네시아, GMC Y)" style="margin-bottom:15px; text-align:center;">
+            
+            <!-- 진행 상황 공유 설정 -->
+            <div style="background: #F3F4F6; padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
+                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                    <input 
+                        type="checkbox" 
+                        id="setShareProgress" 
+                        style="margin-top: 3px; width: 20px; height: 20px; cursor: pointer;"
+                    >
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: #1F4788; margin-bottom: 5px; font-size: 0.95rem;" id="share-progress-title" data-ko="내 21일 진행 상황을 목장 식구들과 공유하기" data-en="Share my 21-day progress with group members">
+                            내 21일 진행 상황을 목장 식구들과 공유하기
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666; line-height: 1.5;" id="share-progress-desc" data-ko="체크하면 목장 식구들이 내 연속 기록을 볼 수 있습니다.<br>체크 안 하면 목자에게만 보입니다.<br>(일지 내용은 절대 공개되지 않습니다)" data-en="If checked, group members can see my streak.<br>If unchecked, only shepherd can see it.<br>(Journal content is never shared)">
+                            체크하면 목장 식구들이 내 연속 기록을 볼 수 있습니다.<br>
+                            체크 안 하면 목자에게만 보입니다.<br>
+                            <span style="color: #C9A227; font-weight: 600;">(일지 내용은 절대 공개되지 않습니다)</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
             
             <button class="btn" onclick="saveSettings()">저장하기</button>
         </div>
@@ -4152,10 +4160,10 @@
         // const database = firebase.database();
 
         // 로컬스토리지 키
-        const DB_KEY = 'galtar_1314_v14_journal';
-        const CHALLENGE_KEY = 'galtar_1314_challenge_v1';
-        const CHALLENGE_STARTED_KEY = 'galtar_1314_challenge_started';
-        const CHIME_ENABLED_KEY = 'galtar_1314_chime_enabled';
+        const DB_KEY = 'hebron_1314_journal';
+        const CHALLENGE_KEY = 'hebron_1314_challenge';
+        const CHALLENGE_STARTED_KEY = 'hebron_1314_challenge_started';
+        const CHIME_ENABLED_KEY = 'hebron_1314_chime_enabled';
         
         let curLang = 'ko';
         let editId = null, viewId = null;
@@ -5115,45 +5123,48 @@
             const ctx = audioCtx;
             
             if(times === 1) {
-                // 5분 경과: 낮은 음 짧게 1번
+                // 5분 경과: 실로폰 낮은 음 (C5 = 523Hz)
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(500, ctx.currentTime);
-                gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                osc.type = 'triangle'; // 실로폰은 triangle 파형이 더 자연스러움
+                osc.frequency.setValueAtTime(523, ctx.currentTime);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.start();
-                osc.stop(ctx.currentTime + 0.3);
+                osc.stop(ctx.currentTime + 0.5);
             } else if(times === 2) {
-                // 10분 경과: 중간 음 짧게 2번
+                // 10분 경과: 실로폰 중간 음 2번 (E5 = 659Hz)
                 for(let i = 0; i < 2; i++) {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    const startTime = ctx.currentTime + (i * 0.4);
-                    osc.frequency.setValueAtTime(700, startTime);
-                    gain.gain.setValueAtTime(0.3, startTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+                    osc.type = 'triangle';
+                    const startTime = ctx.currentTime + (i * 0.5);
+                    osc.frequency.setValueAtTime(659, startTime);
+                    gain.gain.setValueAtTime(0.4, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.5);
                     osc.connect(gain);
                     gain.connect(ctx.destination);
                     osc.start(startTime);
-                    osc.stop(startTime + 0.3);
+                    osc.stop(startTime + 0.5);
                 }
             } else {
-                // 15분 종료: 높은 음 길게
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1.5);
-                gain.gain.setValueAtTime(0.5, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 1.5);
+                // 15분 종료: 실로폰 4음 화음 (C-E-G-C = 523-659-784-1047Hz) 도-미-솔-도
+                const frequencies = [523, 659, 784, 1047]; // C-E-G-C 코드
+                frequencies.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    const startTime = ctx.currentTime + (idx * 0.15);
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    gain.gain.setValueAtTime(0.35, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 1.2);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + 1.2);
+                });
             }
         }
 
@@ -5881,7 +5892,7 @@
         function shareProgress() {
             const completed = JSON.parse(localStorage.getItem(CHALLENGE_KEY) || '[]');
             const count = completed.length;
-            const name = localStorage.getItem('galtar_name') || '저';
+            const name = localStorage.getItem('hebron_name') || '저';
             
             const message = `🎯 21일 경청 프로젝트
 
@@ -5909,7 +5920,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
 
         // ========== 목장 기능 ==========
         function checkMokjangStatus() {
-            const code = localStorage.getItem('galtar_mokjang_code');
+            const code = localStorage.getItem('hebron_mokjang_code');
             
             const notSetupEl = document.getElementById('mokjang-not-setup');
             const contentEl = document.getElementById('mokjang-content');
@@ -6005,16 +6016,16 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
 
                 if (result.success) {
                     // 로컬 저장
-                    localStorage.setItem('galtar_name', name);
-                    localStorage.setItem('galtar_mokjang', mokjangName);
-                    localStorage.setItem('galtar_mokjang_code', code);
+                    localStorage.setItem('hebron_name', name);
+                    localStorage.setItem('hebron_mokjang', mokjangName);
+                    localStorage.setItem('hebron_mokjang_code', code);
                     
                     // Member ID 저장 (수정 기능에 필요)
                     if (result.id) {
-                        localStorage.setItem('galtar_member_id', result.id);
+                        localStorage.setItem('hebron_member_id', result.id);
                     } else {
                         // ID가 없으면 이름+코드 조합으로 생성
-                        localStorage.setItem('galtar_member_id', name + '_' + code);
+                        localStorage.setItem('hebron_member_id', name + '_' + code);
                     }
 
                     // 입력 필드 초기화
@@ -6045,7 +6056,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 return;
             }
             
-            localStorage.setItem('galtar_mokjang_code', code);
+            localStorage.setItem('hebron_mokjang_code', code);
             closeMokjangSetup();
             checkMokjangStatus();
             showToast('목장에 참여했습니다!');
@@ -6054,16 +6065,16 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         function leaveMokjang() {
             const msg = curLang === 'ko' ? '목장에서 나가시겠습니까?' : 'Leave this group?';
             if(confirm(msg)) {
-                localStorage.removeItem('galtar_mokjang_code');
-                localStorage.removeItem('galtar_member_id');
+                localStorage.removeItem('hebron_mokjang_code');
+                localStorage.removeItem('hebron_member_id');
                 checkMokjangStatus();
                 showToast(curLang === 'ko' ? '목장에서 나왔습니다' : 'Left the group');
             }
         }
 
         function openEditMokjangModal() {
-            const memberId = localStorage.getItem('galtar_member_id');
-            const mokjangCode = localStorage.getItem('galtar_mokjang_code');
+            const memberId = localStorage.getItem('hebron_member_id');
+            const mokjangCode = localStorage.getItem('hebron_mokjang_code');
             
             if (!memberId || !mokjangCode) {
                 showToast(curLang === 'ko' ? '등록 정보를 찾을 수 없습니다' : 'Registration info not found');
@@ -6087,8 +6098,8 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         async function saveEditMokjang() {
             const name = document.getElementById('editMemberName').value.trim();
             const role = document.getElementById('editMemberRole').value;
-            const memberId = localStorage.getItem('galtar_member_id');
-            const mokjangCode = localStorage.getItem('galtar_mokjang_code');
+            const memberId = localStorage.getItem('hebron_member_id');
+            const mokjangCode = localStorage.getItem('hebron_mokjang_code');
             
             if (!name) {
                 showToast(curLang === 'ko' ? '이름을 입력해주세요' : 'Please enter your name');
@@ -6164,17 +6175,17 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 mokjangNameEl.innerText = members[0]['목장'] || code;
                 
                 // 현재 사용자 찾기 (이름으로 매칭하여 ID 저장)
-                const myName = localStorage.getItem('galtar_name');
+                const myName = localStorage.getItem('hebron_name');
                 if (myName) {
                     const myMember = members.find(m => m['이름'] === myName);
                     if (myMember && myMember['ID']) {
-                        localStorage.setItem('galtar_member_id', myMember['ID']);
+                        localStorage.setItem('hebron_member_id', myMember['ID']);
                     }
                 }
                 
                 // 오늘 날짜 기준 완료 체크
                 const today = new Date();
-                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('galtar_challenge_day') || '1')));
+                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('hebron_challenge_day') || '1')));
                 const dayKey = 'Day' + dayNum;
                 
                 grid.innerHTML = '';
@@ -6219,7 +6230,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 
                 // 목장별 통계 계산
                 const mokjangStats = {};
-                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('galtar_challenge_day') || '1')));
+                const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('hebron_challenge_day') || '1')));
                 
                 allMembersData.forEach(member => {
                     const code = member['목장코드'];
@@ -6265,15 +6276,17 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         // ========== 설정 기능 ==========
         function openSettings() {
             document.getElementById('settingModal').classList.add('active');
-            const name = localStorage.getItem('galtar_name');
-            const mokjang = localStorage.getItem('galtar_mokjang');
-            const journey = localStorage.getItem('galtar_journey') || 'seeker';
-            const shepherdType = localStorage.getItem('galtar_shepherd_type') || 'shepherd';
+            const name = localStorage.getItem('hebron_name');
+            const mokjang = localStorage.getItem('hebron_mokjang');
+            const journey = localStorage.getItem('hebron_journey') || 'seeker';
+            const shepherdType = localStorage.getItem('hebron_shepherd_type') || 'shepherd';
+            const shareProgress = localStorage.getItem('hebron_share_progress') === 'true'; // 기본값 false
             
             if(name) document.getElementById('setName').value = name;
             if(mokjang) document.getElementById('setMokjang').value = mokjang;
             document.getElementById('setJourney').value = journey;
             document.getElementById('setShepherdType').value = shepherdType;
+            document.getElementById('setShareProgress').checked = shareProgress;
             onJourneyChange();
         }
 
@@ -6286,12 +6299,14 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             const m = document.getElementById('setMokjang').value;
             const j = document.getElementById('setJourney').value;
             const st = document.getElementById('setShepherdType').value;
+            const shareProgress = document.getElementById('setShareProgress').checked;
             
             if(n){ 
-                localStorage.setItem('galtar_name', n); 
-                localStorage.setItem('galtar_mokjang', m);
-                localStorage.setItem('galtar_journey', j); 
-                localStorage.setItem('galtar_shepherd_type', st);
+                localStorage.setItem('hebron_name', n); 
+                localStorage.setItem('hebron_mokjang', m);
+                localStorage.setItem('hebron_journey', j); 
+                localStorage.setItem('hebron_shepherd_type', st);
+                localStorage.setItem('hebron_share_progress', shareProgress ? 'true' : 'false');
                 closeSettings();
                 loadSettings(); 
                 showToast('저장되었습니다');
@@ -6329,10 +6344,10 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         
         function loadSettings() {
             const t = lang[curLang];
-            const name = localStorage.getItem('galtar_name');
-            const mokjang = localStorage.getItem('galtar_mokjang');
-            const journey = localStorage.getItem('galtar_journey') || 'seeker';
-            const shepherdType = localStorage.getItem('galtar_shepherd_type') || 'shepherd';
+            const name = localStorage.getItem('hebron_name');
+            const mokjang = localStorage.getItem('hebron_mokjang');
+            const journey = localStorage.getItem('hebron_journey') || 'seeker';
+            const shepherdType = localStorage.getItem('hebron_shepherd_type') || 'shepherd';
             
             if(name) { 
                 let roleText;
@@ -7292,6 +7307,15 @@ async function loadUserProfile(uid) {
         if (doc.exists) {
             userProfile = doc.data();
             updateHeaderWithProfile();
+            
+            // ✅ Firebase에서 가져온 role을 localStorage에 저장 (참고용)
+            if (userProfile.role) {
+                localStorage.setItem('hebron_user_role', userProfile.role);
+            }
+            
+            // 목자 대시보드 업데이트
+            updateShepherdDashboard();
+            
             console.log('✅ 프로필 로드 성공');
         }
     } catch (error) {
@@ -7568,31 +7592,40 @@ async function saveToFirestore(journalData) {
     
     function updateShepherdDashboard() {
         try {
-            const user = firebase.auth().currentUser;
-            if (!user) return;
+            // ✅ Firebase userProfile에서 role 확인 (보안 강화)
+            if (!userProfile || !userProfile.role) {
+                // userProfile이 없으면 대시보드 숨김
+                const dashboard = document.getElementById('shepherd-dashboard');
+                if (dashboard) dashboard.style.display = 'none';
+                return;
+            }
             
-            // 사용자 역할 확인 (shepherd/목자인지)
-            const userRole = localStorage.getItem('user_role');
             const dashboard = document.getElementById('shepherd-dashboard');
+            if (!dashboard) return;
             
-            if (dashboard) {
-                if (userRole === 'shepherd' || userRole === '목자') {
-                    dashboard.style.display = 'block';
-                    
-                    // 목장원 데이터 가져오기 (예시)
-                    // 실제로는 Firebase에서 가져와야 함
-                    const mockData = {
-                        active: Math.floor(Math.random() * 5) + 3,    // 매일 참여
-                        partial: Math.floor(Math.random() * 3) + 1,   // 3-6일
-                        inactive: Math.floor(Math.random() * 2),      // 1-2일
-                        none: Math.floor(Math.random() * 1)           // 없음
-                    };
-                    
-                    // 통계 업데이트
-                    document.getElementById('shepherd-stat-active').textContent = mockData.active;
-                    document.getElementById('shepherd-stat-partial').textContent = mockData.partial;
-                    document.getElementById('shepherd-stat-inactive').textContent = mockData.inactive;
-                    document.getElementById('shepherd-stat-none').textContent = mockData.none;
+            // ✅ Firebase에서 가져온 role 확인 (localStorage 조작 불가)
+            const isShepherd = userProfile.role === 'shepherd' || 
+                              userProfile.role === 'moknye' || 
+                              userProfile.role === 'mokbu' ||
+                              userProfile.journey === 'shepherd';
+            
+            if (isShepherd) {
+                dashboard.style.display = 'block';
+                
+                // TODO: 실제 Firebase 데이터로 교체 필요
+                // 목장원 데이터 가져오기 (예시)
+                const mockData = {
+                    active: Math.floor(Math.random() * 5) + 3,    // 매일 참여
+                    partial: Math.floor(Math.random() * 3) + 1,   // 3-6일
+                    inactive: Math.floor(Math.random() * 2),      // 1-2일
+                    none: Math.floor(Math.random() * 1)           // 없음
+                };
+                
+                // 통계 업데이트
+                document.getElementById('shepherd-stat-active').textContent = mockData.active;
+                document.getElementById('shepherd-stat-partial').textContent = mockData.partial;
+                document.getElementById('shepherd-stat-inactive').textContent = mockData.inactive;
+                document.getElementById('shepherd-stat-none').textContent = mockData.none;
                     
                     // 연속 기록 TOP 3 (예시)
                     const streakList = document.getElementById('shepherd-streak-list');
@@ -7643,9 +7676,9 @@ async function saveToFirestore(journalData) {
                         `;
                     }
                     
-                } else {
-                    dashboard.style.display = 'none';
-                }
+            } else {
+                // ✅ 목자가 아니면 대시보드 숨김
+                dashboard.style.display = 'none';
             }
             
         } catch (error) {
