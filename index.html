@@ -2288,9 +2288,9 @@
                 
                 <div class="card">
                     <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="💡 목장 기능이란?" data-en="💡 What is Group Feature?">💡 목장 기능이란?</h3>
-                    <p style="line-height:1.6; color:#666; font-size:0.9rem;" data-ko="목장 코드를 입력하면 목장 식구들의 21일 챌린지 진행 상황(완료 여부)을 확인할 수 있습니다. 개인 일지 내용은 완전히 비공개이며, 오직 완료 여부(O/X)만 공유됩니다." data-en="Enter your group code to see your group members' 21-day challenge progress. Personal journal entries are completely private - only completion status (O/X) is shared.">
-                        목장 코드를 입력하면 목장 식구들의 21일 챌린지 진행 상황(완료 여부)을 확인할 수 있습니다. 
-                        개인 일지 내용은 완전히 비공개이며, 오직 완료 여부(O/X)만 공유됩니다.
+                    <p style="line-height:1.6; color:#666; font-size:0.9rem;" data-ko="목장을 선택하시면 목장 식구들의 21일 훈련 진행 상황을 함께 확인할 수 있습니다. 개인 일지 내용은 완전히 비공개이며, 오직 진행 현황만 공유됩니다." data-en="Select your mokjang to see your group members' 21-day training progress. Personal journal entries are completely private - only progress status is shared.">
+                        목장을 선택하시면 목장 식구들의 21일 훈련 진행 상황을 함께 확인할 수 있습니다. 
+                        개인 일지 내용은 완전히 비공개이며, 오직 진행 현황만 공유됩니다.
                     </p>
                 </div>
             </div>
@@ -2317,6 +2317,33 @@
                     <p style="font-size: 15px; color:#666; margin-bottom:10px;" data-ko="21일 경청 프로젝트 진행률" data-en="21-Day Listening Project Progress">21일 경청 프로젝트 진행률</p>
                     <div id="mokjangLeaderboard" style="font-size: 20px;">
                         <p style="text-align:center; color:#999;" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
+                    </div>
+                </div>
+
+                <!-- ⭐ 2-4. 목원들 21일 진행 상황 (공개 동의자만) -->
+                <div class="card" id="members-progress-card">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                        <h3 style="color:var(--navy); margin: 0;">
+                            <span data-ko="📊 목원 진행 상황" data-en="📊 Members Progress">📊 목원 진행 상황</span>
+                        </h3>
+                        <button 
+                            onclick="loadMembersProgress()" 
+                            style="background: #2196F3; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px;"
+                        >
+                            <span>🔄</span>
+                            <span data-ko="새로고침" data-en="Refresh">새로고침</span>
+                        </button>
+                    </div>
+                    
+                    <p style="font-size: 14px; color:#666; margin-bottom:15px; line-height: 1.6;">
+                        <span data-ko="우리 목장 식구들의 21일 훈련 진행 상황입니다.<br/>💡 프로필 설정에서 '진행 상황 공개'에 동의한 목원만 표시됩니다." data-en="21-day training progress of our mokjang members.<br/>💡 Only members who agreed to share progress are shown.">
+                            우리 목장 식구들의 21일 훈련 진행 상황입니다.<br/>
+                            💡 프로필 설정에서 '진행 상황 공개'에 동의한 목원만 표시됩니다.
+                        </span>
+                    </p>
+                    
+                    <div id="membersProgressList">
+                        <p style="text-align:center; color:#999; padding: 20px;" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
                     </div>
                 </div>
 
@@ -4127,12 +4154,22 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeMokjangSetup()">&times;</div>
             <h3 style="color:var(--navy); margin-bottom:10px;" id="mokjang-setup-title" data-ko="목장 설정" data-en="Group Setup">목장 설정</h3>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" id="mokjang-setup-desc" data-ko="목장 코드를 입력하면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다." data-en="Enter your group code to share progress with your group members.">
-                목장 코드를 입력하면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다.
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" id="mokjang-setup-desc" data-ko="소속 목장을 선택하시면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다." data-en="Select your mokjang to share progress with your group members.">
+                소속 목장을 선택하시면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다.
             </p>
-            <input type="text" id="inputMokjangCode" placeholder="예: 1MOKJANG" style="text-transform:uppercase; margin-bottom:10px;">
-            <p style="font-size:0.75rem; color:#999; margin-bottom:15px;" id="mokjang-setup-help" data-ko="* 목자님께 목장 코드를 문의하세요" data-en="* Ask your shepherd for the group code">
-                * 목자님께 목장 코드를 문의하세요
+            
+            <select id="selectMokjang" style="width:100%; padding:14px; border:2px solid #ddd; border-radius:10px; margin-bottom:15px; font-size:1rem; background:white;">
+                <option value="">목장을 선택하세요</option>
+                <option value="GMCHC1">이스라엘 목장</option>
+                <option value="GMCHC2">멕시코 목장</option>
+                <option value="GMCHC3">인도네시아 목장</option>
+                <option value="GMCCM">어린이부</option>
+                <option value="GMCYM">청소년부</option>
+                <option value="GMCYA">청년부</option>
+            </select>
+            
+            <p style="font-size:0.75rem; color:#999; margin-bottom:15px;" id="mokjang-setup-help" data-ko="* 소속 목장이 없으시면 목자님께 문의하세요" data-en="* Contact your shepherd if you don't know your mokjang">
+                * 소속 목장이 없으시면 목자님께 문의하세요
             </p>
             <button class="btn" onclick="joinMokjang()" id="mokjang-join-btn" data-ko="참여하기" data-en="Join">참여하기</button>
         </div>
@@ -4143,18 +4180,22 @@
         <div class="modal-box">
             <div class="close-btn" onclick="closeMemberRegister()">&times;</div>
             <h3 style="color:var(--navy); margin-bottom:10px;" data-ko="🙋 목장식구 등록" data-en="🙋 Register as Member">🙋 목장식구 등록</h3>
-            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" data-ko="처음이시라면 등록해 주세요!<br>목장코드는 목자님께 문의하세요." data-en="New here? Please register!<br>Ask your shepherd for the group code.">
-                처음이시라면 등록해 주세요!<br>목장코드는 목자님께 문의하세요.
+            <p style="font-size:0.9rem; color:#666; margin-bottom:15px; line-height:1.5;" data-ko="처음이시라면 등록해 주세요!" data-en="New here? Please register!">
+                처음이시라면 등록해 주세요!
             </p>
             <input type="text" id="registerName" placeholder="이름" style="margin-bottom:10px;">
             
-            <!-- 목장 이름 직접 입력 (300개 목장 확장성) -->
-            <input type="text" id="registerMokjangName" placeholder="목장 이름 (예: 멕시코, 이스라엘, 인도네시아, GMC Y)" style="margin-bottom:10px;">
-            <p style="font-size:0.75rem; color:#999; margin:-5px 0 10px 0; text-align:center;" data-ko="💡 목자님께서 알려주신 목장 이름을 입력하세요" data-en="💡 Enter the group name your shepherd provided">
-                💡 목자님께서 알려주신 목장 이름을 입력하세요
-            </p>
+            <!-- 목장 선택 드롭다운 -->
+            <select id="registerMokjangSelect" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px; font-size:1rem;">
+                <option value="">목장을 선택하세요</option>
+                <option value="GMCHC1|이스라엘">이스라엘 목장</option>
+                <option value="GMCHC2|멕시코">멕시코 목장</option>
+                <option value="GMCHC3|인도네시아">인도네시아 목장</option>
+                <option value="GMCCM|어린이부">어린이부</option>
+                <option value="GMCYM|청소년부">청소년부</option>
+                <option value="GMCYA|청년부">청년부</option>
+            </select>
             
-            <input type="text" id="registerMokjangCode" placeholder="목장코드 (예: MEXICO)" style="text-transform:uppercase; margin-bottom:10px;">
             <select id="registerRole" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; font-size:1rem;">
                 <option value="목원" data-ko="목원" data-en="Member">목원</option>
                 <option value="목자" data-ko="목자" data-en="Shepherd">목자</option>
@@ -4318,15 +4359,15 @@
                 mokjang_setup_desc: "목장 식구들과 함께 21일을 완주하세요!",
                 mokjang_setup_btn: "목장 설정하기",
                 mokjang_what_title: "💡 목장 기능이란?",
-                mokjang_what_desc: "목장 코드를 입력하면 목장 식구들의 21일 챌린지 진행 상황(완료 여부)을 확인할 수 있습니다. 개인 일지 내용은 완전히 비공개이며, 오직 완료 여부(O/X)만 공유됩니다.",
+                mokjang_what_desc: "목장을 선택하시면 목장 식구들의 21일 훈련 진행 상황을 함께 확인할 수 있습니다. 개인 일지 내용은 완전히 비공개이며, 오직 진행 현황만 공유됩니다.",
                 mokjang_completed: "명 오늘 완료",
                 mokjang_encourage_title: "💬 격려 메시지",
                 mokjang_encourage_msg: "함께 달려가는 우리 목장 식구들을 위해 기도합니다 🙏",
                 mokjang_leave: "목장 나가기",
                 mokjang_modal_title: "목장 설정",
-                mokjang_modal_desc: "목장 코드를 입력하면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다.",
-                mokjang_code_ph: "예: 1MOKJANG",
-                mokjang_code_help: "* 목자님께 목장 코드를 문의하세요",
+                mokjang_modal_desc: "소속 목장을 선택하시면 목장 식구들과 함께 진행 상황을 공유할 수 있습니다.",
+                mokjang_code_ph: "목장을 선택하세요",
+                mokjang_code_help: "* 소속 목장이 없으시면 목자님께 문의하세요",
                 mokjang_join: "참여하기",
                 
                 // 가이드
@@ -4510,15 +4551,15 @@
                 mokjang_setup_desc: "Complete 21 days with your mokjang members!",
                 mokjang_setup_btn: "Set Up Mokjang",
                 mokjang_what_title: "💡 What is Mokjang Feature?",
-                mokjang_what_desc: "Enter mokjang code to see members' 21-day progress (completion only). Journal content is completely private. Only completion status (O/X) is shared.",
+                mokjang_what_desc: "Select your mokjang to see members' 21-day training progress together. Journal content is completely private. Only progress status is shared.",
                 mokjang_completed: "completed today",
                 mokjang_encourage_title: "💬 Encouragement",
                 mokjang_encourage_msg: "Praying for our mokjang members running together 🙏",
                 mokjang_leave: "Leave Mokjang",
                 mokjang_modal_title: "Mokjang Setup",
-                mokjang_modal_desc: "Enter mokjang code to share progress with members.",
-                mokjang_code_ph: "e.g., 1MOKJANG",
-                mokjang_code_help: "* Ask your shepherd for mokjang code",
+                mokjang_modal_desc: "Select your mokjang to share progress with members.",
+                mokjang_code_ph: "Select your mokjang",
+                mokjang_code_help: "* Contact your shepherd if you don't know your mokjang",
                 mokjang_join: "Join",
                 
                 // Guide
@@ -5968,6 +6009,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                     contentEl.style.display = 'block';
                     loadMokjangData(code);
                     loadMokjangLeaderboard();
+                    loadMembersProgress(); // ⭐ 2-4: 목원 진행 상황 로드
                 } else {
                     notSetupEl.style.display = 'block';
                     contentEl.style.display = 'none';
@@ -6013,22 +6055,21 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         // 새 멤버 등록
         async function registerMember() {
             const name = document.getElementById('registerName').value.trim();
-            const mokjangName = document.getElementById('registerMokjangName').value.trim();
-            const code = document.getElementById('registerMokjangCode').value.trim().toUpperCase();
+            const select = document.getElementById('registerMokjangSelect');
+            const selectedValue = select.value;
             const role = document.getElementById('registerRole').value;
 
             if (!name) {
                 showToast(curLang === 'ko' ? '이름을 입력해주세요' : 'Please enter your name');
                 return;
             }
-            if (!mokjangName) {
-                showToast(curLang === 'ko' ? '목장 이름을 입력해주세요' : 'Please enter group name');
+            if (!selectedValue) {
+                showToast(curLang === 'ko' ? '목장을 선택해주세요' : 'Please select a mokjang');
                 return;
             }
-            if (!code) {
-                showToast(curLang === 'ko' ? '목장코드를 입력해주세요' : 'Please enter group code');
-                return;
-            }
+
+            // 선택값에서 코드와 이름 분리 (예: "GMCHC1|이스라엘")
+            const [code, mokjangName] = selectedValue.split('|');
 
             // 등록 중 표시
             const btn = document.querySelector('#memberRegisterModal .btn');
@@ -6086,17 +6127,20 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         }
 
         function joinMokjang() {
-            const code = document.getElementById('inputMokjangCode').value.trim().toUpperCase();
+            const select = document.getElementById('selectMokjang');
+            const code = select.value;
+            const mokjangName = select.options[select.selectedIndex].text;
             
             if(!code) {
-                showToast('목장 코드를 입력해주세요');
+                showToast('목장을 선택해주세요');
                 return;
             }
             
             localStorage.setItem('hebron_mokjang_code', code);
+            localStorage.setItem('hebron_mokjang', mokjangName);
             closeMokjangSetup();
             checkMokjangStatus();
-            showToast('목장에 참여했습니다!');
+            showToast(mokjangName + '에 참여했습니다!');
         }
 
         function leaveMokjang() {
@@ -6265,6 +6309,9 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                     allMembersData = await response.json();
                 }
                 
+                // ⭐ 2-3: 현재 사용자의 목장 코드 가져오기
+                const userMokjangCode = localStorage.getItem('hebron_mokjang_code');
+                
                 // 목장별 통계 계산
                 const mokjangStats = {};
                 const dayNum = Math.min(21, Math.max(1, parseInt(localStorage.getItem('hebron_challenge_day') || '1')));
@@ -6273,6 +6320,9 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                     const code = member['목장코드'];
                     const name = member['목장'];
                     if (!code || code === 'ADMIN') return;
+                    
+                    // ⭐ 2-3: 자기 목장만 필터링 (목장코드가 있을 경우)
+                    if (userMokjangCode && code !== userMokjangCode) return;
                     
                     if (!mokjangStats[code]) {
                         mokjangStats[code] = { name: name, total: 0, completed: 0 };
@@ -6296,6 +6346,22 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                     }))
                     .sort((a, b) => b.rate - a.rate);
                 
+                // ⭐ 2-3: 목장 코드가 없거나 데이터가 없을 때 안내 메시지
+                if (!userMokjangCode || sorted.length === 0) {
+                    leaderboardEl.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: #999;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">👥</div>
+                            <p style="font-size: 15px; line-height: 1.6;">
+                                <span data-ko="목장 설정을 완료하시면<br/>우리 목장의 진행 상황을 보실 수 있습니다." data-en="Complete mokjang setup to see<br/>your mokjang's progress.">
+                                    목장 설정을 완료하시면<br/>
+                                    우리 목장의 진행 상황을 보실 수 있습니다.
+                                </span>
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
                 // 리더보드 표시
                 const medals = ['🥇', '🥈', '🥉'];
                 leaderboardEl.innerHTML = sorted.map((m, i) => `
@@ -6307,6 +6373,146 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 
             } catch (error) {
                 console.error('리더보드 로드 실패:', error);
+            }
+        }
+        
+        // ⭐ 2-4. 목원들 21일 진행 상황 로드 (공개 동의자만)
+        async function loadMembersProgress() {
+            const listEl = document.getElementById('membersProgressList');
+            if (!listEl) return;
+            
+            try {
+                if (allMembersData.length === 0) {
+                    const response = await fetch(SHEETS_API_URL);
+                    allMembersData = await response.json();
+                }
+                
+                // 현재 사용자의 목장 코드 가져오기
+                const userMokjangCode = localStorage.getItem('hebron_mokjang_code');
+                
+                if (!userMokjangCode) {
+                    listEl.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: #999;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">👥</div>
+                            <p style="font-size: 15px; line-height: 1.6;">
+                                목장 설정을 완료하시면<br/>
+                                목장 식구들의 진행 상황을 보실 수 있습니다.
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 같은 목장이면서 공개 동의한 목원들 필터링
+                const members = allMembersData.filter(member => {
+                    const code = member['목장코드'];
+                    const shareProgress = member['진행상황공개'] === 'Y' || member['진행상황공개'] === 'true' || member['진행상황공개'] === true;
+                    return code === userMokjangCode && code !== 'ADMIN' && shareProgress;
+                });
+                
+                if (members.length === 0) {
+                    listEl.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: #999;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">🔒</div>
+                            <p style="font-size: 15px; line-height: 1.6;">
+                                아직 진행 상황을 공개한 목원이 없습니다.<br/>
+                                <span style="font-size: 13px; color: #bbb; margin-top: 8px; display: block;">
+                                    프로필 설정 > 진행 상황 공개를 활성화하세요
+                                </span>
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 21일 진행 상황 계산 및 표시
+                const progressHTML = members.map(member => {
+                    const name = member['이름'] || '이름 없음';
+                    const role = member['역할'] || '목원';
+                    
+                    // 완료한 날짜 수 계산
+                    let completedDays = 0;
+                    for (let d = 1; d <= 21; d++) {
+                        if (member['Day' + d] === '✓') completedDays++;
+                    }
+                    
+                    const percentage = Math.round((completedDays / 21) * 100);
+                    
+                    // 진행률에 따른 색상
+                    let colorClass = '#999';
+                    let emoji = '😴';
+                    if (percentage >= 80) {
+                        colorClass = '#4CAF50';
+                        emoji = '🔥';
+                    } else if (percentage >= 50) {
+                        colorClass = '#FF9800';
+                        emoji = '💪';
+                    } else if (percentage >= 20) {
+                        colorClass = '#2196F3';
+                        emoji = '🌱';
+                    }
+                    
+                    // 21일 진행 상황 그래프 (작은 점으로 표시)
+                    let progressDots = '';
+                    for (let d = 1; d <= 21; d++) {
+                        const isCompleted = member['Day' + d] === '✓';
+                        progressDots += `<div style="
+                            width: 8px; 
+                            height: 8px; 
+                            border-radius: 50%; 
+                            background: ${isCompleted ? colorClass : '#e0e0e0'};
+                            display: inline-block;
+                            margin: 0 1px;
+                        "></div>`;
+                        
+                        // 7일마다 줄바꿈
+                        if (d % 7 === 0 && d < 21) {
+                            progressDots += '<br style="margin: 2px 0;">';
+                        }
+                    }
+                    
+                    return `
+                        <div style="
+                            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+                            padding: 15px;
+                            border-radius: 12px;
+                            margin-bottom: 12px;
+                            border-left: 4px solid ${colorClass};
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                        ">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 24px;">${emoji}</span>
+                                    <div>
+                                        <div style="font-weight: 700; font-size: 16px; color: #333;">${name}</div>
+                                        <div style="font-size: 12px; color: #666;">${role}</div>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 24px; font-weight: 800; color: ${colorClass};">${percentage}%</div>
+                                    <div style="font-size: 12px; color: #666;">${completedDays}/21일</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid #eee;">
+                                <div style="font-size: 11px; color: #999; margin-bottom: 6px;">21일 진행 현황</div>
+                                <div style="line-height: 1.4;">
+                                    ${progressDots}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                listEl.innerHTML = progressHTML;
+                
+            } catch (error) {
+                console.error('목원 진행 상황 로드 실패:', error);
+                listEl.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: #e74c3c;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">⚠️</div>
+                        <p style="font-size: 15px;">데이터를 불러오는데 실패했습니다.</p>
+                    </div>
+                `;
             }
         }
 
