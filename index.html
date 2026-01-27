@@ -6233,7 +6233,9 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             const completedEl = document.getElementById('mokjangCompleted');
             const totalEl = document.getElementById('mokjangTotal');
             
-            mokjangNameEl.innerText = '로딩 중...';
+            // ⭐ localStorage에 저장된 목장 이름 사용
+            const savedMokjangName = localStorage.getItem('hebron_mokjang');
+            mokjangNameEl.innerText = savedMokjangName || '로딩 중...';
             grid.innerHTML = '<p style="text-align:center; color:#666;">데이터를 불러오는 중...</p>';
             
             try {
@@ -6245,15 +6247,16 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 const members = data.filter(m => m['목장코드'] === code);
                 
                 if (members.length === 0) {
-                    mokjangNameEl.innerText = code;
+                    // ⭐ 멤버가 없어도 저장된 이름 사용
+                    mokjangNameEl.innerText = savedMokjangName || code;
                     grid.innerHTML = '<p style="text-align:center; color:#999;">등록된 목장식구가 없습니다.<br>시트에 멤버를 추가해주세요.</p>';
                     completedEl.innerText = '0';
                     totalEl.innerText = '0';
                     return;
                 }
                 
-                // 목장 이름 표시
-                mokjangNameEl.innerText = members[0]['목장'] || code;
+                // ⭐ 목장 이름 표시: localStorage > 시트 데이터 > 코드 순서로 우선순위
+                mokjangNameEl.innerText = savedMokjangName || members[0]['목장'] || code;
                 
                 // 현재 사용자 찾기 (이름으로 매칭하여 ID 저장)
                 const myName = localStorage.getItem('hebron_name');
