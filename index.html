@@ -2311,9 +2311,9 @@
                     </div>
                 </div>
 
-                <!-- 목장 리더보드 -->
+                <!-- 목장 진행률 -->
                 <div class="card">
-                    <h3 style="color:var(--navy); margin-bottom:12px;" data-ko="🏆 목장 리더보드" data-en="🏆 Group Leaderboard">🏆 목장 리더보드</h3>
+                    <h3 style="color:var(--navy); margin-bottom:12px;" data-ko="📊 목장 진행률" data-en="📊 Group Progress">📊 목장 진행률</h3>
                     <p style="font-size: 15px; color:#666; margin-bottom:10px;" data-ko="21일 경청 프로젝트 진행률" data-en="21-Day Listening Project Progress">21일 경청 프로젝트 진행률</p>
                     <div id="mokjangLeaderboard" style="font-size: 20px;">
                         <p style="text-align:center; color:#999;" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
@@ -4159,13 +4159,13 @@
             </p>
             
             <select id="selectMokjang" style="width:100%; padding:14px; border:2px solid #ddd; border-radius:10px; margin-bottom:15px; font-size:1rem; background:white;">
-                <option value="">목장을 선택하세요</option>
-                <option value="GMCHC1">이스라엘 목장</option>
-                <option value="GMCHC2">멕시코 목장</option>
-                <option value="GMCHC3">인도네시아 목장</option>
-                <option value="GMCCM">어린이부</option>
-                <option value="GMCYM">청소년부</option>
-                <option value="GMCYA">청년부</option>
+                <option value="" data-ko="목장을 선택하세요" data-en="Select your mokjang">목장을 선택하세요</option>
+                <option value="GMCHC1">Israel</option>
+                <option value="GMCHC2">Mexico</option>
+                <option value="GMCHC3">Indonesia</option>
+                <option value="GMCCM" data-ko="어린이부" data-en="Children">어린이부</option>
+                <option value="GMCYM" data-ko="청소년부" data-en="Youth">청소년부</option>
+                <option value="GMCYA" data-ko="청년부" data-en="Young Adult">청년부</option>
             </select>
             
             <p style="font-size:0.75rem; color:#999; margin-bottom:15px;" id="mokjang-setup-help" data-ko="* 소속 목장이 없으시면 목자님께 문의하세요" data-en="* Contact your shepherd if you don't know your mokjang">
@@ -4187,13 +4187,13 @@
             
             <!-- 목장 선택 드롭다운 -->
             <select id="registerMokjangSelect" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px; font-size:1rem;">
-                <option value="">목장을 선택하세요</option>
-                <option value="GMCHC1|이스라엘">이스라엘 목장</option>
-                <option value="GMCHC2|멕시코">멕시코 목장</option>
-                <option value="GMCHC3|인도네시아">인도네시아 목장</option>
-                <option value="GMCCM|어린이부">어린이부</option>
-                <option value="GMCYM|청소년부">청소년부</option>
-                <option value="GMCYA|청년부">청년부</option>
+                <option value="" data-ko="목장을 선택하세요" data-en="Select your mokjang">목장을 선택하세요</option>
+                <option value="GMCHC1|Israel">Israel</option>
+                <option value="GMCHC2|Mexico">Mexico</option>
+                <option value="GMCHC3|Indonesia">Indonesia</option>
+                <option value="GMCCM|어린이부|Children" data-ko="어린이부" data-en="Children">어린이부</option>
+                <option value="GMCYM|청소년부|Youth" data-ko="청소년부" data-en="Youth">청소년부</option>
+                <option value="GMCYA|청년부|YoungAdult" data-ko="청년부" data-en="Young Adult">청년부</option>
             </select>
             
             <select id="registerRole" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; font-size:1rem;">
@@ -4984,6 +4984,23 @@
             // 성장 추적 차트 언어 업데이트
             if (document.getElementById('weeklyChart')) {
                 renderGrowthCharts();
+            }
+            
+            // ⭐ 목장 선택 드롭다운 옵션 업데이트
+            const selectMokjang = document.getElementById('selectMokjang');
+            if (selectMokjang) {
+                Array.from(selectMokjang.options).forEach(option => {
+                    const text = curLang === 'ko' ? option.getAttribute('data-ko') : option.getAttribute('data-en');
+                    if (text) option.textContent = text;
+                });
+            }
+            
+            const registerMokjangSelect = document.getElementById('registerMokjangSelect');
+            if (registerMokjangSelect) {
+                Array.from(registerMokjangSelect.options).forEach(option => {
+                    const text = curLang === 'ko' ? option.getAttribute('data-ko') : option.getAttribute('data-en');
+                    if (text) option.textContent = text;
+                });
             }
         }
 
@@ -5999,18 +6016,21 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         // ========== 목장 기능 ==========
         function checkMokjangStatus() {
             const code = localStorage.getItem('hebron_mokjang_code');
+            console.log('🔍 checkMokjangStatus - code:', code); // 디버깅
             
             const notSetupEl = document.getElementById('mokjang-not-setup');
             const contentEl = document.getElementById('mokjang-content');
             
             if (notSetupEl && contentEl) {
                 if(code) {
+                    console.log('✅ 목장 코드 있음 - 자동 로그인'); // 디버깅
                     notSetupEl.style.display = 'none';
                     contentEl.style.display = 'block';
                     loadMokjangData(code);
                     loadMokjangLeaderboard();
                     loadMembersProgress(); // ⭐ 2-4: 목원 진행 상황 로드
                 } else {
+                    console.log('❌ 목장 코드 없음 - 설정 필요'); // 디버깅
                     notSetupEl.style.display = 'block';
                     contentEl.style.display = 'none';
                 }
@@ -6068,8 +6088,18 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
                 return;
             }
 
-            // 선택값에서 코드와 이름 분리 (예: "GMCHC1|이스라엘")
-            const [code, mokjangName] = selectedValue.split('|');
+            // ⭐ 선택값 분리: "GMCHC1|Israel" 또는 "GMCCM|어린이부|Children"
+            const parts = selectedValue.split('|');
+            const code = parts[0];
+            let mokjangName;
+            
+            if (parts.length === 2) {
+                // 나라 이름 (Israel, Mexico, Indonesia)
+                mokjangName = parts[1];
+            } else if (parts.length === 3) {
+                // 언어별 이름 (어린이부/Children 등)
+                mokjangName = curLang === 'ko' ? parts[1] : parts[2];
+            }
 
             // 등록 중 표시
             const btn = document.querySelector('#memberRegisterModal .btn');
@@ -6129,10 +6159,16 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
         function joinMokjang() {
             const select = document.getElementById('selectMokjang');
             const code = select.value;
-            const mokjangName = select.options[select.selectedIndex].text;
+            const selectedOption = select.options[select.selectedIndex];
+            
+            // ⭐ 간단하게: data 속성이 있으면 언어별로, 없으면 그대로 (나라 이름)
+            const hasDataAttr = selectedOption.hasAttribute('data-ko') && selectedOption.hasAttribute('data-en');
+            const mokjangName = hasDataAttr
+                ? (curLang === 'ko' ? selectedOption.getAttribute('data-ko') : selectedOption.getAttribute('data-en'))
+                : selectedOption.text;
             
             if(!code) {
-                showToast('목장을 선택해주세요');
+                showToast(curLang === 'ko' ? '목장을 선택해주세요' : 'Please select mokjang');
                 return;
             }
             
@@ -6140,7 +6176,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             localStorage.setItem('hebron_mokjang', mokjangName);
             closeMokjangSetup();
             checkMokjangStatus();
-            showToast(mokjangName + '에 참여했습니다!');
+            showToast(mokjangName + (curLang === 'ko' ? '에 참여했습니다!' : ' joined!'));
         }
 
         function leaveMokjang() {
@@ -6301,7 +6337,7 @@ ${name}님이 ${count}/21일을 완료했습니다! 🎉
             }
         }
         
-        // 목장 리더보드 로드
+        // 목장 진행률 로드
         async function loadMokjangLeaderboard() {
             const leaderboardEl = document.getElementById('mokjangLeaderboard');
             if (!leaderboardEl) return;
@@ -7849,13 +7885,23 @@ async function saveToFirestore(journalData) {
             const dashboard = document.getElementById('shepherd-dashboard');
             if (!dashboard) return;
             
-            // ✅ Firebase에서 가져온 role 확인 (localStorage 조작 불가)
-            const isShepherd = userProfile.role === 'shepherd' || 
-                              userProfile.role === 'moknye' || 
-                              userProfile.role === 'mokbu' ||
-                              userProfile.journey === 'shepherd';
+            // 🔑 권한 체계:
+            // - 목사: 모든 목장 감독 (전체 권한)
+            // - 전도사: 자기가 등록한 부서만 관리 (예: 청소년부 전도사 → GMCYM만)
+            // - 목자: 자기가 등록한 목장만 관리
+            // - 목녀/목부/목원: 대시보드 안 보임 (목자의 책임과 권위 존중)
             
-            if (isShepherd) {
+            const userRole = userProfile.role || localStorage.getItem('hebron_shepherd_type') || 'seeker';
+            const userMokjangCode = localStorage.getItem('hebron_mokjang_code');
+            
+            const isPastor = userRole === 'pastor' || userRole === '목사';
+            const isEvangelist = userRole === 'evangelist' || userRole === '전도사';
+            const isShepherd = userRole === 'shepherd' || userRole === '목자';
+            
+            // 대시보드 표시 권한
+            const canSeeDashboard = isPastor || isEvangelist || isShepherd || userProfile.journey === 'shepherd';
+            
+            if (canSeeDashboard) {
                 dashboard.style.display = 'block';
                 
                 // TODO: 실제 Firebase 데이터로 교체 필요
@@ -7928,83 +7974,4 @@ async function saveToFirestore(journalData) {
             }
             
         } catch (error) {
-            console.log('목자 대시보드 업데이트 에러:', error);
-        }
-    }
-    
-    // 페이지 로드 시 및 주기적으로 업데이트
-    window.addEventListener('load', function() {
-        updateWeeklyProgress();
-        updateShepherdDashboard();
-        
-        // 성장 추적 초기화
-        if (document.getElementById('weeklyChart')) {
-            renderGrowthCharts();
-            updateRecordsCount();
-        }
-        
-        // 목장 상태 체크 (iPhone 호환성)
-        setTimeout(function() {
-            if(typeof checkMokjangStatus === 'function') {
-                checkMokjangStatus();
-            }
-        }, 500);
-        
-        // 5분마다 자동 업데이트
-        setInterval(updateWeeklyProgress, 5 * 60 * 1000);
-        setInterval(updateShepherdDashboard, 5 * 60 * 1000);
-    });
-    
-    // 일지 저장 시 즉시 업데이트
-    // (saveJournal 함수 호출 후 이 함수들을 호출하도록 수정 필요)
-    
-    // ========================================
-    // 오늘 날짜 자동 하이라이트
-    // ========================================
-    
-    function highlightToday() {
-        try {
-            // 21일 체크리스트에서 오늘 날짜 찾기
-            const today = new Date();
-            const dayNumber = parseInt(localStorage.getItem('current_day') || '1');
-            
-            // 모든 날짜 체크박스 찾기
-            const checkboxes = document.querySelectorAll('[type="checkbox"][id^="day"]');
-            checkboxes.forEach((checkbox, index) => {
-                const dayNum = index + 1;
-                const label = checkbox.parentElement;
-                
-                if (dayNum === dayNumber) {
-                    // 오늘 날짜 스타일 추가
-                    if (label) {
-                        label.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
-                        label.style.color = 'white';
-                        label.style.fontWeight = '700';
-                        label.style.transform = 'scale(1.05)';
-                        label.style.boxShadow = '0 4px 12px rgba(251, 191, 36, 0.4)';
-                        
-                        // "오늘" 표시 추가
-                        const todayBadge = label.querySelector('.today-badge');
-                        if (!todayBadge) {
-                            const badge = document.createElement('span');
-                            badge.className = 'today-badge';
-                            badge.textContent = ' (오늘)';
-                            badge.style.fontSize = '0.8rem';
-                            badge.style.opacity = '0.9';
-                            label.appendChild(badge);
-                        }
-                    }
-                }
-            });
-            
-        } catch (error) {
-            console.log('오늘 하이라이트 에러:', error);
-        }
-    }
-    
-    // 페이지 로드 시 오늘 하이라이트
-    window.addEventListener('load', highlightToday);
-    </script>
-
-</body>
-</html>
+            console.log('목자 대시보드 업
